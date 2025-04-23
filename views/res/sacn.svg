@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_图层_2" data-name="图层 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.41 93.15">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke-width: 3px;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #fff;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        stroke-width: 5px;
+      }
+    </style>
+  </defs>
+  <g id="_图层_1-2" data-name="图层 1">
+    <g id="_扫码图标" data-name="扫码图标">
+      <g>
+        <path class="cls-1" d="m38.46,1.5H8.46c-.57.05-2.85.31-4.71,2.25-1.91,1.98-2.05,4.35-2.06,4.9"/>
+        <line class="cls-1" x1="1.69" y1="8.65" x2="1.69" y2="38.65"/>
+      </g>
+      <g>
+        <path class="cls-1" d="m1.5,54.87v30c.05.57.31,2.85,2.25,4.71,1.98,1.91,4.35,2.05,4.9,2.06"/>
+        <line class="cls-1" x1="8.65" y1="91.65" x2="38.65" y2="91.65"/>
+      </g>
+      <g>
+        <path class="cls-1" d="m48.95,91.65h30c.57-.05,2.85-.31,4.71-2.25,1.91-1.98,2.05-4.35,2.06-4.9"/>
+        <line class="cls-1" x1="85.72" y1="84.5" x2="85.72" y2="54.5"/>
+      </g>
+      <g>
+        <path class="cls-1" d="m85.91,38.27V8.27c-.05-.57-.31-2.85-2.25-4.71-1.98-1.91-4.35-2.05-4.9-2.06"/>
+        <line class="cls-1" x1="78.76" y1="1.5" x2="48.76" y2="1.5"/>
+      </g>
+      <line class="cls-2" x1="8.65" y1="47.42" x2="78.76" y2="47.42"/>
+    </g>
+  </g>
+</svg>

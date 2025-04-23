@@ -1,0 +1,229 @@
+﻿#include <QDebug>
+#include <QTimer>
+#include <QDebug>
+#include <QJsonDocument>
+#include "hmutils.h"
+#include "hmviewcommand.h"
+// #include <qrencode.h>
+#include <QUrl>
+#include <QScreen>
+
+CHMViewCommand::CHMViewCommand(QObject *parent, const QString &name)
+    : CHMCommand(parent)
+
+{
+    selfObj = (CHMModule *)parent;
+    selfName = name;
+    initCommands();
+    this->selfView.setName(selfName);
+
+    QObject::connect(&this->selfView, SIGNAL(updateCommand(QVariantMap&, QVariant&)), selfObj, SLOT(test(QVariantMap&, QVariant&)));
+}
+
+CHMViewCommand::~CHMViewCommand()
+{
+    this->close();
+}
+
+bool CHMViewCommand::initView()
+{
+
+    initViewVariable(); //  初始化客显界面变量
+#ifdef Q_OS_LINUX
+
+    QVariantMap OSType;
+    OSType["type"] = 0;//WINDOWS
+    selfView.context("HMMaintenance")->setFieldValue("OSType", OSType);
+
+#else
+    //    HmLog << "OSType===Windows" << HmLogEnd;
+#endif
+    //    HMUtils::log() << "initViews()" <<HMLog::endl;
+    if (!selfView.initViews())
+    {
+        HMUtils::log() << "初始化界面失败" <<HMLog::endl;
+        return false;
+    }
+    return true;
+}
+
+bool CHMViewCommand::initViewVariable()
+{
+    HMUtils::log() <<"initViewVariable:" << QGuiApplication::applicationDirPath() <<HMLog::endl;
+    QString absPath = "../";
+
+
+    selfView.context("HMStmView")->setFieldValue("soh", 0);
+    selfView.context("HMStmView")->setFieldValue("soc", 0);
+    int width = QGuiApplication::primaryScreen()->geometry().width();
+    int height = QGuiApplication::primaryScreen()->geometry().height();
+    selfView.context("HMStmView")->setFieldValue("winWidth", width);
+    selfView.context("HMStmView")->setFieldValue("winHeight", height);
+    qDebug()<<height<<width;
+    //    selfView.context("HMStmView")->setFieldValue("codeUrl", "D:/svn_chanpin/tai_zhou/pro/HMStorageView/views/image/QRCode.png");
+    return true;
+}
+
+void CHMViewCommand::processCommand(const QString& command, const QVariantMap &op, QVariant &result)
+{
+    Q_UNUSED(command);
+    processOp(op);
+    result = true;
+}
+
+//注册回调
+void CHMViewCommand::initCommands()
+{
+    selfCommands["start.search.blue"] = &CHMViewCommand::onStartSearchBlue;
+    selfCommands["send.to.blue"] = &CHMViewCommand::onSendToBlue;
+    selfCommands["send.codeData"] = &CHMViewCommand::onSendCodeData;
+    selfCommands["connect.blue"] = &CHMViewCommand::onConnectBlue;
+    selfCommands["get.protectMsg"] = &CHMViewCommand::onGetProtectMsg;
+}
+
+bool CHMViewCommand::isCommand(const QString &command)
+{
+    bool ret = selfCommands.contains(command);
+    return  ret;
+}
+
+void CHMViewCommand::processOp(const QVariantMap &op)
+{
+    QString command = op.value("command").toString();
+    CHMViewCommand::func f = selfCommands.value(command);
+    bool result = false;
+    Q_UNUSED(result);
+    //    if (f != NULL)
+    //    {
+    //        result = (this->*f)(op);
+    //    }
+    try
+    {
+        if (f != NULL)
+        {
+            result = (this->*f)(op);
+        }
+
+    }
+    catch (const std::exception& e)
+    {
+        qDebug()<<command + e.what();
+    }
+    catch (...)
+    {
+        qDebug()<<command + "未知异常";
+    }
+}
+
+void CHMViewCommand::sendOp(const QVariantMap &op)
+{
+    Q_UNUSED(op);
+    HMUtils::log()<<"void CHMViewCommand::sendOp(const QVariantMap &op)"<<HMLog::endl;
+}
+
+void CHMViewCommand::clearBuf()
+{
+    HMUtils::log()<<"clearBuf" << HMLog::endl;
+}
+
+void CHMViewCommand::onHeartbeatTimer()
+{
+
+}
+
+void CHMViewCommand::disConnect()
+{
+
+}
+
+void CHMViewCommand::connect()
+{
+
+}
+
+void CHMViewCommand::appendCommand(const QVariantMap &op)
+{
+
+    sendOp(op);
+}
+
+
+bool CHMViewCommand::onStartSearchBlue(const QVariantMap &op)
+{
+    emit startBle();
+    return true;
+}
+
+
+void CHMViewCommand::render_image(const QString &base64)
+{
+    if (!base64.isEmpty())
+    {
+        selfView.context("HMStmView")->setBase64Image(base64);
+    }
+}
+
+
+
+bool CHMViewCommand::onSendToBlue(const QVariantMap &op)
+{
+    int type = op.value("type", -1).toInt();
+    if(type >= 0x200)
+    {
+        emit writeBlueSlot(op);
+    }
+    else
+    {
+        emit sendBlueSlot(abs(type));
+    }
+    return true;
+}
+
+bool CHMViewCommand::onSendCodeData(const QVariantMap &op)
+{
+    // int type = op.value("codeData", 0).toInt();
+
+    // emit cameraOpera(type);
+    // return true;
+
+
+    QVariant imageVar = op.value("codeData");
+
+
+    if (!imageVar.canConvert<QImage>())
+    {
+        qDebug() << "无效的 QImage 数据";
+        return true;
+    }
+
+    QImage image = imageVar.value<QImage>();
+    if (image.isNull())
+    {
+        qDebug() << "图像为空";
+        return true;
+    }
+
+    if (image.isNull())
+    {
+        qCritical() << "Error: Image file not loaded!";
+        return -1;
+    }
+
+
+    emit parseCodeSlot(image);
+
+    return true;
+}
+
+bool CHMViewCommand::onConnectBlue(const QVariantMap &op)
+{
+    QString addr = op.value("addr").toString();
+    emit connectBlueSlot(addr);
+    return true;
+}
+bool CHMViewCommand::onGetProtectMsg(const QVariantMap &op)
+{
+    int type = op.value("type", -1).toInt();
+    emit protectMsgSignal(type);
+    return true;
+}
