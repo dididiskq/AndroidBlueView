@@ -22,17 +22,17 @@ Column
             family: "Microsoft YaHei"
         }
         color: "white"
-        leftPadding: 15
-        topPadding: 8
+        leftPadding: srcDict.scaled(15)
+        topPadding: srcDict.scaled(8)
     }
 
     // 网格布局容器
     Grid
     {
         columns: 4  // 根据图片每行显示4个参数项
-        rowSpacing: 20
-        columnSpacing: 10
-        width: parent.width - 30
+        rowSpacing: srcDict.scaled(20)
+        columnSpacing: srcDict.scaled(10)
+        width: parent.width - srcDict.scaled(30)
         anchors.horizontalCenter: parent.horizontalCenter
 
         // 动态生成参数项
@@ -43,7 +43,7 @@ Column
             // 单个参数项组件
             delegate: Rectangle {
                 width: parent.width / 4 - 10
-                height: 90
+                height: srcDict.scaled(90)
                 color: "transparent"
 
                 // 参数名称
@@ -78,10 +78,10 @@ Column
                     {
                         right: parent.right
                         top: parent.top
-                        margins: 5
+                        margins: srcDict.scaled(5)
                     }
-                    width: 24
-                    height: 24
+                    width: srcDict.scaled(24)
+                    height: srcDict.scaled(24)
                 }
             }
         }

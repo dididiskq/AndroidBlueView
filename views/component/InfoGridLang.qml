@@ -15,14 +15,14 @@ Column
             family: "Microsoft YaHei"
         }
         color: "#333333"
-        leftPadding: 15
-        topPadding: 8
+        leftPadding: srcDict.scaled(15)
+        topPadding: srcDict.scaled(8)
     }
 
 
     Rectangle
     {
-        width: parent.width   - 10
+        width: parent.width - srcDict.scaled(10)
         height: srcDict.scaled(30)
         color: "transparent"
         // 参数名称
@@ -69,7 +69,7 @@ Column
     }
     Rectangle
     {
-        width: parent.width   - 10
+        width: parent.width  - srcDict.scaled(10)
         height: srcDict.scaled(30)
         color: "transparent"
 
@@ -101,7 +101,7 @@ Column
     }
     Rectangle
     {
-        width: parent.width   - 10
+        width: parent.width  - srcDict.scaled(10)
         height: srcDict.scaled(30)
         color: "transparent"
 
@@ -133,7 +133,7 @@ Column
     }
     Rectangle
     {
-        width: parent.width   - 10
+        width: parent.width  - srcDict.scaled(10)
         height: srcDict.scaled(30)
         color: "transparent"
 
@@ -165,7 +165,7 @@ Column
     }
     Rectangle
     {
-        width: parent.width   - 10
+        width: parent.width   - srcDict.scaled(10)
         height: srcDict.scaled(30)
         color: "transparent"
 

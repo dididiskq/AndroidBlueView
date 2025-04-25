@@ -65,8 +65,8 @@ ColumnLayout
     PasswordDialog
     {
         id: passwordDialog
-        x: 50
-        y: 200
+        x: srcDict.scaled(50)
+        y: srcDict.scaled(200)
         title: "安全验证"
         message: "请输入管理员密码"
         onConfirmed: (pwd) =>

@@ -40,7 +40,7 @@ Page
         Rectangle
         {
             height: srcDict.scaled(60)
-            width: 300
+            width: srcDict.scaled(300)
             color: "#E4DDDD"
             radius: 10
             Label
@@ -55,7 +55,7 @@ Page
         Rectangle
         {
             height: srcDict.scaled(60)
-            width: 300
+            width: srcDict.scaled(300)
             color: "#E4DDDD"
             radius: 10
             Label
@@ -71,7 +71,7 @@ Page
         Rectangle
         {
             height: srcDict.scaled(60)
-            width: 300
+            width: srcDict.scaled(300)
             color: "#E4DDDD"
             radius: 10
             Label
@@ -95,7 +95,7 @@ Page
     ParameterPage
     {
         anchors.top: colArea.bottom
-        anchors.topMargin: 20
+        anchors.topMargin: srcDict.scaled(20)
         width: parent.width
         paramList: [
             { name: qsTr("电池实际串数"), value: srcDict.cellNum === undefined ? 0 : srcDict.cellNum, unit: "串" , cellData: 512},

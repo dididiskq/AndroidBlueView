@@ -24,7 +24,7 @@ Page
             ItemDelegate
             {
                 width: parent.width
-                height: 50
+                height: srcDict.scaled(50)
                 text: "快速设置"
                 onClicked:
                 {
@@ -40,7 +40,7 @@ Page
             ItemDelegate
             {
                 width: parent.width
-                height: 50
+                height: srcDict.scaled(50)
                 text: "电压参数"
                 onClicked:
                 {
@@ -56,7 +56,7 @@ Page
             ItemDelegate
             {
                 width: parent.width
-                height: 50
+                height: srcDict.scaled(50)
                 text: "温度参数"
                 onClicked:
                 {
@@ -72,7 +72,7 @@ Page
             ItemDelegate
             {
                 width: parent.width
-                height: 50
+                height: srcDict.scaled(50)
                 text: "电流参数"
                 onClicked:
                 {
@@ -88,7 +88,7 @@ Page
             ItemDelegate
             {
                 width: parent.width
-                height: 50
+                height: srcDict.scaled(50)
                 text: "均衡参数"
                 onClicked:
                 {
@@ -104,7 +104,7 @@ Page
             ItemDelegate
             {
                 width: parent.width
-                height: 50
+                height: srcDict.scaled(50)
                 text: "系统参数"
                 onClicked:
                 {

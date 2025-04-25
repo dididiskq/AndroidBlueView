@@ -9,10 +9,10 @@ Item
 
     // 可配置属性
     property real progress: 0.2    // 进度值（0-1）
-    property int lineWidth: 20     // 进度条粗细
+    property int lineWidth: srcDict.scaled(20)     // 进度条粗细
     property color backgroundColor: "#1A73E8"  // 背景色（原图蓝色）
     property color progressColor: "white"       // 进度条颜色
-    property string textPrefix: "正在充电"       // 文字前缀
+    property string textPrefix: qsTr("正在充电")       // 文字前缀
 
     // 进度动画（500ms缓动动画）
     Behavior on progress

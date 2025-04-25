@@ -75,8 +75,8 @@ Page
 
         Rectangle
         {
-            height: 40
-            width: 70
+            height: srcDict.scaled(40)
+            width: srcDict.scaled(70)
             anchors.left: parent.left
             anchors.bottom: parent.bottom
             Label
@@ -95,8 +95,8 @@ Page
         }
         Rectangle
         {
-            height: 40
-            width: 70
+            height: srcDict.scaled(40)
+            width: srcDict.scaled(70)
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             Label
@@ -174,8 +174,8 @@ Page
                     delegate: Rectangle
                     {
                         id: deRect
-                        width: messageText.implicitWidth + 20
-                        height: messageText.implicitHeight + 40
+                        width: messageText.implicitWidth + srcDict.scaled(20)
+                        height: messageText.implicitHeight + srcDict.scaled(40)
                         color: "white"
                         border.color: "#C1FFC1"
                         radius: 10

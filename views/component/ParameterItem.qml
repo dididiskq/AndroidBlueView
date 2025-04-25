@@ -12,12 +12,12 @@ Row
 
     signal clicked                  // 按钮点击信号
 
-    spacing: 20                     // 行内元素间距
+    spacing: srcDict.scaled(20)                     // 行内元素间距
 
     // 参数名称
     Text {
         id: nameP
-        width: 150
+        width: srcDict.scaled(150)
         text: paramName
         font.pixelSize: 14
         color: "white"
@@ -27,12 +27,12 @@ Row
 
     // 参数值 + 单位
     Row {
-        spacing: 10
+        spacing: srcDict.scaled(10)
 
         // 可编辑的数值输入框
             TextInput {
                 id: valueEditor
-                width: 50
+                width: srcDict.scaled(50)
                 text: paramValue.toString()
                 font.pixelSize: 14
                 color: activeFocus ? "#0078D4" : "blue"  // 聚焦时显示蓝色边框
@@ -62,7 +62,7 @@ Row
         Text
         {
             text: paramUnit
-             width: 30
+            width: srcDict.scaled(30)
             font.pixelSize: 12
             color: "white"
         }
@@ -73,8 +73,8 @@ Row
     {
         id: btnReal
         text: btnText
-        width: 90
-        height: 30
+        width: srcDict.scaled(90)
+        height: srcDict.scaled(30)
 
         background: Rectangle
         {

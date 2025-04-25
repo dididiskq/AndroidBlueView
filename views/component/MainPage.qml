@@ -35,9 +35,9 @@ Item
         visible: !cameraRect.visible
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: 42
-        width: 80
-        height: 40
+        anchors.topMargin: srcDict.scaled(42)
+        width: srcDict.scaled(80)
+        height: srcDict.scaled(40)
         color: "transparent"
         Label
         {
@@ -64,7 +64,7 @@ Item
         // anchors.leftMargin: srcDict.scaled(45)
         anchors.horizontalCenter: parent.horizontalCenter
         progress: (srcDict.soc === undefined ? 0 : srcDict.soc * 0.01)
-        lineWidth: 10
+        lineWidth: srcDict.scaled(10)
         backgroundColor: "#7A7E7D"
         progressColor: "white"
         textPrefix: getStatus()// 可调整线宽
@@ -120,10 +120,10 @@ Item
             anchors.centerIn: parent
         }
 
-        y: 42
+        y: srcDict.scaled(42)
 
-        width: 80
-        height: 40
+        width: srcDict.scaled(80)
+        height: srcDict.scaled(40)
         color: "transparent"
         MouseArea
         {
@@ -142,9 +142,9 @@ Item
         visible: !cameraRect.visible
         anchors.right: parent.right
         anchors.rightMargin: srcDict.scaled(20)
-        y: 42
-        width: 80
-        height: 40
+        y: srcDict.scaled(42)
+        width: srcDict.scaled(80)
+        height: srcDict.scaled(40)
         color: "transparent"
         MouseArea
         {
@@ -161,8 +161,8 @@ Item
 
         Image
         {
-            width: 40
-            height: 40
+            width: srcDict.scaled(40)
+            height: srcDict.scaled(40)
             anchors.centerIn: parent
             source: "../res/sacn.svg"
         }
@@ -285,7 +285,7 @@ Item
         color: "transparent"
 
         height: parent.height * 0.16
-        width: height + 10
+        width: height + srcDict.scaled(10)
         visible: !cameraRect.visible
         anchors.left: parent.left
         anchors.top: parent.top
@@ -360,10 +360,10 @@ Item
         radius: 10
         visible: !cameraRect.visible
         color: "transparent"
-        height: 100
-        width: parent.width - 40
+        height: srcDict.scaled(100)
+        width: parent.width - srcDict.scaled(40)
         anchors.top: parent.top
-        anchors.topMargin: 540
+        anchors.topMargin: srcDict.scaled(540)
         anchors.horizontalCenter: parent.horizontalCenter
         Image
         {
@@ -382,8 +382,8 @@ Item
             Image
             {
                 id: img1
-                height: 50
-                width: 50
+                height: srcDict.scaled(50)
+                width: srcDict.scaled(50)
                 anchors.horizontalCenter: warm1.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 source: "../res/warm.svg"
@@ -407,7 +407,7 @@ Item
             Label
             {
                 anchors.top: parent.top
-                anchors.topMargin: 20
+                anchors.topMargin: srcDict.scaled(20)
                 font.pixelSize: 20
                 text: qsTr("T1")
                 color: "white"
@@ -416,7 +416,7 @@ Item
             Label
             {
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 10
+                anchors.bottomMargin: srcDict.scaled(10)
                 color: "white"
                 font.pixelSize: 30
                 text: srcDict.temperature1 === undefined ? "" : (srcDict.temperature1 + "℃")
@@ -434,7 +434,7 @@ Item
             Label
             {
                 anchors.top: parent.top
-                anchors.topMargin: 20
+                anchors.topMargin: srcDict.scaled(20)
                 font.pixelSize: 20
                 text: qsTr("T2")
                 color: "white"
@@ -443,7 +443,7 @@ Item
             Label
             {
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 10
+                anchors.bottomMargin: srcDict.scaled(10)
                 color: "white"
                 font.pixelSize: 30
                 text: srcDict.temperature2 === undefined ? "" : (srcDict.temperature2 + "℃")
@@ -461,7 +461,7 @@ Item
             Label
             {
                 anchors.top: parent.top
-                anchors.topMargin: 20
+                anchors.topMargin: srcDict.scaled(20)
                 font.pixelSize: 20
                 text: qsTr("mos")
                 color: "white"
@@ -470,7 +470,7 @@ Item
             Label
             {
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 10
+                anchors.bottomMargin: srcDict.scaled(10)
                 color: "white"
                 font.pixelSize: 30
                 text: srcDict.mosTemperature === undefined ? "" : (srcDict.mosTemperature  + "℃")
@@ -485,10 +485,10 @@ Item
         radius: 10
         visible: !cameraRect.visible
         color: "transparent"
-        height: 100
-        width: parent.width - 40
+        height: srcDict.scaled(100)
+        width: parent.width - srcDict.scaled(40)
         anchors.top: param1Rect.bottom
-        anchors.topMargin: 10
+        anchors.topMargin: srcDict.scaled(10)
         anchors.horizontalCenter: parent.horizontalCenter
         Image
         {
@@ -508,8 +508,8 @@ Item
             Image
             {
                 id: img
-                height: 50
-                width: 50
+                height: srcDict.scaled(50)
+                width: srcDict.scaled(50)
                 // anchors.verticalCenter: bao1.verticalCenter
                 anchors.top: parent.top
                 anchors.topMargin: srcDict.scaled(20)
@@ -551,8 +551,8 @@ Item
             Image
             {
                 id: imgCir
-                height: 50
-                width: 50
+                height: srcDict.scaled(50)
+                width: srcDict.scaled(50)
                 anchors.left: parent.left
                 anchors.leftMargin: srcDict.scaled(20)
                 // anchors.verticalCenter: parent.verticalCenter
@@ -594,8 +594,8 @@ Item
             Image
             {
                 id: imgYc
-                height: 50
-                width: 50
+                height: srcDict.scaled(50)
+                width: srcDict.scaled(50)
                 // anchors.verticalCenter: parent.verticalCenter
                 anchors.top: parent.top
                 anchors.topMargin: srcDict.scaled(20)
@@ -635,7 +635,7 @@ Item
     {
         visible: !cameraRect.visible
         id: rectBlueTiele
-        y: 88
+        y: srcDict.scaled(88)
         anchors.horizontalCenter: parent.horizontalCenter
         width: srcDict.scaled(270)
         height: srcDict.scaled(47)

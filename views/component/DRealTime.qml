@@ -91,7 +91,7 @@ Page {
             Rectangle
             {
                 width: parent.width
-                height: batteryGrid.height + 40 // 标题高度
+                height: batteryGrid.height + srcDict.scaled(40)
                 color: "transparent"
 
                 // 标题
@@ -113,9 +113,9 @@ Page {
                     width: parent.width
                     height: Math.ceil(model.count / 5) * cellHeight // 动态计算高度
                     anchors.top: parent.top
-                    anchors.topMargin: 40
+                    anchors.topMargin: srcDict.scaled(40)
                     cellWidth: width / 5   // 关键：每行5个
-                    cellHeight: 90
+                    cellHeight: srcDict.scaled(90)
                     interactive: false     // 禁用独立滚动
 
                     model:batteryModel
@@ -131,7 +131,7 @@ Page {
                             text: model.text
                             font.pixelSize: 20
                             anchors.left: parent.left
-                            anchors.leftMargin: 10
+                            anchors.leftMargin: srcDict.scaled(10)
                             anchors.top: parent.top
                             color: "white"
                         }
@@ -142,7 +142,7 @@ Page {
                             color: "white"
                             // anchors.left: parent.left
                             anchors.bottom: parent.bottom
-                            anchors.bottomMargin: 20
+                            anchors.bottomMargin: srcDict.scaled(20)
                             anchors.horizontalCenter: parent.horizontalCenter
                         }
 
@@ -154,7 +154,7 @@ Page {
                             anchors.bottom: parent.bottom
                             anchors.horizontalCenter: parent.horizontalCenter
                             width: parent.width - 10
-                            height: 70
+                            height: srcDict.scaled(70)
                         }
                     }
                 }

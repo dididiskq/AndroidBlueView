@@ -14,14 +14,14 @@ Row
 
         Rectangle
         {
-            height: 50
+            height: srcDict.scaled(50)
             width: 130 * (srcDict.soc / 100)
             anchors.top: parent.top
             anchors.topMargin: 5
             Rectangle
             {
                 height: parent.height
-                width: 130
+                width: srcDict.scaled(130)
                 color: "transparent"
                 border.color: "white"
                 anchors.centerIn: parent
@@ -81,7 +81,7 @@ Row
         // 参数名称
         Column
         {
-            spacing: 20
+            spacing: srcDict.scaled(20)
             anchors
             {
                 left: parent.left
@@ -118,20 +118,20 @@ Row
             }
             Image
             {
-                height: 20
-                width: 20
+                height: srcDict.scaled(20)
+                width: srcDict.scaled(20)
                 source: srcDict.cMos === undefined ? "../res/guan.svg" : (srcDict.cMos === 1 ? "../res/kai.svg" : "../res/guan.svg")
             }
             Image
             {
-                height: 20
-                width: 20
+                height: srcDict.scaled(20)
+                width: srcDict.scaled(20)
                 source: srcDict.fMos === undefined ? "../res/guan.svg" : (srcDict.fMos === 1 ? "../res/kai.svg" : "../res/guan.svg")
             }
             Image
             {
-                height: 20
-                width: 20
+                height: srcDict.scaled(20)
+                width: srcDict.scaled(20)
                 source: srcDict.junhengStatus === undefined ? "../res/guan.svg" : (srcDict.junhengStatus === 1 ? "../res/kai.svg" : "../res/guan.svg")
             }
         }

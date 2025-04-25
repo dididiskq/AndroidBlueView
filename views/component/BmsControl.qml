@@ -22,10 +22,10 @@ Page
         radius: 10
         Label
         {
-            x: 8
-            y: 31
-            width: 194
-            height: 15
+            x: srcDict.scaled(8)
+            y: srcDict.scaled(31)
+            width: srcDict.scaled(194)
+            height: srcDict.scaled(15)
             color: "white"
             font.pixelSize: 20
             text: "强制充电控制"
@@ -34,10 +34,10 @@ Page
 
         Label {
             id: label
-            x: 248
-            y: 31
-            width: 194
-            height: 15
+            x: srcDict.scaled(248)
+            y: srcDict.scaled(31)
+            width: srcDict.scaled(194)
+            height: srcDict.scaled(15)
             color: "white"
             font.pixelSize: 20
             text: qsTr("强制放电控制")
@@ -46,8 +46,8 @@ Page
         Switch
         {
             id: _switch
-            x: 8
-            y: 71
+            x: srcDict.scaled(8)
+            y: srcDict.scaled(71)
             text: qsTr("")
             onCheckedChanged:
             {
@@ -65,8 +65,8 @@ Page
         Switch
         {
             id: _switch1
-            x: 248
-            y: 71
+            x: srcDict.scaled(248)
+            y: srcDict.scaled(71)
             text: qsTr("")
             onCheckedChanged:
             {
@@ -94,10 +94,10 @@ Page
         radius: 10
         Rectangle
         {
-            x: 15
-            y: 4
-            width: parent.width - 30
-            height: 60
+            x: srcDict.scaled(15)
+            y: srcDict.scaled(4)
+            width: parent.width - srcDict.scaled(30)
+            height: srcDict.scaled(60)
             border.color: "white"
             color: "transparent"
             radius: 10
@@ -111,10 +111,10 @@ Page
         }
         Rectangle
         {
-            x: 15
-            y: 136
-            width: parent.width - 30
-            height: 60
+            x: srcDict.scaled(15)
+            y: srcDict.scaled(136)
+            width: parent.width - srcDict.scaled(30)
+            height: srcDict.scaled(60)
             border.color: "white"
             color: "transparent"
             radius: 10
@@ -128,10 +128,10 @@ Page
         }
         Rectangle
         {
-            x: 15
-            y: 70
+            x: srcDict.scaled(15)
+            y: srcDict.scaled(70)
             width: parent.width - 30
-            height: 60
+            height: srcDict.scaled(60)
             border.color: "white"
             color: "transparent"
             radius: 10
@@ -147,8 +147,8 @@ Page
     PasswordDialog
     {
         id: passwordDialog
-        x: 50
-        y: 200
+        x: srcDict.scaled(50)
+        y: srcDict.scaled(200)
         title: "安全验证"
         message: "请输入管理员密码"
         onConfirmed: (pwd) =>
@@ -192,8 +192,8 @@ Page
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: 30
-            width: 117
-            height: 55
+            width: srcDict.scaled(117)
+            height: srcDict.scaled(55)
             color: "white"
             font.pixelSize: 25
             text: qsTr("弱电开关")
@@ -202,8 +202,8 @@ Page
         Switch
         {
             id: control
-            x: 310
-            y: 31
+            x: srcDict.scaled(310)
+            y: srcDict.scaled(31)
             text: qsTr("")
             onClicked:
             {
@@ -236,8 +236,8 @@ Page
             // }
             indicator: Rectangle
             {
-                implicitWidth: 48
-                implicitHeight: 26
+                implicitWidth: srcDict.scaled(48)
+                implicitHeight: srcDict.scaled(26)
                 x: control.leftPadding
                 y: parent.height / 2 - height / 2
 
@@ -249,8 +249,8 @@ Page
                 Rectangle
                 {
                     id : smallRect
-                    width: 26
-                    height: 26
+                    width: srcDict.scaled(26)
+                    height: srcDict.scaled(26)
                     radius: 13
                     color: control.down ? "#cccccc" : "#ffffff"
                     border.color: control.checked ? (control.down ? "#17a81a" : "#21be2b") : "#999999"
@@ -272,17 +272,6 @@ Page
                     }
                 }
             }
-
-            //要显示的文本
-            // contentItem: Text
-            // {
-            //     text: control.checked.toString()
-            //     font.pixelSize: 50
-            //     //鼠标按下时  control.down
-            //     color: control.down ? "green" : "red"
-            //     verticalAlignment: Text.AlignVCenter
-            //     anchors.left: control.indicator.right
-            // }
         }
     }
 }

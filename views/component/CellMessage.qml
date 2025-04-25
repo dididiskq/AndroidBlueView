@@ -71,7 +71,7 @@ Page
                 GridLayout
                 {
                     columns: 2
-                    columnSpacing: 20
+                    columnSpacing: srcDict.scaled(20)
                     rowSpacing: 8
 
                     // 电池信息项
@@ -153,7 +153,7 @@ Page
                         text: "保护时间"
                         font.bold: true
                         color: "white"
-                        Layout.preferredWidth: 200
+                        Layout.preferredWidth: srcDict.scaled(200)
                         horizontalAlignment: Text.AlignLeft
                     }
 
@@ -172,7 +172,7 @@ Page
                 {
                     id: eventList
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 200
+                    Layout.preferredHeight: srcDict.scaled(200)
                     model: eventModel
                     // clip: true
                     spacing: 2
@@ -185,7 +185,7 @@ Page
                         Text
                         {
                             text: eventTime
-                            Layout.preferredWidth: 200
+                            Layout.preferredWidth: srcDict.scaled(200)
                             leftPadding: 20
                             color: "white"
                             verticalAlignment: Text.AlignVCenter

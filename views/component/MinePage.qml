@@ -128,7 +128,7 @@ Page
                 Image
                 {
                     anchors.right: parent.right
-                    anchors.rightMargin: 20
+                    anchors.rightMargin: srcDict.scaled(20)
                     height: parent.height
                     width: srcDict.scaled(60)
                     source: "../res/mineComeIn.svg"
@@ -160,7 +160,7 @@ Page
                 Image
                 {
                     anchors.right: parent.right
-                    anchors.rightMargin: 20
+                    anchors.rightMargin: srcDict.scaled(20)
                     height: parent.height
                     width: srcDict.scaled(60)
                     source: "../res/mineComeIn.svg"
@@ -194,7 +194,7 @@ Page
                 Image
                 {
                     anchors.right: parent.right
-                    anchors.rightMargin: 20
+                    anchors.rightMargin: srcDict.scaled(20)
                     height: parent.height
                     width: srcDict.scaled(60)
                     source: "../res/mineComeIn.svg"
@@ -229,7 +229,7 @@ Page
                 Image
                 {
                     anchors.right: parent.right
-                    anchors.rightMargin: 20
+                    anchors.rightMargin: srcDict.scaled(20)
                     height: parent.height
                     width: srcDict.scaled(60)
                     source: "../res/mineComeIn.svg"

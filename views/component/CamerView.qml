@@ -116,8 +116,8 @@ Page
     Rectangle
     {
         anchors.centerIn: parent
-        width: 200
-        height: 200
+        width: srcDict.scaled(200)
+        height: srcDict.scaled(200)
         visible: cap.camera.active
         color: "transparent"
         border.color: "#00ff00"
