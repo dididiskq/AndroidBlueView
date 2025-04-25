@@ -2,7 +2,7 @@ import QtQuick 2.5
 import QtQuick.Controls
 Page
 {
-    title: "参数"
+    title: qsTr("参数")
     background: Rectangle
     {
         color: "transparent"  // 设置背景颜色
@@ -25,7 +25,7 @@ Page
             {
                 width: parent.width
                 height: srcDict.scaled(50)
-                text: "快速设置"
+                text: qsTr("快速设置")
                 onClicked:
                 {
                     stackView2.push("DParam1.qml")
@@ -41,7 +41,7 @@ Page
             {
                 width: parent.width
                 height: srcDict.scaled(50)
-                text: "电压参数"
+                text: qsTr("电压参数")
                 onClicked:
                 {
                     stackView2.push("DParam2.qml")
@@ -57,7 +57,7 @@ Page
             {
                 width: parent.width
                 height: srcDict.scaled(50)
-                text: "温度参数"
+                text: qsTr("温度参数")
                 onClicked:
                 {
                     stackView2.push("DParam3.qml")
@@ -73,7 +73,7 @@ Page
             {
                 width: parent.width
                 height: srcDict.scaled(50)
-                text: "电流参数"
+                text: qsTr("电流参数")
                 onClicked:
                 {
                     stackView2.push("DParam4.qml")
@@ -89,7 +89,7 @@ Page
             {
                 width: parent.width
                 height: srcDict.scaled(50)
-                text: "均衡参数"
+                text: qsTr("均衡参数")
                 onClicked:
                 {
                     stackView2.push("DParam5.qml")
@@ -105,7 +105,7 @@ Page
             {
                 width: parent.width
                 height: srcDict.scaled(50)
-                text: "系统参数"
+                text: qsTr("系统参数")
                 onClicked:
                 {
                     stackView2.push("DParam6.qml")

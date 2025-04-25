@@ -2,7 +2,7 @@ import QtQuick 2.5
 import QtQuick.Controls
 Page
 {
-    title: "设备控制"
+    title: qsTr("设备控制")
 
 
 
@@ -21,7 +21,7 @@ Page
             width: srcDict.scaled(194)
             height: srcDict.scaled(15)
 
-            text: "强制充电控制"
+            text: qsTr("强制充电控制")
 
         }
 

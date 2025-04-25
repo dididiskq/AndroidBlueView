@@ -126,6 +126,9 @@ public slots:
     void BleServiceCharacteristicRead(const QLowEnergyCharacteristic &c, const QByteArray &value);
     void sendMsgByQueue();
     void getProtectMsgSlot(const int type);
+
+    void forceDisconnect();
+    void cleanupResources();
 private:
 
     void processNextWriteRequest();

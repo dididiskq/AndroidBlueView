@@ -96,7 +96,7 @@ Row
         interval: 3000
         onTriggered:
         {
-            btnText = "设置"
+            btnText = qsTr("设置")
         }
     }
 }

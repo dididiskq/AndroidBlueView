@@ -150,7 +150,7 @@ Page
 
                     Text
                     {
-                        text: "保护时间"
+                        text: qsTr("保护时间")
                         font.bold: true
                         color: "white"
                         Layout.preferredWidth: srcDict.scaled(200)
@@ -159,7 +159,7 @@ Page
 
                     Text
                     {
-                        text: "保护事件"
+                        text: qsTr("保护事件")
                         font.bold: true
                         color: "white"
                         Layout.fillWidth: true

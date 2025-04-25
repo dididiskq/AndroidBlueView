@@ -59,13 +59,15 @@ Row
             }
             Label
             {
-                text: "总容量：" + String(srcDict.fcc === undefined ? "0" : srcDict.fcc) + "AH"
+                // text: "总容量：" + String(srcDict.fcc === undefined ? "0" : srcDict.fcc) + "AH"
+                text: qsTr("总容量：") + String(srcDict.fcc !== undefined ? (srcDict.fcc / 100).toFixed(2) : "0.00") + "AH"
                 font.pixelSize: 14
                 color: "white"
             }
             Label
             {
-                text: "剩余容量：" + String(srcDict.remaining_capacity === undefined ? "0" : srcDict.remaining_capacity)+ "AH"
+                // text: "剩余容量：" + String(srcDict.remaining_capacity === undefined ? "0" : srcDict.remaining_capacity)+ "AH"
+                text: qsTr("剩余容量：") + String(srcDict.remaining_capacity !== undefined ? (srcDict.remaining_capacity / 100).toFixed(2) : "0.00") + "AH"
                 font.pixelSize: 14
                 color: "white"
             }
@@ -90,19 +92,19 @@ Row
             }
             Label
             {
-                text: "充电MOS"
+                text: qsTr("充电MOS")
                 font.pixelSize: 14
                 color: "white"
             }
             Label
             {
-                text: "放电MOS"
+                text: qsTr("放电MOS")
                 font.pixelSize: 14
                 color: "white"
             }
             Label
             {
-                text: "均衡状态"
+                text: qsTr("均衡状态")
                 font.pixelSize: 14
                 color: "white"
             }

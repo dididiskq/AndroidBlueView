@@ -141,6 +141,7 @@ DIST          = ../../views/HMStmView.qml \
 		../../views/component/ParameterPage.qml \
 		../../views/component/STabButton.qml \
 		../../views/component/TextFieldTemplate.qml \
+		../../views/component/frame_processor.js \
 		../../views/js/HMJs.qml ../../BMSProtocol.h \
 		../../BmsController.h \
 		../../CameraCapture.h \
@@ -4811,7 +4812,12 @@ build/ultra_bms/obj/CameraCapture.obj: ../../CameraCapture.cpp ../../CameraCaptu
 		D:/software/Qt6/6.2.2/android_arm64_v8a/include/QtCore/qexception.h \
 		D:/software/Qt6/6.2.2/android_arm64_v8a/include/QtCore/qpointer.h \
 		D:/software/Qt6/6.2.2/android_arm64_v8a/include/QtConcurrent/qtconcurrentstoredfunctioncall.h \
-		D:/software/Qt6/6.2.2/android_arm64_v8a/include/QtCore/qpromise.h
+		D:/software/Qt6/6.2.2/android_arm64_v8a/include/QtCore/qpromise.h \
+		../../QZXing/include/QZXing.h \
+		../../QZXing/include/QZXing_global.h \
+		D:/software/Qt6/6.2.2/android_arm64_v8a/include/QtCore/QtGlobal \
+		D:/software/Qt6/6.2.2/android_arm64_v8a/include/QtCore/QVariantList \
+		D:/software/Qt6/6.2.2/android_arm64_v8a/include/QtCore/QElapsedTimer
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/ultra_bms/obj/CameraCapture.obj ../../CameraCapture.cpp
 
 build/ultra_bms/obj/hmcommand.obj: ../../hmcommand.cpp ../../hmutils.h \
@@ -5624,7 +5630,8 @@ build/ultra_bms/obj/hmmodule.obj: ../../hmmodule.cpp D:/software/Qt6/6.2.2/andro
 		D:/software/Qt6/6.2.2/android_arm64_v8a/include/QtConcurrent/qtconcurrentcompilertest.h \
 		D:/software/Qt6/6.2.2/android_arm64_v8a/include/QtConcurrent/qtconcurrent_global.h \
 		D:/software/Qt6/6.2.2/android_arm64_v8a/include/QtConcurrent/qtconcurrentrunbase.h \
-		D:/software/Qt6/6.2.2/android_arm64_v8a/include/QtConcurrent/qtconcurrentstoredfunctioncall.h
+		D:/software/Qt6/6.2.2/android_arm64_v8a/include/QtConcurrent/qtconcurrentstoredfunctioncall.h \
+		D:/software/Qt6/6.2.2/android_arm64_v8a/include/QtCore/QRegularExpression
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/ultra_bms/obj/hmmodule.obj ../../hmmodule.cpp
 
 build/ultra_bms/obj/hmmodulebasics.obj: ../../hmmodulebasics.cpp ../../hmmodulebasics.h \

@@ -117,7 +117,7 @@ QtObject
     property int itemIndex: -1
 
 
-
+    property var operaCode: fields["operaCode"]
 
     // 动态缩放函数
     function scaled(value)

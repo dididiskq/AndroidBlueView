@@ -2,8 +2,9 @@ import QtQuick 2.5
 import QtQuick.Controls
 Page
 {
-    title: "设备控制"
+    title: qsTr("设备控制")
     property int flagOpen: -1
+    property bool pendingSwitchState: false
     background: Rectangle
     {
         color: "transparent"  // 完全透明
@@ -13,6 +14,7 @@ Page
     Rectangle
     {
         id: rectangle
+        visible: false
         anchors.top: parent.top
         anchors.topMargin: srcDict.scaled(10)
         width: parent.width
@@ -28,7 +30,7 @@ Page
             height: srcDict.scaled(15)
             color: "white"
             font.pixelSize: 20
-            text: "强制充电控制"
+            text: qsTr("强制充电控制")
 
         }
 
@@ -85,8 +87,8 @@ Page
     Rectangle
     {
         id: rectangle1
-        anchors.top: rectangle.bottom
-        anchors.topMargin: srcDict.scaled(30)
+        anchors.top: parent.top
+        anchors.topMargin: srcDict.scaled(10)
         width: parent.width
         height: srcDict.scaled(200)
         border.color: "white"
@@ -149,29 +151,20 @@ Page
         id: passwordDialog
         x: srcDict.scaled(50)
         y: srcDict.scaled(200)
-        title: "安全验证"
-        message: "请输入管理员密码"
+        title: qsTr("安全验证")
+        message: qsTr("请输入管理员密码")
         onConfirmed: (pwd) =>
         {
             console.log("输入密码:", pwd)
             if(pwd)
             {
-                if(flagOpen === 1)
-                             {
-                                 srcDict.writeToBlue(517, 1)
-                                 control.checked = true
-                             }
-                             else if(flagOpen === 0)
-                             {
-                                 srcDict.writeToBlue(517, 0)
-                                 control.checked = false
-                             }
-
+                control.checked = !pendingSwitchState
+                srcDict.writeToBlue(517, flagOpen)
                 passwordDialog.close()
             }
             else
             {
-                passwordDialog.message = "密码错误请重新输入"
+                passwordDialog.message = qsTr("密码错误请重新输入")
             }
         }
         onCanceled: console.log("操作取消")
@@ -207,33 +200,15 @@ Page
             text: qsTr("")
             onClicked:
             {
-                if(control.checked)
-                {
-                    passwordDialog.open()
-                    flagOpen = 0
-                }
-                else
-                {
-                    passwordDialog.open()
-                    flagOpen = 1
-                }
+                pendingSwitchState = !checked
+                checked = !checked
+
+                passwordDialog.open()
+
+                flagOpen = pendingSwitchState ? 0 : 1
             }
 
-            // onCheckedChanged:
-            // {
-            //     if(control.checked)
-            //     {
-            //         passwordDialog.open()
-            //         flagOpen = 1
 
-            //     }
-            //     else
-            //     {
-            //         passwordDialog.open()
-            //         flagOpen = 0
-
-            //     }
-            // }
             indicator: Rectangle
             {
                 implicitWidth: srcDict.scaled(48)

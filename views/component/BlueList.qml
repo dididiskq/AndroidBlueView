@@ -67,7 +67,7 @@ Page
         radius: 10
         Label
         {
-            text: "设备列表"
+            text: qsTr("设备列表")
             font.pixelSize: 30
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
@@ -81,7 +81,7 @@ Page
             anchors.bottom: parent.bottom
             Label
             {
-                text: "返回"
+                text: qsTr("返回")
                 anchors.centerIn: parent
             }
             MouseArea
@@ -102,18 +102,20 @@ Page
             Label
             {
                 id: sracchLab
-                text: "搜索设备"
+                text: qsTr("搜索设备")
                 anchors.centerIn: parent
             }
 
             MouseArea
             {
+                id: searchBlue
                 anchors.fill: parent
                 onClicked:
                 {
                     blueModel.clear()
                     srcDict.startSearch()
-                    sracchLab.text = "搜索中..."
+                    sracchLab.text = qsTr("搜索中...")
+                    searchBlue.enabled = false
                 }
             }
         }
@@ -125,7 +127,7 @@ Page
         {
             if(message === "1")
             {
-                blueName.text = conectedName + "-已连接，请稍等"
+                blueName.text = conectedName + qsTr("-已连接，请稍等")
                 blueName.visible = true
                 srcDict.conectedBlueName = conectedName
             }
@@ -136,7 +138,8 @@ Page
             else if(message === "over")
             {
                 icConnecting = false
-                sracchLab.text = "搜索设备"
+                sracchLab.text = qsTr("搜索设备")
+                searchBlue.enabled = true
             }
         }
     }
@@ -204,7 +207,7 @@ Page
                                 }
                                 icConnecting = true
                                 conectedName = model.text
-                                model.text = model.text + "-正在连接"
+                                model.text = model.text + qsTr("-正在连接")
                                 deRect.color = "green"
                                 srcDict.connectBlue(model.addr)
 

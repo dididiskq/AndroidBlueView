@@ -117,7 +117,7 @@ Page
             {
                 width: drawer.width
                 height: 50
-                text: "快速设置"
+                text: qsTr("快速设置")
                 background: Rectangle
                 {
                     anchors.fill: parent
@@ -141,7 +141,7 @@ Page
             {
                 width: drawer.width
                 height: srcDict.scaled(50)
-                text: "电压参数"
+                text: qsTr("电压参数")
                 onClicked:
                 {
                     stackView.push("DParam2.qml")
@@ -165,7 +165,7 @@ Page
             {
                 width: drawer.width
                 height: srcDict.scaled(50)
-                text: "温度参数"
+                text: qsTr("温度参数")
                 onClicked:
                 {
                     stackView.push("DParam3.qml")
@@ -189,7 +189,7 @@ Page
             {
                 width: drawer.width
                 height: srcDict.scaled(50)
-                text: "电流参数"
+                text: qsTr("电流参数")
                 onClicked:
                 {
                     stackView.push("DParam4.qml")
@@ -213,7 +213,7 @@ Page
             {
                 width: drawer.width
                 height: srcDict.scaled(50)
-                text: "均衡参数"
+                text: qsTr("均衡参数")
                 onClicked:
                 {
                     stackView.push("DParam5.qml")
@@ -237,7 +237,7 @@ Page
             {
                 width: drawer.width
                 height: srcDict.scaled(50)
-                text: "系统参数"
+                text: qsTr("系统参数")
                 contentItem: Text {
                     text: parent.text
                     color: "white"

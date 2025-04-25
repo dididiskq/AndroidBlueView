@@ -8,25 +8,25 @@ Page
         color: "transparent"  // 完全透明
     }
     title: qsTr("快速设置")
-    Connections
-    {
-        target: context
-        function onMySignal(message)
-        {
-            if(message === "66")
-            {
-                print("改写成功")
-            }
-            else if(message === "-66")
-            {
-                print("改写超时")
-            }
-            else if(message === "-67")
-            {
-                print("服务或特征无效")
-            }
-        }
-    }
+    // Connections
+    // {
+    //     target: context
+    //     function onMySignal(message)
+    //     {
+    //         if(message === "66")
+    //         {
+    //             // print("改写成功")
+    //         }
+    //         else if(message === "-66")
+    //         {
+    //             // print("改写超时")
+    //         }
+    //         else if(message === "-67")
+    //         {
+    //             // print("服务或特征无效")
+    //         }
+    //     }
+    // }
     Column
     {
         id: colArea

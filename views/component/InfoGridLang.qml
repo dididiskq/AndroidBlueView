@@ -28,7 +28,7 @@ Column
         // 参数名称
         Text
         {
-            text: "设备名称"
+            text: qsTr("设备名称")
             font.pixelSize: 14
             color: "#666666"
             anchors
@@ -76,7 +76,7 @@ Column
         // 参数名称
         Text
         {
-            text: "固件版本"
+            text: qsTr("固件版本")
             font.pixelSize: 14
             color: "#666666"
             anchors
@@ -108,7 +108,7 @@ Column
         // 参数名称
         Text
         {
-            text: "电池类型"
+            text: qsTr("电池类型")
             font.pixelSize: 14
             color: "#666666"
             anchors
@@ -140,7 +140,7 @@ Column
         // 参数名称
         Text
         {
-            text: "电池串数"
+            text: qsTr("电池串数")
             font.pixelSize: 14
             color: "#666666"
             anchors
@@ -172,7 +172,7 @@ Column
         // 参数名称
         Text
         {
-            text: "BMS时间"
+            text: qsTr("BMS时间")
             font.pixelSize: 14
             color: "#666666"
             anchors

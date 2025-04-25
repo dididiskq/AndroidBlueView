@@ -63,14 +63,14 @@ Page {
             // 电池信息
             InfoGrid
             {
-                title: "电池信息"
+                title: qsTr("电池信息")
                 modelData: [
-                    {text: "总电压", source: "../res/electY.png", data: srcDict.electYa === undefined ? "" : srcDict.electYa},
-                    {text: "总电流", source: "../res/electL.png", data: srcDict.electLiu === undefined ? "" : srcDict.electLiu},
-                    {text: "压差", source: "../res/electY.png", data: srcDict.yaCha === undefined ? "" : String(srcDict.yaCha) + "V"},
-                    {text: "最高电压", source: "../res/maxYa.png", data: srcDict.maxYa === undefined ? "" : String(srcDict.maxYa) + "V"},
-                    {text: "最低电压", source: "../res/minYa.png", data: srcDict.minYa === undefined ? "" : String(srcDict.minYa) + "V"},
-                    {text: "循环次数", source: "../res/electY.png", data: srcDict.cycles_number === undefined ? "" : srcDict.cycles_number},
+                    {text: qsTr("总电压"), source: "../res/electY.png", data: srcDict.electYa === undefined ? "" : srcDict.electYa},
+                    {text: qsTr("总电流"), source: "../res/electL.png", data: srcDict.electLiu === undefined ? "" : srcDict.electLiu},
+                    {text: qsTr("压差"), source: "../res/electY.png", data: srcDict.yaCha === undefined ? "" : String(srcDict.yaCha) + "V"},
+                    {text: qsTr("最高电压"), source: "../res/maxYa.png", data: srcDict.maxYa === undefined ? "" : String(srcDict.maxYa) + "V"},
+                    {text: qsTr("最低电压"), source: "../res/minYa.png", data: srcDict.minYa === undefined ? "" : String(srcDict.minYa) + "V"},
+                    {text: qsTr("循环次数"), source: "../res/electY.png", data: srcDict.cycles_number === undefined ? "" : srcDict.cycles_number},
                     // {text: "功率", source: "../res/power.png", data: 33},
                 ]
             }
@@ -80,10 +80,10 @@ Page {
             {
                 title: "温度信息"
                 modelData: [
-                    {text: "MOS温度", source: "", data: srcDict.mosTemperature === undefined ? "" : (srcDict.mosTemperature + "℃")},
-                    {text: "T1温度", source: "", data: srcDict.temperature1 === undefined ? "" : (srcDict.temperature1+ "℃")},
-                    {text: "T2温度", source: "", data: srcDict.temperature2 === undefined ? "" : (srcDict.temperature2+ "℃")},
-                    {text: "T3温度", source: "", data: srcDict.temperature3 === undefined ? "" : (srcDict.temperature3+ "℃")}
+                    {text: qsTr("MOS温度"), source: "", data: srcDict.mosTemperature === undefined ? "" : (srcDict.mosTemperature + "℃")},
+                    {text: qsTr("T1温度"), source: "", data: srcDict.temperature1 === undefined ? "" : (srcDict.temperature1+ "℃")},
+                    {text: qsTr("T2温度"), source: "", data: srcDict.temperature2 === undefined ? "" : (srcDict.temperature2+ "℃")},
+                    {text: qsTr("T3温度"), source: "", data: srcDict.temperature3 === undefined ? "" : (srcDict.temperature3+ "℃")}
                 ]
             }
 
@@ -97,7 +97,7 @@ Page {
                 // 标题
                 Text
                 {
-                    text: "单体电压"
+                    text: qsTr("单体电压")
                     font.pixelSize: 16
                     font.bold: true
                     anchors.top: parent.top

@@ -1,6 +1,7 @@
 import QtQuick
 import QtMultimedia
 import QtQuick.Controls
+import QtQml.WorkerScript
 Page
 {
     property alias capReal: cap
@@ -16,17 +17,34 @@ Page
         {
             return;
         }
-        returnPage()
+        // timer.stop()
+        // returnPage()
         // srcDict.connectBlue(codeData)
     }
+    Label
+    {
+        id: labConn
+        visible: false
+        anchors.centerIn: parent
+        text: qsTr("连接中请稍后...")
+    }
+
     Connections
     {
         target: context
         function onCodeImageReady(message)
         {
-
-            srcDict.conectedBlueName = message
-            returnPage()
+            if(message === "connecting")
+            {
+                timer.stop();
+                camera.stop()
+                labConn.visible = true
+            }
+            else
+            {
+                srcDict.conectedBlueName = message
+                returnPage()
+            }
         }
     }
     Component.onCompleted:
@@ -37,13 +55,12 @@ Page
     Button
     {
         id: button1
-        text: "返回"
+        text: qsTr("返回")
         anchors.top: parent.top
         anchors.topMargin: srcDict.scaled(50)
         onClicked:
         {
             returnPage()
-            // myLoader.source = "InitView.qml"
         }
     }
     CaptureSession
@@ -53,7 +70,7 @@ Page
         {
             id: camera
 
-            cameraFormat: Qt.size(1280, 720)
+            cameraFormat: Qt.size(640, 480)
         }
         imageCapture: ImageCapture
         {
@@ -71,26 +88,35 @@ Page
         videoOutput: output
 
     }
+    property var sendFrame: null
     VideoOutput
     {
         id: output
         anchors.fill: parent
+
+
+        // Connections {
+        //         target: output.videoSink
+        //         function onVideoFrameChanged(frame) {
+        //             // 实时处理每一帧（约30fps）
+        //             print(frame)
+        //             sendFrame = frame
+        //         }
+        //     }
     }
     Timer
     {
+        id: timer
         interval: 1500
-        running: cap.camera.active && !isCapturing// 摄像头激活时启动
+        running: cap.camera.active // 摄像头激活时启动
         repeat: true
         onTriggered:
         {
-            isCapturing = true
-            // imgCap.captureToFile("") // 触发捕获
             imgCap.capture()
         }
     }
 
 
-    // 2. 扫描线动画
     Rectangle
     {
         id: scanLine
@@ -100,9 +126,8 @@ Page
         color: "#00ff00" // 绿色扫描线
         opacity: 0.6     // 半透明效果
 
-        // 初始位置在顶部
+
         y: 0
-        // 线性动画：从上到下循环移动
         NumberAnimation on y {
             from: 0
             to: output.height

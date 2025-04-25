@@ -58,10 +58,10 @@ Page
     PasswordDialog
     {
         id: passwordDialog
-        x: 50
-        y: 200
-        title: "安全验证"
-        message: "请输入管理员密码"
+        x: srcDict.scaled(50)
+        y: srcDict.scaled(200)
+        title: qsTr("安全验证")
+        message: qsTr("请输入管理员密码")
         onConfirmed: (pwd) =>
         {
             console.log("输入密码:", pwd)
@@ -120,7 +120,7 @@ Page
 
                 Label
                 {
-                    text: "电池信息"
+                    text: qsTr("电池信息")
                     font.pixelSize: 30
                     color: "white"
                     anchors.centerIn: parent
@@ -152,7 +152,7 @@ Page
 
                 Label
                 {
-                    text: "固件升级"
+                    text: qsTr("固件升级")
                     font.pixelSize: 30
                     anchors.centerIn: parent
                     color: "white"
@@ -186,7 +186,7 @@ Page
 
                 Label
                 {
-                    text: "生产操作面板"
+                    text: qsTr("生产操作面板")
                     color: "white"
                     font.pixelSize: 30
                     anchors.centerIn: parent
@@ -221,7 +221,7 @@ Page
 
                 Label
                 {
-                    text: "BMS控制"
+                    text: qsTr("BMS控制")
                     font.pixelSize: 30
                     anchors.centerIn: parent
                     color: "white"

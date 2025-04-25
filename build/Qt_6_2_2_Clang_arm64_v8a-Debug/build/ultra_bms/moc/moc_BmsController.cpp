@@ -26,8 +26,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_BmsController_t {
-    const uint offsetsAndSize[64];
-    char stringdata0[497];
+    const uint offsetsAndSize[68];
+    char stringdata0[530];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_BmsController_t, stringdata0) + ofs), len 
@@ -64,7 +64,9 @@ QT_MOC_LITERAL(401, 1), // "c"
 QT_MOC_LITERAL(403, 31), // "BleServiceCharacteristicChanged"
 QT_MOC_LITERAL(435, 28), // "BleServiceCharacteristicRead"
 QT_MOC_LITERAL(464, 14), // "sendMsgByQueue"
-QT_MOC_LITERAL(479, 17) // "getProtectMsgSlot"
+QT_MOC_LITERAL(479, 17), // "getProtectMsgSlot"
+QT_MOC_LITERAL(497, 15), // "forceDisconnect"
+QT_MOC_LITERAL(513, 16) // "cleanupResources"
 
     },
     "BmsController\0startBlue\0\0"
@@ -80,7 +82,8 @@ QT_MOC_LITERAL(479, 17) // "getProtectMsgSlot"
     "QLowEnergyCharacteristic\0c\0"
     "BleServiceCharacteristicChanged\0"
     "BleServiceCharacteristicRead\0"
-    "sendMsgByQueue\0getProtectMsgSlot"
+    "sendMsgByQueue\0getProtectMsgSlot\0"
+    "forceDisconnect\0cleanupResources"
 };
 #undef QT_MOC_LITERAL
 
@@ -90,7 +93,7 @@ static const uint qt_meta_data_BmsController[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-      17,   14, // methods
+      19,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -98,25 +101,27 @@ static const uint qt_meta_data_BmsController[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,  116,    2, 0x06,    1 /* Public */,
-       3,    2,  117,    2, 0x06,    2 /* Public */,
+       1,    0,  128,    2, 0x06,    1 /* Public */,
+       3,    2,  129,    2, 0x06,    2 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       6,    0,  122,    2, 0x0a,    5 /* Public */,
-       7,    1,  123,    2, 0x0a,    6 /* Public */,
-       9,    1,  126,    2, 0x0a,    8 /* Public */,
-      10,    0,  129,    2, 0x0a,   10 /* Public */,
-      11,    2,  130,    2, 0x0a,   11 /* Public */,
-      15,    0,  135,    2, 0x0a,   14 /* Public */,
-      16,    1,  136,    2, 0x0a,   15 /* Public */,
-      18,    1,  139,    2, 0x0a,   17 /* Public */,
-      21,    0,  142,    2, 0x0a,   19 /* Public */,
-      22,    1,  143,    2, 0x0a,   20 /* Public */,
-      25,    2,  146,    2, 0x0a,   22 /* Public */,
-      28,    2,  151,    2, 0x0a,   25 /* Public */,
-      29,    2,  156,    2, 0x0a,   28 /* Public */,
-      30,    0,  161,    2, 0x0a,   31 /* Public */,
-      31,    1,  162,    2, 0x0a,   32 /* Public */,
+       6,    0,  134,    2, 0x0a,    5 /* Public */,
+       7,    1,  135,    2, 0x0a,    6 /* Public */,
+       9,    1,  138,    2, 0x0a,    8 /* Public */,
+      10,    0,  141,    2, 0x0a,   10 /* Public */,
+      11,    2,  142,    2, 0x0a,   11 /* Public */,
+      15,    0,  147,    2, 0x0a,   14 /* Public */,
+      16,    1,  148,    2, 0x0a,   15 /* Public */,
+      18,    1,  151,    2, 0x0a,   17 /* Public */,
+      21,    0,  154,    2, 0x0a,   19 /* Public */,
+      22,    1,  155,    2, 0x0a,   20 /* Public */,
+      25,    2,  158,    2, 0x0a,   22 /* Public */,
+      28,    2,  163,    2, 0x0a,   25 /* Public */,
+      29,    2,  168,    2, 0x0a,   28 /* Public */,
+      30,    0,  173,    2, 0x0a,   31 /* Public */,
+      31,    1,  174,    2, 0x0a,   32 /* Public */,
+      32,    0,  177,    2, 0x0a,   34 /* Public */,
+      33,    0,  178,    2, 0x0a,   35 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
@@ -138,6 +143,8 @@ static const uint qt_meta_data_BmsController[] = {
     QMetaType::Void, 0x80000000 | 26, QMetaType::QByteArray,   27,   14,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    8,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -165,6 +172,8 @@ void BmsController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 14: _t->BleServiceCharacteristicRead((*reinterpret_cast< const QLowEnergyCharacteristic(*)>(_a[1])),(*reinterpret_cast< const QByteArray(*)>(_a[2]))); break;
         case 15: _t->sendMsgByQueue(); break;
         case 16: _t->getProtectMsgSlot((*reinterpret_cast< const int(*)>(_a[1]))); break;
+        case 17: _t->forceDisconnect(); break;
+        case 18: _t->cleanupResources(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -247,7 +256,7 @@ const QMetaObject BmsController::staticMetaObject = { {
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_BmsController_t
 , QtPrivate::TypeAndForceComplete<BmsController, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<const QString &, std::false_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QByteArray &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QLowEnergyDescriptor &, std::false_type>, QtPrivate::TypeAndForceComplete<const QByteArray &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QBluetoothDeviceInfo, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QBluetoothUuid &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QLowEnergyService::ServiceState, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QLowEnergyCharacteristic &, std::false_type>, QtPrivate::TypeAndForceComplete<const QByteArray &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QLowEnergyCharacteristic &, std::false_type>, QtPrivate::TypeAndForceComplete<const QByteArray &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QLowEnergyCharacteristic &, std::false_type>, QtPrivate::TypeAndForceComplete<const QByteArray &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const int, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QByteArray &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QLowEnergyDescriptor &, std::false_type>, QtPrivate::TypeAndForceComplete<const QByteArray &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QBluetoothDeviceInfo, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QBluetoothUuid &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<QLowEnergyService::ServiceState, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QLowEnergyCharacteristic &, std::false_type>, QtPrivate::TypeAndForceComplete<const QByteArray &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QLowEnergyCharacteristic &, std::false_type>, QtPrivate::TypeAndForceComplete<const QByteArray &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QLowEnergyCharacteristic &, std::false_type>, QtPrivate::TypeAndForceComplete<const QByteArray &, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
 
 >,
@@ -274,13 +283,13 @@ int BmsController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 17)
+        if (_id < 19)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 17;
+        _id -= 19;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 17)
+        if (_id < 19)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 17;
+        _id -= 19;
     }
     return _id;
 }

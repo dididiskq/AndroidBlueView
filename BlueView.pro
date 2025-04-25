@@ -110,6 +110,7 @@ DISTFILES += \
     views/component/ParameterPage.qml \
     views/component/STabButton.qml \
     views/component/TextFieldTemplate.qml \
+    views/component/frame_processor.js \
     views/js/HMJs.qml
 
 

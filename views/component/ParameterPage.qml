@@ -5,9 +5,10 @@ import QtQuick.Layouts 1.15
 ColumnLayout
 {
     property var paramList: []      // 参数数据模型（JSON数组）
-    property var temBtnText: "设置"
+    property var temBtnText: qsTr("设置")
     property var celldata: ""
     property var userInput: ""
+    property var operaCode: srcDict.operaCode
     // 表头
     RowLayout {
         Layout.fillWidth: true
@@ -39,6 +40,30 @@ ColumnLayout
             }
         }
     }
+    // onOpacityChanged:
+    // {
+    //     if(operaCode === undefined)
+    //     {
+    //         return
+    //     }
+
+    //     if(operaCode[0] === "6")
+    //     {
+    //         item.btnText = "设置成功"
+    //         item.resetTimer.start()
+    //     }
+    //     else if(operaCode === "-66")
+    //     {
+    //         item.btnText = "超时失败"
+    //         item.resetTimer.start()
+    //     }
+    //     else if(operaCode === "-67")
+    //     {
+    //         item.btnText = "服务无效"
+    //         item.resetTimer.start()
+    //     }
+    // }
+
     Connections
     {
         target: context
@@ -47,17 +72,18 @@ ColumnLayout
             var item = repeater.itemAt(srcDict.itemIndex)
             if(message === "66")
             {
-                item.btnText = "设置成功"
+                item.btnText = qsTr("设置成功")
                 item.resetTimer.start()
+                console.log("设置成功")
             }
             else if(message === "-66")
             {
-                item.btnText = "超时失败"
+                item.btnText = qsTr("超时失败")
                 item.resetTimer.start()
             }
             else if(message === "-67")
             {
-                item.btnText = "服务无效"
+                item.btnText = qsTr("服务无效")
                 item.resetTimer.start()
             }
         }
@@ -67,21 +93,21 @@ ColumnLayout
         id: passwordDialog
         x: srcDict.scaled(50)
         y: srcDict.scaled(200)
-        title: "安全验证"
-        message: "请输入管理员密码"
+        title: qsTr("安全验证")
+        message: qsTr("请输入管理员密码")
         onConfirmed: (pwd) =>
         {
             console.log("输入密码:", pwd)
             if(pwd)
             {
                 var item = repeater.itemAt(srcDict.itemIndex)
-                item.btnText = "请稍后..."
+                item.btnText = qsTr("请稍后...")
                 srcDict.writeToBlue(celldata, userInput)
                 passwordDialog.close()
             }
             else
             {
-                passwordDialog.message = "密码错误请重新输入"
+                passwordDialog.message = qsTr("密码错误请重新输入")
             }
         }
         onCanceled: console.log("操作取消")

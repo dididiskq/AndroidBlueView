@@ -6,7 +6,7 @@
 #include"hmmodule.h"
 #include "hmcommand.h"
 #include <QZXing.h>
-
+#include<QVideoFrame>
 class CHMModule;
 class CHMViewCommand: public CHMCommand
 {

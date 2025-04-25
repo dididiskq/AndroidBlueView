@@ -215,37 +215,38 @@ Item
     //     }
     // }
     // //总容量
-    // Rectangle
-    // {
-    //     // border.color: "red"
-    //     color: "transparent"
-    //     visible: !cameraRect.visible
-    //     height: srcDict.scaled(30)
-    //     width: srcDict.scaled(100)
-    //     anchors.left: parent.left
-    //     anchors.top: parent.top
-    //     anchors.leftMargin: srcDict.scaled(40)
-    //     anchors.topMargin: srcDict.scaled(370)
-    //     Label
-    //     {
-    //         id: lab1
-    //         text: "总容量"
-    //         color: "white"
-    //         font.pixelSize: 12
-    //         font.bold: true
-    //         anchors.verticalCenter: parent.verticalCenter
-    //     }
-    //     Label
-    //     {
-    //         text: String(srcDict.fcc === undefined ? "0" : srcDict.fcc)+ "AH"
-    //         color: "white"
-    //         font.pixelSize: 12
-    //         font.bold: true
-    //         anchors.verticalCenter: parent.verticalCenter
-    //         anchors.left: lab1.right
-    //         anchors.leftMargin: srcDict.scaled(10)
-    //     }
-    // }
+    Rectangle
+    {
+        // border.color: "red"
+        color: "transparent"
+        visible: !cameraRect.visible
+        height: srcDict.scaled(30)
+        width: srcDict.scaled(100)
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: srcDict.scaled(40)
+        anchors.topMargin: srcDict.scaled(370)
+        Label
+        {
+            id: lab1
+            text: qsTr("总容量")
+            color: "white"
+            font.pixelSize: 12
+            font.bold: true
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        Label
+        {
+            // text: String(srcDict.fcc === undefined ? "0" : srcDict.fcc)+ "AH"
+            text: String(srcDict.fcc !== undefined ? (srcDict.fcc / 100).toFixed(2) : "0.00") + "AH"
+            color: "white"
+            font.pixelSize: 12
+            font.bold: true
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: lab1.right
+            anchors.leftMargin: srcDict.scaled(10)
+        }
+    }
 
     //剩余容量
     Rectangle
@@ -262,7 +263,7 @@ Item
         Label
         {
             id: lab2
-            text: "剩余容量"
+            text: qsTr("剩余容量")
             color: "white"
             font.pixelSize: 12
             font.bold: true
@@ -273,7 +274,8 @@ Item
             color: "white"
             font.pixelSize: 12
             font.bold: true
-            text: String(srcDict.remaining_capacity === undefined ? "0" : srcDict.remaining_capacity) + "AH"
+            // text: String(srcDict.remaining_capacity === undefined ? "0" : srcDict.remaining_capacity) + "AH"
+            text: String(srcDict.remaining_capacity !== undefined ? (srcDict.remaining_capacity / 100).toFixed(2) : "0.00") + "AH"
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: lab2.right
             anchors.leftMargin: srcDict.scaled(10)
@@ -418,7 +420,7 @@ Item
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: srcDict.scaled(10)
                 color: "white"
-                font.pixelSize: 30
+                font.pixelSize: 25
                 text: srcDict.temperature1 === undefined ? "" : (srcDict.temperature1 + "℃")
                 anchors.horizontalCenter: parent.horizontalCenter
             }
@@ -445,7 +447,7 @@ Item
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: srcDict.scaled(10)
                 color: "white"
-                font.pixelSize: 30
+                font.pixelSize: 25
                 text: srcDict.temperature2 === undefined ? "" : (srcDict.temperature2 + "℃")
                 anchors.horizontalCenter: parent.horizontalCenter
             }
@@ -472,7 +474,7 @@ Item
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: srcDict.scaled(10)
                 color: "white"
-                font.pixelSize: 30
+                font.pixelSize: 25
                 text: srcDict.mosTemperature === undefined ? "" : (srcDict.mosTemperature  + "℃")
                 anchors.horizontalCenter: parent.horizontalCenter
             }

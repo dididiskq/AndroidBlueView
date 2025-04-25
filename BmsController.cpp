@@ -90,9 +90,75 @@ void BmsController::searchCharacteristic()
         }
     }
 }
+void BmsController::forceDisconnect()
+{
+    qDebug() << "强制断开连接流程启动";
 
+    // 停止设备发现
+    if (Discovery->isActive()) {
+        Discovery->stop();
+    }
+
+    // 停止发送队列
+    sendTimer.stop();
+
+    // 清理服务特征缓存
+    cleanupResources();
+
+    // 处理控制器
+    if (mController) {
+        // 断开所有信号
+        mController->disconnect();
+
+        // 如果正在连接/已连接状态
+        if (mController->state() != QLowEnergyController::UnconnectedState) {
+            qDebug() << "正在主动断开设备连接...";
+
+            // 使用智能指针防止野指针
+            QPointer<QLowEnergyController> oldController = mController;
+
+            // 连接断开信号
+            connect(oldController, &QLowEnergyController::disconnected, this, [oldController]() {
+                qDebug() << "设备已物理断开";
+                if (!oldController.isNull()) {
+                    oldController->deleteLater();
+                }
+            });
+
+            // 启动断开流程
+            oldController->disconnectFromDevice();
+        } else {
+            qDebug() << "控制器已处于未连接状态，直接清理";
+            mController->deleteLater();
+        }
+
+        mController = nullptr;
+    }
+
+    isConnected = false;
+    m_waitingWriteResponse = false;
+    qDebug() << "强制断开完成";
+}
+
+void BmsController::cleanupResources()
+{
+    // 清理服务对象
+    qDeleteAll(serviceList);
+    serviceList.clear();
+
+    // 清理特征
+    // m_Characteristic.clear();
+
+    // 清理设备缓存
+    deviceList.clear();
+
+    qDebug() << "所有蓝牙资源已释放";
+}
 void BmsController::connectBlue(const QString addr)
 {
+    // 强制断开旧连接
+    // this->forceDisconnect();
+
     // 如果当前控制器存在且未断开，先断开旧连接
     if (mController && mController->state() != QLowEnergyController::UnconnectedState)
     {
@@ -610,6 +676,9 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
                 // 检查响应是否正确
                 if (true)
                 {
+                    QDateTime currentTime = QDateTime::currentDateTime();
+                    QString now = currentTime.toString("yyyyMMddhhmmss");
+                    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("operaCode", "6" +now );
                     emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("66");
                     isWriting = false;
                     processNextWriteRequest();

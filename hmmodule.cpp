@@ -2,6 +2,7 @@
 #include "hmmodule.h"
 #include "hmutils.h"
 #include <QtConcurrent/QtConcurrentRun>
+#include <QRegularExpression>
 // 构造函数
 CHMModule::CHMModule(QObject *parent)
     : CHMModuleBasics(parent)
@@ -86,41 +87,13 @@ void CHMModule::test(QVariantMap &parameters, QVariant &result)
 
 void CHMModule::playVoices(const QString path)
 {
-    // if(selfIni.isUseShell == 0)
-    // {
-    //     mediaPlayer->stop();
-    // //    mediaPlayer->setMedia(QUrl::fromLocalFile(path));
-    //     mediaPlayer->setMedia(QUrl::fromLocalFile(QFileInfo(path).absoluteFilePath()));
-    //     mediaPlayer->play();
-    // }
-    // else
-    // {
-    //     // 如果已经有 aplay 进程在运行，先杀掉它
-    //     if (aplayProcess->state() == QProcess::Running)
-    //     {
-    //         aplayProcess->kill();
-    //         aplayProcess->waitForFinished(); // 等待进程结束
-    //     }
 
-    //     // 获取音频文件的绝对路径
-    //     QString absolutePath = QFileInfo(path).absoluteFilePath();
-
-    //     aplayProcess->start("aplay", QStringList() << absolutePath);
-
-    //     // 检查是否成功启动
-    //     if (!aplayProcess->waitForStarted())
-    //     {
-    //         qWarning() << "Failed to start aplay process.";
-    //         return;
-    //     }
-
-    //     qDebug() << "Playing audio with aplay:" << absolutePath;
-    // }
 }
 
 void CHMModule::parseCode(const QImage&  img)
 {
     QFuture<void> future = QtConcurrent::run([=]() {
+
         QZXing decoder;
         //QR Code二维码
         decoder.setDecoder(QZXing::DecoderFormat_QR_CODE);
@@ -135,11 +108,38 @@ void CHMModule::parseCode(const QImage&  img)
         }
         else
         {
-            int randNum = rand()% 100 + 1;
-            QString t =QString::number(randNum);
-            info += t;
-            selfViewCommand->selfView.context("HMStmView")->setFieldValue("codeData", info);
+            QString cleaned = info.trimmed();
+
+            // 定义 MAC 地址正则表达式（兼容大小写和不同分隔符）
+            QRegularExpression regex(
+                "^"                          // 字符串开始
+                "([0-9A-Fa-f]{2}"           // 第一个十六进制字节
+                "([:-])){5}"                // 分隔符重复5次（冒号或短横线）
+                "[0-9A-Fa-f]{2}"            // 最后一个字节
+                "$"                         // 字符串结束
+                );
+            regex.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
+
+            // 执行正则匹配
+            QRegularExpressionMatch match = regex.match(cleaned);
+
+            // 验证结果有效性
+            bool res = match.hasMatch() &&
+                   cleaned.size() == 17 &&  // 标准长度校验（6字节×2 + 5分隔符）
+                   !cleaned.contains("  ");  // 排除连续分隔符的情况
+            if(res)
+            {
+                // selfBmsCommand->connectBlue(info);
+                emit selfViewCommand->selfView.context("HMStmView")->codeImageReady("connecting");
+                // int randNum = rand()% 100 + 1;
+                // QString t =QString::number(randNum);
+                // info += t;
+                selfViewCommand->selfView.context("HMStmView")->setFieldValue("codeData", info);
+                selfBmsCommand->connectBlue(info);
+            }
+
         }
+        qDebug()<<info<<"666";
     });
 }
 

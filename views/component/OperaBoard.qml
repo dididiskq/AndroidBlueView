@@ -20,7 +20,7 @@ Page
         Label
         {
             anchors.centerIn: parent
-            text: "电流归零"
+            text: qsTr("电流归零")
             color: "white"
             font.pixelSize: 25
         }
@@ -56,7 +56,7 @@ Page
             }
             width: parent.width * 0.75
             height: parent.height * 0.3
-            inputObj.placeholderText: "请输入蓝牙名称"
+            inputObj.placeholderText: qsTr("请输入蓝牙名称")
         }
 
         Label
@@ -69,7 +69,7 @@ Page
             }
             font.pixelSize: 25
             color: "white"
-            text: "写入蓝牙名称"
+            text: qsTr("写入蓝牙名称")
             MouseArea
             {
                 anchors.fill: parent
@@ -93,7 +93,7 @@ Page
         Label
         {
             anchors.centerIn: parent
-            text: "扫描条形码"
+            text: qsTr("扫描条形码")
             color: "white"
             font.pixelSize: 25
         }
