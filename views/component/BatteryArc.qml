@@ -117,7 +117,7 @@ Item
         anchors.fill: parent
         antialiasing: true
         ShapePath {
-            strokeWidth: root.lineWidth - 5
+            strokeWidth: root.lineWidth
             strokeColor: root.progressColor
             // capStyle: ShapePath.RoundCap
             fillColor: "transparent"

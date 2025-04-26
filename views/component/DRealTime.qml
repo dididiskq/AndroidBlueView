@@ -83,7 +83,7 @@ Page {
                     {text: qsTr("MOS温度"), source: "", data: srcDict.mosTemperature === undefined ? "" : (srcDict.mosTemperature + "℃")},
                     {text: qsTr("T1温度"), source: "", data: srcDict.temperature1 === undefined ? "" : (srcDict.temperature1+ "℃")},
                     {text: qsTr("T2温度"), source: "", data: srcDict.temperature2 === undefined ? "" : (srcDict.temperature2+ "℃")},
-                    {text: qsTr("T3温度"), source: "", data: srcDict.temperature3 === undefined ? "" : (srcDict.temperature3+ "℃")}
+                    {text: qsTr("T3温度"), source: "", data: srcDict.temperature3 === undefined ? "" : (srcDict.temperature3)}
                 ]
             }
 

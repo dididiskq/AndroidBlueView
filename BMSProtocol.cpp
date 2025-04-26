@@ -400,6 +400,11 @@ QVariantMap BMSProtocol::paseCellVs(quint16 cmd, const QByteArray &data)
 QVariantMap BMSProtocol::paseString(const QByteArray& buf, int dataLen)
 {
     QVariantMap response;
+    quint16 writeOrread = static_cast<quint8>(buf.at(1));
+    if(writeOrread == 0x10)
+    {
+        return response;
+    }
     quint16 funcCodeH = static_cast<quint8>(buf.at(2));
     quint16 funcCodeL = static_cast<quint8>(buf.at(3));
     quint16 funcCode = (static_cast<quint16>(funcCodeH) << 8) | funcCodeL;
@@ -460,6 +465,11 @@ QVariantMap BMSProtocol::paseString(const QByteArray& buf, int dataLen)
 QVariantMap BMSProtocol::paseUn16And1(const QByteArray &buf, int dataLen)
 {
     QVariantMap response;
+    quint16 writeOrread = static_cast<quint8>(buf.at(1));
+    if(writeOrread == 0x10)
+    {
+        return response;
+    }
     quint16 funcCodeH = static_cast<quint8>(buf.at(2));
     quint16 funcCodeL = static_cast<quint8>(buf.at(3));
     quint16 funcCode = (static_cast<quint16>(funcCodeH) << 8) | funcCodeL;
@@ -607,6 +617,11 @@ QVariantMap BMSProtocol::paseUn16And1(const QByteArray &buf, int dataLen)
 QVariantMap BMSProtocol::paseInt16And1(const QByteArray &buf, int dataLen)
 {
     QVariantMap response;
+    quint16 writeOrread = static_cast<quint8>(buf.at(1));
+    if(writeOrread == 0x10)
+    {
+        return response;
+    }
     quint16 funcCodeH = static_cast<quint8>(buf.at(2));
     quint16 funcCodeL = static_cast<quint8>(buf.at(3));
     quint16 funcCode = (static_cast<quint16>(funcCodeH << 8) | funcCodeL);
@@ -685,6 +700,11 @@ QVariantMap BMSProtocol::paseUint32And2(const QByteArray &buf, int dataLen)
 {
 
     QVariantMap response;
+    quint16 writeOrread = static_cast<quint8>(buf.at(1));
+    if(writeOrread == 0x10)
+    {
+        return response;
+    }
     quint16 funcCodeH = static_cast<quint8>(buf.at(2));
     quint16 funcCodeL = static_cast<quint8>(buf.at(3));
     quint16 funcCode = (static_cast<quint16>(funcCodeH) << 8) | funcCodeL;
@@ -737,6 +757,11 @@ QVariantMap BMSProtocol::paseUint32And2(const QByteArray &buf, int dataLen)
 QVariantMap BMSProtocol::paseFloatAnd2(const QByteArray &buf, int dataLen)
 {
     QVariantMap response;
+    quint16 writeOrread = static_cast<quint8>(buf.at(1));
+    if(writeOrread == 0x10)
+    {
+        return response;
+    }
     quint16 funcCodeH = static_cast<quint8>(buf.at(2));
     quint16 funcCodeL = static_cast<quint8>(buf.at(3));
     quint16 funcCode = (static_cast<quint16>(funcCodeH) << 8) | funcCodeL;
@@ -959,6 +984,7 @@ QVariantMap BMSProtocol::deal_03(const QByteArray &v, int dataLen)
     {
         response["cell_temp3"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 2);
     }
+    response["cell_temp3"] = "-- --";
     return response;
 }
 // 寄存器地址0x000E - 报警状态 (Uint16, 按位解析)
