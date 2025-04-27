@@ -18,22 +18,6 @@
         <file>views/component/MinePage.qml</file>
         <file>views/component/STabButton.qml</file>
         <file>views/js/HMJs.qml</file>
-        <file>views/res/1mainBg.svg</file>
-        <file>views/res/31.svg</file>
-        <file>views/res/64.svg</file>
-        <file>views/res/average.png</file>
-        <file>views/res/cellDev.png</file>
-        <file>views/res/cellEnd.png</file>
-        <file>views/res/cellIcom.png</file>
-        <file>views/res/electL.png</file>
-        <file>views/res/electR.png</file>
-        <file>views/res/electY.png</file>
-        <file>views/res/heath.png</file>
-        <file>views/res/mainBg.svg</file>
-        <file>views/res/maxYa.png</file>
-        <file>views/res/minYa.png</file>
-        <file>views/res/power.png</file>
-        <file>views/res/test.svg</file>
         <file>views/component/BatteryArc.qml</file>
         <file>views/component/BlueList.qml</file>
         <file>views/component/BmsControl.qml</file>
@@ -45,28 +29,7 @@
         <file>views/component/ParameterItem.qml</file>
         <file>views/component/ParameterPage.qml</file>
         <file>views/component/TextFieldTemplate.qml</file>
-        <file>views/res/76.svg</file>
-        <file>views/res/85.svg</file>
-        <file>views/res/alarmIcon.svg</file>
-        <file>views/res/alarmIconR.svg</file>
-        <file>views/res/bg.png</file>
-        <file>views/res/blueIcon.svg</file>
-        <file>views/res/cellCom.svg</file>
-        <file>views/res/cellIcon.svg</file>
-        <file>views/res/cellIconP.svg</file>
-        <file>views/res/cellTepmIcon.svg</file>
-        <file>views/res/cicleIcon.svg</file>
-        <file>views/res/liuIcon.svg</file>
         <file>views/res/mineComeIn.svg</file>
-        <file>views/res/mineIcon.svg</file>
-        <file>views/res/mineIconP.svg</file>
-        <file>views/res/mosIcon.svg</file>
-        <file>views/res/setIcon.svg</file>
-        <file>views/res/setIconP.svg</file>
-        <file>views/res/sohIcon.svg</file>
-        <file>views/res/tempIcon.svg</file>
-        <file>views/res/yaChaIcon.svg</file>
-        <file>views/res/yaIcon.svg</file>
         <file>views/component/PasswordDialog.qml</file>
         <file>views/res/100.svg</file>
         <file>views/res/102.svg</file>
@@ -100,5 +63,11 @@
         <file>views/res/guan.svg</file>
         <file>views/res/kai.svg</file>
         <file>views/component/CameraImg.qml</file>
+        <file>android/AndroidManifest.xml</file>
+        <file>android/res/mipmap-xxxhdpi/ic_launcher.png</file>
+        <file>android/res/mipmap-hdpi/ic_launcher.png</file>
+        <file>android/res/mipmap-mdpi/ic_launcher.png</file>
+        <file>android/res/mipmap-xhdpi/ic_launcher.png</file>
+        <file>android/res/mipmap-xxhdpi/ic_launcher.png</file>
     </qresource>
 </RCC>

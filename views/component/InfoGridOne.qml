@@ -8,36 +8,36 @@ Row
 
     Rectangle
     {
-        width: parent.width / 2 - 5
+        width: parent.width / 2 - srcDict.scaled(5)
         height: srcDict.scaled(130)
         color: "transparent"
 
         Rectangle
         {
             height: srcDict.scaled(50)
-            width: 130 * (srcDict.soc / 100)
+            width: srcDict.scaled(130)
+            color: "transparent"
+            border.color: "white"
             anchors.top: parent.top
-            anchors.topMargin: 5
+            anchors.topMargin: srcDict.scaled(5)
+            anchors.left: parent.left
+            anchors.leftMargin: srcDict.scaled(30)
+            radius: 10
             Rectangle
             {
                 height: parent.height
-                width: srcDict.scaled(130)
-                color: "transparent"
-                border.color: "white"
-                anchors.centerIn: parent
+                width: parent.width * (srcDict.soc / 100)
+                anchors.top: parent.top
+                anchors.left: parent.left
                 radius: 10
-            }
-
-            border.color: "red"
-            radius: 10
-            anchors.horizontalCenter: parent.horizontalCenter
-            color: {
-                if(srcDict.soc <= 20) "#ff4444";    // 红色
-                else if(srcDict.soc <= 60) "#ffdd33"; // 黄色
-                else "#77dd77" // 绿色
-            }
-            Behavior on width {
-                NumberAnimation { duration: 500 } // 添加动画效果
+                color: {
+                    if(srcDict.soc <= 20) "#ff4444";    // 红色
+                    else if(srcDict.soc < 60) "#ffdd33"; // 黄色
+                    else "#77dd77" // 绿色
+                }
+                Behavior on width {
+                    NumberAnimation { duration: 500 } // 添加动画效果
+                }
             }
         }
 

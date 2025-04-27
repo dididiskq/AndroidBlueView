@@ -10,7 +10,7 @@ Item
         right: parent.right
         top: parent.top
         bottom: parent.bottom
-        bottomMargin: -Screen.safeArea.bottom
+        // bottomMargin: -Screen.safeArea.bottom
     }
 
     TabBar

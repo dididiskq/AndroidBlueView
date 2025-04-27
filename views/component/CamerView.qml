@@ -70,7 +70,7 @@ Page
         {
             id: camera
 
-            cameraFormat: Qt.size(640, 480)
+            // cameraFormat: Qt.size(640, 480)
         }
         imageCapture: ImageCapture
         {
@@ -95,14 +95,14 @@ Page
         anchors.fill: parent
 
 
-        Connections {
-                target: output.videoSink
-                function onVideoFrameChanged(frame) {
-                    // 实时处理每一帧（约30fps）
-                    print(frame)
-                    sendFrame = frame
-                }
-            }
+        // Connections {
+        //         target: output.videoSink
+        //         function onVideoFrameChanged(frame) {
+        //             // 实时处理每一帧（约30fps）
+        //             print(frame)
+        //             sendFrame = frame
+        //         }
+        //     }
     }
     Timer
     {

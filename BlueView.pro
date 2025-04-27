@@ -26,7 +26,7 @@ android {
 }
 
 # 指定Android资源目录
-# ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 INCLUDEPATH += $$PWD/QZXing/include
 DEPENDPATH += $$PWD/QZXing/include
@@ -110,7 +110,6 @@ DISTFILES += \
     views/component/ParameterPage.qml \
     views/component/STabButton.qml \
     views/component/TextFieldTemplate.qml \
-    views/component/frame_processor.js \
     views/js/HMJs.qml
 
 

@@ -65,12 +65,12 @@ Page {
             {
                 title: qsTr("电池信息")
                 modelData: [
-                    {text: qsTr("总电压"), source: "../res/electY.png", data: srcDict.electYa === undefined ? "" : srcDict.electYa},
-                    {text: qsTr("总电流"), source: "../res/electL.png", data: srcDict.electLiu === undefined ? "" : srcDict.electLiu},
-                    {text: qsTr("压差"), source: "../res/electY.png", data: srcDict.yaCha === undefined ? "" : String(srcDict.yaCha) + "V"},
-                    {text: qsTr("最高电压"), source: "../res/maxYa.png", data: srcDict.maxYa === undefined ? "" : String(srcDict.maxYa) + "V"},
-                    {text: qsTr("最低电压"), source: "../res/minYa.png", data: srcDict.minYa === undefined ? "" : String(srcDict.minYa) + "V"},
-                    {text: qsTr("循环次数"), source: "../res/electY.png", data: srcDict.cycles_number === undefined ? "" : srcDict.cycles_number},
+                    {text: qsTr("总电压"), source: "", data: srcDict.electYa === undefined ? "" : srcDict.electYa},
+                    {text: qsTr("总电流"), source: "", data: srcDict.electLiu === undefined ? "" : srcDict.electLiu},
+                    {text: qsTr("压差"), source: "", data: srcDict.yaCha === undefined ? "" : String(srcDict.yaCha) + "V"},
+                    {text: qsTr("最高电压"), source: "", data: srcDict.maxYa === undefined ? "" : String(srcDict.maxYa) + "V"},
+                    {text: qsTr("最低电压"), source: "", data: srcDict.minYa === undefined ? "" : String(srcDict.minYa) + "V"},
+                    {text: qsTr("循环次数"), source: "", data: srcDict.cycles_number === undefined ? "" : srcDict.cycles_number},
                     // {text: "功率", source: "../res/power.png", data: 33},
                 ]
             }
