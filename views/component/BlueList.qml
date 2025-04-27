@@ -26,10 +26,11 @@ Page
     Label
     {
         id: blueName
-        text: "66666666666666666"
-        visible: false
-        anchors.top: parent.top
-        anchors.topMargin: srcDict.scaled(70)
+        text: ""
+        color: "white"
+        // visible: false
+        anchors.top: rect1.bottom
+        anchors.topMargin: srcDict.scaled(10)
         anchors.left: parent.left
         anchors.leftMargin: (parent.width - width) / 2
     }
@@ -59,15 +60,18 @@ Page
 
     Rectangle
     {
+        id: rect1
         width: parent.width
         height: srcDict.scaled(88)
         anchors.top: parent.top
         anchors.topMargin: srcDict.scaled(0)
-        color: "#f2f8ed"
+        color: "transparent"
+        // border.color: "white"
         radius: 10
         Label
         {
             text: qsTr("设备列表")
+            color: "white"
             font.pixelSize: 30
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
@@ -79,9 +83,13 @@ Page
             width: srcDict.scaled(70)
             anchors.left: parent.left
             anchors.bottom: parent.bottom
+            color: "transparent"
+            border.color: "white"
+            radius: 10
             Label
             {
                 text: qsTr("返回")
+                color: "white"
                 anchors.centerIn: parent
             }
             MouseArea
@@ -99,10 +107,14 @@ Page
             width: srcDict.scaled(70)
             anchors.right: parent.right
             anchors.bottom: parent.bottom
+            color: "transparent"
+            border.color: "white"
+            radius: 10
             Label
             {
                 id: sracchLab
                 text: qsTr("搜索设备")
+                color: "white"
                 anchors.centerIn: parent
             }
 
@@ -150,9 +162,9 @@ Page
         anchors.bottom: parent.bottom
         anchors.bottomMargin: srcDict.scaled(0)
         height: srcDict.scaled(720)
-
+        border.color: "white"
         radius: 10
-        color: "#f2f8ed"
+        color: "transparent"
         width: parent.width
 
         Flickable
@@ -179,14 +191,14 @@ Page
                         id: deRect
                         width: messageText.implicitWidth + srcDict.scaled(20)
                         height: messageText.implicitHeight + srcDict.scaled(40)
-                        color: "white"
-                        border.color: "#C1FFC1"
+                        color: "transparent"
+                        border.color: "white"
                         radius: 10
                         anchors.horizontalCenter:parent.horizontalCenter
                         Text
                         {
                             id: messageText
-                            color:  "black"
+                            color:  "white"
                             anchors.centerIn: parent
                             width: parent.width
                             wrapMode: Text.Wrap

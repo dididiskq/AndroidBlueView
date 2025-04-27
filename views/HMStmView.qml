@@ -15,7 +15,13 @@ Rectangle
 
     width: srcDict.winWidth
     height: srcDict.winHeight
-
+    Image
+    {
+        id: allBg
+        width: srcDict.winWidth
+        height: srcDict.winHeight
+        source: "./res/104.svg"
+    }
     function putOp(command,params)
     {
         if(params)

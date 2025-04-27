@@ -12,13 +12,7 @@ Item
         bottom: parent.bottom
         bottomMargin: -Screen.safeArea.bottom
     }
-    Image
-    {
-        id: allBg
-        width: srcDict.winWidth
-        height: srcDict.winHeight
-        source: "./res/104.svg"
-    }
+
     TabBar
     {
         id: tabBar
