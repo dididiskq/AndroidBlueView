@@ -5,6 +5,7 @@
 #include <QVariantMap>
 #include <QKeyEvent>
 #include <QCoreApplication>
+#include<QVideoSink>
 class HMViewContext : public QObject
 {
     Q_OBJECT
@@ -34,7 +35,8 @@ public:
     Q_INVOKABLE QString  getRfid();
     Q_INVOKABLE void setRfid(const QString & m);
 
-
+    Q_PROPERTY(QVideoSink *videoSink WRITE setVideoSink);
+    void setVideoSink(QVideoSink* sink);
 signals:
     void fieldsChanged();
     void viewInvoke(const QString &method, const QVariant &parameters, QVariant &result);
@@ -46,10 +48,11 @@ signals:
 
 
 public slots:
-
+    void processFrame(const QVideoFrame &frame);
+     void onFrameGrabbed(const QImage &img);  // 只声明
 private:
 
-
+QVideoSink* m_videoSink  = nullptr;
     QVariantMap selfFields;
     QString base64Image = "";
     QString rfid = "";

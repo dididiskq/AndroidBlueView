@@ -47,10 +47,7 @@ Page
             }
         }
     }
-    Component.onCompleted:
-    {
-        // camera.start()
-    }
+
 
     Button
     {
@@ -72,18 +69,7 @@ Page
 
             // cameraFormat: Qt.size(640, 480)
         }
-        imageCapture: ImageCapture
-        {
-            id: imgCap
-            property bool muteShutter: true  // 关闭音效
-            onImageCaptured: (requestId, img) =>
-            {
-               // 将捕获的 QImage 传递给 C++ 处理
-                srcDict.sendCodeData(img)
-                img.destroy()
-                isCapturing = false
-            }
-        }
+
 
         videoOutput: output
 
@@ -93,26 +79,27 @@ Page
     {
         id: output
         anchors.fill: parent
-
-
-        // Connections {
-        //         target: output.videoSink
-        //         function onVideoFrameChanged(frame) {
-        //             // 实时处理每一帧（约30fps）
-        //             print(frame)
-        //             sendFrame = frame
-        //         }
-        //     }
+    }
+    Component.onCompleted:
+    {
+        // HMStmViewContext.videoSink = output.videoSink
     }
     Timer
     {
         id: timer
-        interval: 1500
+        interval: 1000
         running: cap.camera.active // 摄像头激活时启动
         repeat: true
         onTriggered:
         {
-            imgCap.capture()
+            // imgCap.capture()
+            // srcDict.sendCodeData(sendFrame)
+            output.grabToImage(function(result)
+            {
+                // result.image 就是一个 QImage
+                // HMStmViewContext.onFrameGrabbed(result.image)
+                srcDict.sendCodeData(result.image)
+            });
         }
     }
 
@@ -140,6 +127,7 @@ Page
 
     Rectangle
     {
+        id: cenRect
         anchors.centerIn: parent
         width: srcDict.scaled(200)
         height: srcDict.scaled(200)

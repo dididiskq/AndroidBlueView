@@ -238,7 +238,7 @@ Page
                                 repeat: false
                                 onTriggered:
                                 {
-                                    deRect.color = "white"
+                                    deRect.color = "transparent"
                                 }
                             }
                         }

@@ -132,6 +132,7 @@ Item
             {
                 // srcDict.startSearch()
                 // blueModel.clear()
+                mainPageTimer.stop()
                 myLoader.source = "./component/BlueList.qml"
             }
         }
@@ -152,7 +153,7 @@ Item
             onClicked:
             {
                 hidenTabbar(1)
-                // cameraRect.realTimer.start()
+                mainPageTimer.stop()
                 srcDict.sendCodeData(1)
                 cameraRect.visible = true
                 cameraRect.capReal.camera.start()
@@ -178,6 +179,7 @@ Item
             hidenTabbar(0)
             cameraRect.visible = false
             capReal.camera.stop()
+            mainPageTimer.start()
         }
     }
     // CameraImg
@@ -637,7 +639,7 @@ Item
     {
         visible: !cameraRect.visible
         id: rectBlueTiele
-        y: srcDict.scaled(88)
+        y: srcDict.scaled(90)
         anchors.horizontalCenter: parent.horizontalCenter
         width: srcDict.scaled(270)
         height: srcDict.scaled(47)
@@ -650,6 +652,7 @@ Item
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 14
             anchors.centerIn: parent
+            color: "white"
             text: srcDict.conectedBlueName
         }
     }

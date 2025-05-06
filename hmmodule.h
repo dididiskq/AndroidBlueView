@@ -9,6 +9,7 @@
 #include "hmmodulebasics.h"
 #include"BmsController.h"
 #include"CameraCapture.h"
+#include <QZXing.h>
 // class CHMMqttCommand;
 class CHMViewCommand;
 class BmsController;
@@ -37,6 +38,7 @@ public:
     BmsController *selfBmsCommand;
     CHMRegister selfRegister;           // 注册器
     CameraCapture *m_camera;
+    QZXing decoder;
 
 };
 

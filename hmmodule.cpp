@@ -93,8 +93,6 @@ void CHMModule::playVoices(const QString path)
 void CHMModule::parseCode(const QImage&  img)
 {
     QFuture<void> future = QtConcurrent::run([=]() {
-
-        QZXing decoder;
         //QR Code二维码
         decoder.setDecoder(QZXing::DecoderFormat_QR_CODE);
 
@@ -129,11 +127,7 @@ void CHMModule::parseCode(const QImage&  img)
                    !cleaned.contains("  ");  // 排除连续分隔符的情况
             if(res)
             {
-                // selfBmsCommand->connectBlue(info);
                 emit selfViewCommand->selfView.context("HMStmView")->codeImageReady("connecting");
-                // int randNum = rand()% 100 + 1;
-                // QString t =QString::number(randNum);
-                // info += t;
                 selfViewCommand->selfView.context("HMStmView")->setFieldValue("codeData", info);
                 selfBmsCommand->connectBlue(info);
             }
