@@ -68,13 +68,13 @@ Page
             if(pwd)
             {
                 if(currIndex === 3)
-                             {
-                                 stackViewMine.push("BmsControl.qml")
-                             }
-                             else if(currIndex === 2)
-                             {
-                                 stackViewMine.push("OperaBoard.qml")
-                             }
+                {
+                    stackViewMine.push("BmsControl.qml")
+                }
+                else if(currIndex === 2)
+                {
+                    stackViewMine.push("OperaBoard.qml")
+                }
 
                 passwordDialog.close()
             }

@@ -54,6 +54,7 @@ Page
                 {
                     drawer.open()
                 }
+                window.forceActiveFocus()
             }
         }
 
@@ -69,6 +70,7 @@ Page
     Component.onCompleted:
     {
     }
+
     StackView
     {
         id: stackView

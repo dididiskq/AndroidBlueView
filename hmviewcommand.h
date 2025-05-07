@@ -37,6 +37,7 @@ public:
     bool onSendCodeData(const QVariantMap &op);
     bool onConnectBlue(const QVariantMap &op);
     bool onGetProtectMsg(const QVariantMap &op);
+    bool onCloseApp(const QVariantMap &op);
 
     void playAudio(const QString &filePath);
 public:

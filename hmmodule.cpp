@@ -26,11 +26,11 @@ CHMModule::CHMModule(QObject *parent)
 CHMModule::~CHMModule()
 {
 
-    // if (selfViewCommand)
-    // {
-    //     delete selfViewCommand;
-    //     selfViewCommand = NULL;
-    // }
+    if (selfViewCommand)
+    {
+        delete selfViewCommand;
+        selfViewCommand = NULL;
+    }
 
 }
 

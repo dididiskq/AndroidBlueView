@@ -162,4 +162,9 @@ QtObject
         data["type"] = type // 1代表单体电压
         putOp("get.protectMsg", data)
     }
+    function closeApp()
+    {
+        var data = {}
+        putOp("close.app", data)
+    }
 }

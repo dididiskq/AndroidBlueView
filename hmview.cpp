@@ -120,6 +120,8 @@ bool CHMView::initViews()
 
 
         connect(c, SIGNAL(viewInvoke(QString,QVariant,QVariant&)), SLOT(onViewInvoke(QString,QVariant,QVariant&)));
+
+
         v->setResizeMode(QQuickView::SizeRootObjectToView);
         v->rootContext()->setContextProperty("HMStmViewContext", c);
 

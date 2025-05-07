@@ -22,7 +22,7 @@ Page {
         for (var i = 0; i < batteryModel.count; i++)
         {
             // console.log(i, cellList[i])
-            var str = String(cellList[i]) + "V"; // 结果: "3.14"
+            var str = String(cellList[i].toFixed(2)) + "V"; // 结果: "3.14"
             batteryModel.setProperty(i, "typeData", str)
 
         }

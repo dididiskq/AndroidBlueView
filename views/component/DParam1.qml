@@ -3,11 +3,20 @@ import QtQuick.Controls
 import QtQuick.Layouts
 Page
 {
+
     background: Rectangle
     {
         color: "transparent"  // 完全透明
     }
     title: qsTr("快速设置")
+    Component.onCompleted:
+    {
+        //获取本页面数据
+        srcDict.sendToBlue(24)
+        srcDict.sendToBlue(27)
+
+    }
+
     // Connections
     // {
     //     target: context
@@ -27,6 +36,7 @@ Page
     //         }
     //     }
     // }
+
     Column
     {
         id: colArea
@@ -82,13 +92,6 @@ Page
                 color: "#666666"
             }
         }
-    }
-    Component.onCompleted:
-    {
-        //获取本页面数据
-        srcDict.sendToBlue(24)
-        srcDict.sendToBlue(27)
-
     }
 
     // 示例页面：ChargeParamsPage.qml

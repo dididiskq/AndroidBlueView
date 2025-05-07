@@ -8,6 +8,7 @@ import QtQuick.Window
 Rectangle
 {
     visible: true
+
     property variant context: HMStmViewContext
     property variant fields:  HMStmViewContext.fields
 
@@ -15,6 +16,8 @@ Rectangle
 
     width: srcDict.winWidth
     height: srcDict.winHeight
+
+
     Image
     {
         id: allBg

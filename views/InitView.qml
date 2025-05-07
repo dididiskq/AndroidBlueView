@@ -3,14 +3,48 @@ import QtQuick.Controls
 import "./component"
 import "./js" as HMFunc
 import QtQuick.Window
+
 Item
 {
+    id: mainPageInit
     anchors {
         left: parent.left
         right: parent.right
         top: parent.top
         bottom: parent.bottom
         // bottomMargin: -Screen.safeArea.bottom
+    }
+
+    Keys.onBackPressed: {
+        if(devPage.reallStackView.depth > 1)
+        {
+           devPage.reallStackView.pop()
+        }
+        else if(minePage.reallStackView.depth > 1)
+        {
+            minePage.reallStackView.pop()
+        }
+        else
+        {
+            exitDialog.open()
+        }
+    }
+    Dialog
+    {
+        id: exitDialog
+        title: "退出应用"
+        Label { text: "确定要退出吗？" }
+        anchors.centerIn: parent
+        standardButtons: Dialog.Yes | Dialog.No
+
+        onAccepted:
+        {
+            srcDict.closeApp()
+        }
+        onRejected:
+        {
+            mainPageInit.forceActiveFocus();
+        }
     }
 
     TabBar
@@ -116,11 +150,12 @@ Item
 
     Component.onCompleted:
     {
+        forceActiveFocus();
         // 通过 QML 直接获取屏幕逻辑尺寸
-        var physicalWidth = Screen.width;
-        var physicalHeight = Screen.height;
-        var logicalWidth = physicalWidth / Screen.devicePixelRatio;
-        var logicalHeight = physicalHeight / Screen.devicePixelRatio;
-        console.log("逻辑尺寸:", logicalWidth, logicalHeight);
+        // var physicalWidth = Screen.width;
+        // var physicalHeight = Screen.height;
+        // var logicalWidth = physicalWidth / Screen.devicePixelRatio;
+        // var logicalHeight = physicalHeight / Screen.devicePixelRatio;
+        // console.log("逻辑尺寸:", logicalWidth, logicalHeight);
     }
 }

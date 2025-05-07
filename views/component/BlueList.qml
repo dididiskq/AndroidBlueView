@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 Page
 {
+    id: listViewBle
     property var blueData: srcDict.blueDataReal
     property string conectedName: ""
     property bool icConnecting: false
@@ -21,7 +22,28 @@ Page
     }
     Component.onCompleted:
     {
+        forceActiveFocus()
+    }
+    Keys.onBackPressed: {
 
+        exitDialog.open()
+    }
+    Dialog
+    {
+        id: exitDialog
+        title: "退出应用"
+        Label { text: "确定要退出吗？" }
+        anchors.centerIn: parent
+        standardButtons: Dialog.Yes | Dialog.No
+
+        onAccepted:
+        {
+            srcDict.closeApp()
+        }
+        onRejected:
+        {
+            listViewBle.forceActiveFocus();
+        }
     }
     Label
     {
