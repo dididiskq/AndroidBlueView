@@ -9,6 +9,7 @@ ColumnLayout
     property var celldata: ""
     property var userInput: ""
     property var operaCode: srcDict.operaCode
+    spacing: 20
     // 表头
     RowLayout {
         Layout.fillWidth: true
@@ -26,6 +27,8 @@ ColumnLayout
         id: repeater
         model: paramList
         delegate: ParameterItem {
+            Layout.alignment: Qt.AlignLeft
+            Layout.leftMargin: 10
             paramName: modelData.name       // 数据模型字段：name
             paramValue: modelData.value     // 数据模型字段：value
             paramUnit: modelData.unit || "℃"// 默认单位为℃
@@ -40,29 +43,6 @@ ColumnLayout
             }
         }
     }
-    // onOpacityChanged:
-    // {
-    //     if(operaCode === undefined)
-    //     {
-    //         return
-    //     }
-
-    //     if(operaCode[0] === "6")
-    //     {
-    //         item.btnText = "设置成功"
-    //         item.resetTimer.start()
-    //     }
-    //     else if(operaCode === "-66")
-    //     {
-    //         item.btnText = "超时失败"
-    //         item.resetTimer.start()
-    //     }
-    //     else if(operaCode === "-67")
-    //     {
-    //         item.btnText = "服务无效"
-    //         item.resetTimer.start()
-    //     }
-    // }
 
     Connections
     {

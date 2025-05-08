@@ -6,7 +6,7 @@ import QtQml 2.2
 QtObject
 {
     property bool isShowTool: true
-    property string conectedBlueName: ""
+    property string conectedBlueName: "请先连接设备"
 
     property real designWidth: 390  // 基准屏幕宽度
     property real designHeight: 844 // 基准屏幕高度

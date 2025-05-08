@@ -4,7 +4,7 @@ import "./component"
 import "./js" as HMFunc
 import QtQuick.Window
 
-Item
+Page
 {
     id: mainPageInit
     anchors {
@@ -14,7 +14,16 @@ Item
         bottom: parent.bottom
         // bottomMargin: -Screen.safeArea.bottom
     }
-
+    background: Rectangle {
+        color: "transparent"
+    }
+    Image
+    {
+        id: allBg
+        width: srcDict.winWidth
+        height: srcDict.winHeight
+        source: "./res/104.svg"
+    }
     Keys.onBackPressed: {
         if(devPage.reallStackView.depth > 1)
         {
@@ -151,11 +160,5 @@ Item
     Component.onCompleted:
     {
         forceActiveFocus();
-        // 通过 QML 直接获取屏幕逻辑尺寸
-        // var physicalWidth = Screen.width;
-        // var physicalHeight = Screen.height;
-        // var logicalWidth = physicalWidth / Screen.devicePixelRatio;
-        // var logicalHeight = physicalHeight / Screen.devicePixelRatio;
-        // console.log("逻辑尺寸:", logicalWidth, logicalHeight);
     }
 }

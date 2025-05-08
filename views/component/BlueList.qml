@@ -22,7 +22,7 @@ Page
     }
     Component.onCompleted:
     {
-        forceActiveFocus()
+        blueModel.clear()
     }
     Keys.onBackPressed: {
 
@@ -93,8 +93,8 @@ Page
         Label
         {
             text: qsTr("设备列表")
-            color: "white"
-            font.pixelSize: 30
+            color: "#33C3FF"
+            font.pixelSize: 25
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
         }
@@ -119,7 +119,8 @@ Page
                 anchors.fill: parent
                 onClicked:
                 {
-                    myLoader.source = "InitView.qml"
+                    // myLoader.source = "InitView.qml"
+                    stackView1.pop()
                 }
             }
         }
@@ -167,7 +168,8 @@ Page
             }
             else if (message === "2")
             {
-               myLoader.source = "InitView.qml"
+               // myLoader.source = "InitView.qml"
+                stackView1.pop()
             }
             else if(message === "over")
             {
@@ -183,7 +185,7 @@ Page
         id: mainRect
         anchors.bottom: parent.bottom
         anchors.bottomMargin: srcDict.scaled(0)
-        height: srcDict.scaled(720)
+        height: parent.height - rect1.height - srcDict.scaled(30)
         border.color: "white"
         radius: 10
         color: "transparent"
