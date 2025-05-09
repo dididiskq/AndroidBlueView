@@ -744,6 +744,7 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
             else if(funcCode == 0x000E)
             {
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("alarmlStatus", map.value("alarm_status"));
+                selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("alarmlMsgList", map.value("alarm_msg_array").toList());
             }
             else if(funcCode == 0x000F)
             {

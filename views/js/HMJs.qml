@@ -113,7 +113,7 @@ QtObject
     property var manufacturer: fields["manufacturer"]
     property var sjCirCount: fields["sjCirCount"]
     property var sn: fields["sn"]
-
+    property var alarmMsgList: fields["alarmlMsgList"]
     property int itemIndex: -1
 
 

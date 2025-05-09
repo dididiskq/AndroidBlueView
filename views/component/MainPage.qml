@@ -532,6 +532,21 @@ Page
                             }
                     text: srcDict.alarmlStatus === undefined ? "0" : String(srcDict.alarmlStatus)
                 }
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        if(srcDict.alarmlStatus === undefined || srcDict.alarmlStatus === "")
+                        {
+                            return
+                        }
+                        else
+                        {
+                            stackView1.push("AlarmMsgPage.qml")
+                        }
+                    }
+                }
 
             }
             Rectangle

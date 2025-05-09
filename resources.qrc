@@ -69,5 +69,6 @@
         <file>android/res/mipmap-mdpi/ic_launcher.png</file>
         <file>android/res/mipmap-xhdpi/ic_launcher.png</file>
         <file>android/res/mipmap-xxhdpi/ic_launcher.png</file>
+        <file>views/component/AlarmMsgPage.qml</file>
     </qresource>
 </RCC>

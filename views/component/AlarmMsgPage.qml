@@ -1,0 +1,117 @@
+import QtQuick
+import QtQuick.Controls
+Page
+{
+    background: Rectangle
+    {
+        color: "transparent"
+    }
+    Rectangle
+    {
+        id: rect1
+        width: parent.width
+        height: srcDict.scaled(88)
+        anchors.top: parent.top
+        anchors.topMargin: srcDict.scaled(0)
+        color: "transparent"
+        // border.color: "white"
+        radius: 10
+        Label
+        {
+            text: qsTr("异常信息")
+            color: "#33C3FF"
+            font.pixelSize: 25
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        Rectangle
+        {
+            height: srcDict.scaled(40)
+            width: srcDict.scaled(70)
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+            color: "transparent"
+            border.color: "white"
+            radius: 10
+            Label
+            {
+                text: qsTr("返回")
+                color: "white"
+                anchors.centerIn: parent
+            }
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    stackView1.pop()
+                }
+            }
+        }
+    }
+    ListModel
+    {
+        id: blueModel
+    }
+    Rectangle
+    {
+        id: mainRect
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: srcDict.scaled(0)
+        height: parent.height - rect1.height
+        border.color: "white"
+        radius: 10
+        color: "transparent"
+        width: parent.width
+
+        Flickable
+        {
+            id: blueFlickable
+            width: parent.width
+            height: parent.height
+            clip: true // 确保内容在边界内剪裁
+            contentWidth: blueColumn.width
+            contentHeight: blueColumn.height
+
+            Column
+            {
+                id: blueColumn
+                width: blueFlickable.width
+                spacing: 10
+
+                // 每条消息的显示方式
+                Repeater
+                {
+                    model: blueModel
+                    delegate: Rectangle
+                    {
+                        id: deRect
+                        width: messageText.implicitWidth + srcDict.scaled(20)
+                        height: messageText.implicitHeight + srcDict.scaled(40)
+                        color: "transparent"
+                        border.color: "white"
+                        radius: 10
+                        anchors.horizontalCenter:parent.horizontalCenter
+                        Text
+                        {
+                            id: messageText
+                            color:  "white"
+                            anchors.centerIn: parent
+                            width: parent.width
+                            wrapMode: Text.Wrap
+                            text: model.text
+                            horizontalAlignment: Text.AlignHCenter // 关键修改：水平居中
+                            font.pixelSize: 20
+                        }
+                    }
+                }
+            }
+            // 自动滚动到底部
+            onContentHeightChanged:
+            {
+                // blueFlickable.contentY = blueColumn.height - blueFlickable.height
+            }
+        }
+    }
+}

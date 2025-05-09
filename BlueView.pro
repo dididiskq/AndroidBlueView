@@ -82,6 +82,7 @@ DISTFILES += \
     views/HMStmView.qml \
     views/HMTest.qml \
     views/InitView.qml \
+    views/component/AlarmMsgPage.qml \
     views/component/BatteryArc.qml \
     views/component/BlueList.qml \
     views/component/BmsControl.qml \

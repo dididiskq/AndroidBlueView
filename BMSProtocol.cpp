@@ -987,7 +987,7 @@ QVariantMap BMSProtocol::deal_03(const QByteArray &v, int dataLen)
     response["cell_temp3"] = "-- --";
     return response;
 }
-// 寄存器地址0x000E - 报警状态 (Uint16, 按位解析)
+
 QVariantMap BMSProtocol::deal_0E(const QByteArray &v, int dataLen)
 {
     QVariantMap response;
@@ -999,52 +999,54 @@ QVariantMap BMSProtocol::deal_0E(const QByteArray &v, int dataLen)
 
     // 按位解析报警状态
     QVariantMap alarm;
-    // alarm["超高压报警"] = (status & 0x0001) ? "触发" : "正常";
-    // alarm["超低压报警"] = (status & 0x0002) ? "触发" : "正常";
-    // alarm["防拆卸报警"] = (status & 0x0004) ? "触发" : "正常";
-    // alarm["电压采集断线报警"] = (status & 0x0008) ? "触发" : "正常";
-    // alarm["温度采集断线报警"] = (status & 0x0010) ? "触发" : "正常";
-    // alarm["AFE通讯失效报警"] = (status & 0x0020) ? "触发" : "正常";
-    // alarm["电池组压差大报警"] = (status & 0x0040) ? "触发" : "正常";
+    QVector<QString> errMsgArray;
     QString res = "normal";
     int alarmCount = 0;
     if(status & 0x0001)
     {
         res = "超高压报警";
+        errMsgArray.push_back(res);
         alarmCount++;
     }
     if(status & 0x0002)
     {
         res = "超低压报警";
+        errMsgArray.push_back(res);
         alarmCount++;
     }
     if(status & 0x0004)
     {
         res = "防拆卸报警";
+        errMsgArray.push_back(res);
         alarmCount++;
     }
     if(status & 0x0008)
     {
         res = "电压采集断线报警";
+        errMsgArray.push_back(res);
         alarmCount++;
     }
     if(status & 0x0010)
     {
         res = "温度采集断线报警";
+        errMsgArray.push_back(res);
         alarmCount++;
     }
     if(status & 0x0020)
     {
         res = "AFE通讯失效报警";
+        errMsgArray.push_back(res);
         alarmCount++;
     }
     if(status & 0x0040)
     {
         res = "电池组压差大报警";
+        errMsgArray.push_back(res);
         alarmCount++;
     }
 
     response["alarm_status"] = alarmCount;
+    response["alarm_msg_array"] = errMsgArray;
     return response;
 }
 
