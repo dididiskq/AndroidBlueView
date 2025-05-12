@@ -19,24 +19,30 @@ Page {
         {
             return
         }
-        for (var i = 0; i < batteryModel.count; i++)
+        batteryModel.clear();
+        for (var i = 0; i < cellList.length; i++)
         {
             // console.log(i, cellList[i])
-            var str = String(cellList[i].toFixed(2)) + "V"; // 结果: "3.14"
-            batteryModel.setProperty(i, "typeData", str)
+            var voltage = String(cellList[i].toFixed(2)) + "V"; // 结果: "3.14"
+            // batteryModel.setProperty(i, "typeData", str)
+            batteryModel.append({
+                        text: "" + (i + 1),
+                        imgSrc: "../res/danCell.svg",
+                        typeData: voltage
+                    });
 
         }
     }
     ListModel {
         id: batteryModel
-        Component.onCompleted:
-        {
-            for (var i = 0; i < 32; i++)
-            {
+        // Component.onCompleted:
+        // {
+        //     for (var i = 0; i < (srcDict.cellNum === undefined ? 0:srcDict.cellNum); i++)
+        //     {
 
-                append({text: "" + (i + 1), imgSrc: "../res/danCell.svg", typeData: ""})
-            }
-        }
+        //         append({text: "" + (i + 1), imgSrc: "../res/danCell.svg", typeData: ""})
+        //     }
+        // }
     }
 
     // 主内容容器
@@ -65,13 +71,13 @@ Page {
             {
                 title: qsTr("电池信息")
                 modelData: [
-                    {text: qsTr("总电压"), source: "", data: srcDict.electYa === undefined ? "" : srcDict.electYa},
-                    {text: qsTr("总电流"), source: "", data: srcDict.electLiu === undefined ? "" : srcDict.electLiu},
+                    {text: qsTr("总电压"), source: "", data: srcDict.electYa === undefined ? "" : String(srcDict.electYa) + "V"},
+                    {text: qsTr("总电流"), source: "", data: srcDict.electLiu === undefined ? "" : String(srcDict.electLiu) + "A"},
                     {text: qsTr("压差"), source: "", data: srcDict.yaCha === undefined ? "" : String(srcDict.yaCha) + "V"},
                     {text: qsTr("最高电压"), source: "", data: srcDict.maxYa === undefined ? "" : String(srcDict.maxYa) + "V"},
                     {text: qsTr("最低电压"), source: "", data: srcDict.minYa === undefined ? "" : String(srcDict.minYa) + "V"},
                     {text: qsTr("循环次数"), source: "", data: srcDict.cycles_number === undefined ? "" : srcDict.cycles_number},
-                    // {text: "功率", source: "../res/power.png", data: 33},
+                    {text: qsTr("功率"), source: "", data: srcDict.electYa === undefined ? "" : String((parseFloat(srcDict.electYa) * parseFloat(srcDict.electLiu)).toFixed(2)) + "W"},
                 ]
             }
 

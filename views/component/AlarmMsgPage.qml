@@ -2,10 +2,25 @@ import QtQuick
 import QtQuick.Controls
 Page
 {
+    property var alarmMsgList: srcDict.alarmMsgList
     background: Rectangle
     {
         color: "transparent"
     }
+
+    onAlarmMsgListChanged:
+    {
+        if(alarmMsgList === undefined)
+        {
+            return
+        }
+        blueModel.clear()
+        for(var i = 0; i < alarmMsgList.length; i++)
+        {
+            blueModel.append({text: alarmMsgList[i]})
+        }
+    }
+
     Rectangle
     {
         id: rect1

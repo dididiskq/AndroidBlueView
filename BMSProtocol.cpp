@@ -824,7 +824,7 @@ QVariantMap BMSProtocol::deal_04(const QByteArray &v, int dataLen)
     // 计算电呀值（假设单位为mV，需根据设备协议调整比例）
     double current_V = rawValue / 1000.0;
 
-    response["electYa"] = QString::number(current_V, 'f', 2) + " V";
+    response["electYa"] = QString::number(current_V, 'f', 2);
     return response;
 }
 
@@ -846,7 +846,7 @@ QVariantMap BMSProtocol::deal_06(const QByteArray &v, int dataLen)
     // 计算电流值（假设单位为mA，需根据设备协议调整比例）
     double current_A = rawValue / 1000.0;  // 转换为安培
 
-    response["electLiu"] = QString::number(current_A, 'f', 2) + " A";
+    response["electLiu"] = QString::number(current_A, 'f', 2);
     return response;
 }
 
@@ -880,9 +880,9 @@ QVariantMap BMSProtocol::deal_0A(const QByteArray &v, int dataLen)
 QVariantMap BMSProtocol::deal_0C(const QByteArray &v, int dataLen)
 {
     QVariantMap response;
-    int fangStatus = static_cast<quint8>(v[7]) & 1;
-    int chongStatus = static_cast<quint8>(v[7]) & 2;
-    int junhengStatus = static_cast<quint8>(v[7]) & 0x80;
+    int fangStatus = static_cast<quint8>(v[6]) & 1;
+    int chongStatus = static_cast<quint8>(v[6]) & 2;
+    int junhengStatus = static_cast<quint8>(v[6]) & 0x80;
     response["fMos"] = fangStatus;
     response["cMos"] = chongStatus;
     response["junhengStatus"] = junhengStatus;

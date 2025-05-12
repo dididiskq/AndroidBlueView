@@ -19,8 +19,6 @@ ColumnLayout
         Text { text: qsTr("设定"); font.bold: true; Layout.preferredWidth: 120; color: "white" ;horizontalAlignment: Text.AlignHCenter}
     }
 
-
-
     // 动态生成参数项
     Repeater
     {

@@ -53,14 +53,14 @@ Row
             }
             Label
             {
-                text: "SOC：" + String(srcDict.soc === undefined ? "0" : srcDict.soc) + "%"
+                text: "SOC：       " + String(srcDict.soc === undefined ? "0" : srcDict.soc) + "%"
                 font.pixelSize: 14
                 color: "white"
             }
             Label
             {
                 // text: "总容量：" + String(srcDict.fcc === undefined ? "0" : srcDict.fcc) + "AH"
-                text: qsTr("总容量：") + String(srcDict.fcc !== undefined ? (srcDict.fcc / 100).toFixed(2) : "0.00") + "AH"
+                text: qsTr("总容量：   ") + String(srcDict.fcc !== undefined ? (srcDict.fcc / 100).toFixed(2) : "0.00") + "AH"
                 font.pixelSize: 14
                 color: "white"
             }
@@ -122,7 +122,7 @@ Row
             {
                 height: srcDict.scaled(20)
                 width: srcDict.scaled(20)
-                source: srcDict.cMos === undefined ? "../res/guan.svg" : (srcDict.cMos === 1 ? "../res/kai.svg" : "../res/guan.svg")
+                source: srcDict.cMos === undefined ? "../res/guan.svg" : (srcDict.cMos === 2 ? "../res/kai.svg" : "../res/guan.svg")
             }
             Image
             {
@@ -134,7 +134,7 @@ Row
             {
                 height: srcDict.scaled(20)
                 width: srcDict.scaled(20)
-                source: srcDict.junhengStatus === undefined ? "../res/guan.svg" : (srcDict.junhengStatus === 1 ? "../res/kai.svg" : "../res/guan.svg")
+                source: srcDict.junhengStatus === undefined ? "../res/guan.svg" : (srcDict.junhengStatus === 128 ? "../res/kai.svg" : "../res/guan.svg")
             }
         }
 

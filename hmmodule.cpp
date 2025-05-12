@@ -129,6 +129,7 @@ void CHMModule::parseCode(const QImage&  img)
             {
                 emit selfViewCommand->selfView.context("HMStmView")->codeImageReady("connecting");
                 selfViewCommand->selfView.context("HMStmView")->setFieldValue("codeData", info);
+                selfBmsCommand->isScanConn = true;
                 selfBmsCommand->connectBlue(info);
             }
 

@@ -213,7 +213,8 @@ Page
                     delegate: Rectangle
                     {
                         id: deRect
-                        width: messageText.implicitWidth + srcDict.scaled(20)
+                        // width: messageText.implicitWidth + srcDict.scaled(20)
+                        width: parent.width
                         height: messageText.implicitHeight + srcDict.scaled(40)
                         color: "transparent"
                         border.color: "white"

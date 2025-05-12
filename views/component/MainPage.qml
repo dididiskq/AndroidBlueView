@@ -135,7 +135,13 @@ Page
             id: buttonSacn
             visible: !cameraRect.visible
             anchors.left: parent.left
-            anchors.leftMargin: srcDict.scaled(25)
+            anchors.leftMargin: srcDict.scaled(10)
+            border.color: "white"
+            radius: 10
+            y: srcDict.scaled(42)
+            width: srcDict.scaled(110)
+            height: srcDict.scaled(40)
+            color: "transparent"
             Label
             {
                 text: qsTr("设备列表")
@@ -144,11 +150,6 @@ Page
                 anchors.centerIn: parent
             }
 
-            y: srcDict.scaled(42)
-
-            width: srcDict.scaled(80)
-            height: srcDict.scaled(40)
-            color: "transparent"
             MouseArea
             {
                 anchors.fill: parent
@@ -295,7 +296,7 @@ Page
                 anchors.centerIn: parent
                 font.pixelSize: 20
                 color: "white"
-                text: String(srcDict.electYa === undefined ? "0" : srcDict.electYa)
+                text: String(srcDict.electYa === undefined ? "0" : srcDict.electYa) + " V"
             }
 
             Label
@@ -331,7 +332,7 @@ Page
                 anchors.centerIn: parent
                 font.pixelSize: 20
                 color: "white"
-                text: String(srcDict.electLiu === undefined ? "0" : srcDict.electLiu)
+                text: String(srcDict.electLiu === undefined ? "0" : srcDict.electLiu) + " A"
             }
             Label
             {
@@ -537,14 +538,15 @@ Page
                     anchors.fill: parent
                     onClicked:
                     {
-                        if(srcDict.alarmlStatus === undefined || srcDict.alarmlStatus === "")
-                        {
-                            return
-                        }
-                        else
-                        {
-                            stackView1.push("AlarmMsgPage.qml")
-                        }
+                        stackView1.push("AlarmMsgPage.qml")
+                        // if(srcDict.alarmlStatus === undefined || srcDict.alarmlStatus === "")
+                        // {
+                        //     return
+                        // }
+                        // else
+                        // {
+
+                        // }
                     }
                 }
 

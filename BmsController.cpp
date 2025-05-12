@@ -514,13 +514,19 @@ void BmsController::getProtectMsgSlot(const int type)
 {
     if(type == 1)
     {
-        QVector<int> cellVcmdList{32,33,34,35,36,37,38,39,40,
-                                  41,42,43,44,45,46,47,48,49,50,51,52,53,54,
-                                  55, 56,57,58,59,60,61,62,63};
-        for(const auto& i: cellVcmdList)
+        // QVector<int> cellVcmdList{32,33,34,35,36,37,38,39,40,
+        //                           41,42,43,44,45,46,47,48,49,50,51,52,53,54,
+        //                           55, 56,57,58,59,60,61,62,63};
+        // for(const auto& i: cellVcmdList)
+        // {
+        //     viewMessage(i);
+        // }
+
+        for(int i = 32; i <= 32 + cellNums; i++)
         {
             viewMessage(i);
         }
+
     }
     else
     {
@@ -545,11 +551,20 @@ void BmsController::onDescriptorWritten(const QLowEnergyDescriptor &descriptor, 
             // 通知已启用
             qDebug()<<"通知已经启用";
             isConnected = true;
-            emit selfObj->selfViewCommand->selfView.context("HMStmView")->codeImageReady(descriptor.name());
+            if(isScanConn)
+            {
+                emit selfObj->selfViewCommand->selfView.context("HMStmView")->codeImageReady(descriptor.name());
+                isScanConn = false;
+            }
+            else
+            {
+                emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("2");
+            }
             for(const auto & it: initCmdList)
             {
                 viewMessage(it);
             }
+            getProtectMsgSlot(1);
         }
         else
         {
@@ -714,6 +729,7 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
             else if(funcCode == 0x0018)
             {
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("celllType", map.value("celllType"));
+                cellNums = map.value("cellNum").toInt();
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("cellNum", map.value("cellNum"));
 
             }
@@ -814,7 +830,7 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
             else if(funcCode >= 0x0020 && funcCode <= 0x003F) //单体电压
             {
                 cellVlist.append(map.value("cellV"));
-                if(cellVlist.size() == 32)
+                if(cellVlist.size() == cellNums)
                 {
                     double minVal = cellVlist.first().toDouble();
                     double maxVal = minVal;

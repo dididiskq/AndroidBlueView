@@ -72,26 +72,49 @@ Row
         }
 
         // 设置按钮
-        Button
+        // Button
+        // {
+        //     id: btnReal
+        //     visible: false
+        //     text: btnText
+        //     width: srcDict.scaled(95)
+        //     height: srcDict.scaled(30)
+
+        //     background: Rectangle
+        //     {
+        //         color: "#0078D4"        // 蓝色按钮
+        //         radius: 4
+        //     }
+        //     contentItem: Text
+        //     {
+        //         text: parent.text
+        //         color: "white"
+        //         horizontalAlignment: Text.AlignHCenter
+        //         verticalAlignment: Text.AlignVCenter
+        //     }
+        //     onClicked: mainRow.clicked() // 触发点击信号
+        // }
+        Rectangle
         {
             id: btnReal
-            text: btnText
             width: srcDict.scaled(95)
             height: srcDict.scaled(30)
-
-            background: Rectangle
-            {
-                color: "#0078D4"        // 蓝色按钮
-                radius: 4
-            }
-            contentItem: Text
-            {
-                text: parent.text
+            color: "#0078D4"
+            radius: 4
+            Text {
+                id: name
+                text: btnText
                 color: "white"
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
+                anchors.centerIn: parent
             }
-            onClicked: mainRow.clicked() // 触发点击信号
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    onClicked: mainRow.clicked()
+                }
+            }
         }
     }
 
