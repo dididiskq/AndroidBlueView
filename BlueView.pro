@@ -104,6 +104,7 @@ DISTFILES += \
     views/component/InfoGrid.qml \
     views/component/InfoGridLang.qml \
     views/component/InfoGridOne.qml \
+    views/component/LoadingIndicator.qml \
     views/component/MainPage.qml \
     views/component/MinePage.qml \
     views/component/OperaBoard.qml \

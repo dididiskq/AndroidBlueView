@@ -9,8 +9,9 @@ BmsController::BmsController(QObject *parent)
     connect(Discovery, SIGNAL(finished()), this, SLOT(findFinish()));
     connect(Discovery, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)), this, SLOT(addBlueToothDevicesToList(QBluetoothDeviceInfo)));
     connect(Discovery, &QBluetoothDeviceDiscoveryAgent::errorOccurred,
-            this, [](QBluetoothDeviceDiscoveryAgent::Error error) {
+            this, [this](QBluetoothDeviceDiscoveryAgent::Error error) {
                 qDebug() << "蓝牙发现错误：" << error;
+        emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("blueclose");
             });
     sendTimer.setInterval(50);
     connect(&sendTimer, &QTimer::timeout, this, &BmsController::sendMsgByQueue);
@@ -53,7 +54,6 @@ BmsController::~BmsController()
 
 void BmsController::startSearch()
 {
-    //先清除之前的
     Discovery->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
 }
 
