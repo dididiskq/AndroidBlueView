@@ -69,25 +69,55 @@ Page
     {
         id: blueModel
     }
+    Component.onCompleted:
+    {
+        console.log("999")
+        for(var i = 0; i < 12; i++)
+        {
+            blueModel.append({text: i})
+        }
+    }
+
     Rectangle
     {
         id: mainRect
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: srcDict.scaled(0)
-        height: parent.height - rect1.height
-        border.color: "white"
+        // anchors.bottom: parent.bottom
+        // anchors.bottomMargin: srcDict.scaled(0)
+        anchors
+        {
+            top: parent.top
+            topMargin: rect1.height
+        }
+
+        height: (parent.height - rect1.height) / 3
+        // border.color: "white"
         radius: 10
         color: "transparent"
         width: parent.width
-
+        Label
+        {
+            id: labelName
+            text: qsTr("告警信息：")
+            color: "white"
+            font.pixelSize: 25
+            anchors
+            {
+                left: parent.left
+                top: parent.top
+            }
+        }
         Flickable
         {
             id: blueFlickable
             width: parent.width
-            height: parent.height
+            height: parent.height - labelName.height
             clip: true // 确保内容在边界内剪裁
             contentWidth: blueColumn.width
             contentHeight: blueColumn.height
+            anchors
+            {
+                bottom: parent.bottom
+            }
 
             Column
             {
@@ -126,6 +156,55 @@ Page
             onContentHeightChanged:
             {
                 // blueFlickable.contentY = blueColumn.height - blueFlickable.height
+            }
+        }
+    }
+    Rectangle
+    {
+        id: rectProtect
+        // border.color: "white"
+        anchors
+        {
+            top:mainRect.bottom
+        }
+        color: "transparent"
+        width: parent.width
+        height: mainRect.height
+
+        Label
+        {
+            text: qsTr("保护信息：")
+            color: "white"
+            font.pixelSize: 25
+            anchors
+            {
+                left: parent.left
+                top: parent.top
+            }
+        }
+
+    }
+    Rectangle
+    {
+        id: cellStatus
+        // border.color: "white"
+        color: "transparent"
+        anchors
+        {
+            top:rectProtect.bottom
+        }
+        width: parent.width
+        height: mainRect.height
+
+        Label
+        {
+            text: qsTr("电池状态：")
+            color: "white"
+            font.pixelSize: 25
+            anchors
+            {
+                left: parent.left
+                top: parent.top
             }
         }
     }

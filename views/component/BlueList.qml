@@ -22,7 +22,9 @@ Page
     }
     Component.onCompleted:
     {
-        blueModel.clear()
+        // blueModel.clear()
+        srcDict.startSearch()
+        sracchLab.text = qsTr("搜索中...")
     }
     Keys.onBackPressed: {
 
@@ -200,7 +202,7 @@ Page
         bgColor: "#CC303030"  // 自定义背景色
         textColor: "#00FF00"   // 自定义文字颜色
         iconColor: "#FFA500"   // 橙色加载图标
-        text: qsTr("正在连接节点...") // 自定义提示内容
+        text: qsTr("...") // 自定义提示内容
     }
 
     Rectangle

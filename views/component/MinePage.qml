@@ -83,7 +83,10 @@ Page
                 passwordDialog.message = "密码错误请重新输入"
             }
         }
-        onCanceled: console.log("操作取消")
+        onCanceled:
+        {
+            console.log("操作取消")
+        }
     }
     Page
     {

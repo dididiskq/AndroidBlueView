@@ -61,6 +61,7 @@ Page
 
         Label
         {
+            id: writeLabel
             anchors
             {
                 top: inputRec.bottom
@@ -75,8 +76,52 @@ Page
                 anchors.fill: parent
                 onClicked:
                 {
-
+                    if(inputRec.inputObj.text === "")
+                    {
+                        loadRect.startLoad()
+                        loadRect.text = qsTr("名称不能为空")
+                    }
+                    else
+                    {
+                        srcDict.writeToBlue(582, inputRec.inputObj.text)
+                        loadRect.visible = true
+                        loadRect.text = qsTr("请稍后...")
+                    }
                 }
+            }
+        }
+    }
+    LoadingIndicator
+    {
+        id: loadRect
+        anchors.centerIn: parent
+        width: srcDict.scaled(300)  // 自定义尺寸
+        height: srcDict.scaled(150)
+        z: 999
+        bgColor: "#CC303030"  // 自定义背景色
+        textColor: "#00FF00"   // 自定义文字颜色
+        iconColor: "#FFA500"   // 橙色加载图标
+        text: qsTr("...") // 自定义提示内容
+    }
+    Connections
+    {
+        target: context
+        function onMySignal(message)
+        {
+            if(message === "66")
+            {
+                loadRect.text = qsTr("设置成功")
+                loadRect.visible = false
+            }
+            else if(message === "-66")
+            {
+                loadRect.text = qsTr("超时失败")
+                loadRect.visible = false
+            }
+            else if(message === "-67")
+            {
+                loadRect.text = qsTr("服务无效")
+                loadRect.visible = false
             }
         }
     }

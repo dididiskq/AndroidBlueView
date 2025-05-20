@@ -30,7 +30,6 @@ Page {
                         imgSrc: "../res/danCell.svg",
                         typeData: voltage
                     });
-
         }
     }
     ListModel {
@@ -45,6 +44,7 @@ Page {
         // }
     }
 
+    property bool isTriggered: false
     // 主内容容器
     Flickable
     {
@@ -52,7 +52,45 @@ Page {
         anchors.fill: parent
         contentHeight: contentColumn.height // 动态计算总高度
         clip: true
+        flickDeceleration: 500
+        onContentYChanged:
+        {
+            // 当下拉超过顶部时触发（contentY为负值）
+            if(contentY < -100 && !isTriggered) {
+                console.log("下拉到位")
+                isTriggered = true
+            }
+        }
+        onMovementEnded:
+        {
 
+            if(isTriggered)
+            {
+                console.log("下拉结束")
+            }
+
+            isTriggered = false  // 重置状态
+        }
+        // 下拉提示层
+        Rectangle
+        {
+            id: refreshHeader
+            width: parent.width
+            height: srcDict.scaled(60)
+            y: -height
+            visible: flickable.contentY < -20
+            color: "transparent"
+            // 渐显动画
+            opacity: Math.min(1, -flickable.contentY/height)
+            Behavior on opacity { NumberAnimation { duration: 200 } }
+            Text
+            {
+                anchors.centerIn: parent
+                text: flickable.contentY < -50 ? "松开刷新" : "下拉刷新"
+                color: "white"
+                font.pixelSize: 18
+            }
+        }
         Column
         { // 垂直布局所有内容块
             id: contentColumn

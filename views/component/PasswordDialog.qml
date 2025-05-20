@@ -96,6 +96,7 @@ Popup
                     onClicked: {
                         root.confirmed(passwordField.text)
                         passwordField.clear()
+                        mainInitView.forceActiveFocus()
                     }
                 }
             }

@@ -57,7 +57,8 @@ Page
         anchors.topMargin: srcDict.scaled(50)
         onClicked:
         {
-            returnPage()
+            hidenTabbar(0)
+            stackView1.pop()
         }
     }
     CaptureSession
@@ -82,7 +83,7 @@ Page
     }
     Component.onCompleted:
     {
-        // HMStmViewContext.videoSink = output.videoSink
+        cap.camera.start()
     }
     Timer
     {

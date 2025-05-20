@@ -167,7 +167,10 @@ Page
                 passwordDialog.message = qsTr("密码错误请重新输入")
             }
         }
-        onCanceled: console.log("操作取消")
+        onCanceled:
+        {
+            console.log("操作取消")
+        }
     }
     Rectangle
     {
