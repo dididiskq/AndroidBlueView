@@ -54,9 +54,9 @@ void setImmersiveMode()
             );
         if (insetsController.isValid())
         {
-            // 隐藏状态栏和导航栏
+            // // 隐藏状态栏和导航栏
             // insetsController.callMethod<void>("hide", "(I)V", 0x00000003); // systemBars()
-            // 设置粘性行为（滑动呼出临时显示）
+            // // 设置粘性行为（滑动呼出临时显示）
             // insetsController.callMethod<void>("setSystemBarsBehavior", "(I)V", 0x00000001);
         }
     }

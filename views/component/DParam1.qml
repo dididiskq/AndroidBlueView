@@ -12,9 +12,17 @@ Page
     Component.onCompleted:
     {
         //获取本页面数据
-        srcDict.sendToBlue(24)
         srcDict.sendToBlue(27)
-
+        temTimer.start()
+    }
+    Timer
+    {
+        id: temTimer
+        interval: 1000
+        onTriggered:
+        {
+            srcDict.sendToBlue(24)
+        }
     }
 
 

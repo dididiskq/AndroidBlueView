@@ -184,7 +184,7 @@ Page
 
                         Text
                         {
-                            text: eventTime
+                            text: model.eventTime
                             Layout.preferredWidth: srcDict.scaled(200)
                             leftPadding: 20
                             color: "white"

@@ -5,6 +5,8 @@ Page
     title: qsTr("设备控制")
     property int flagOpen: -1
     property bool pendingSwitchState: false
+    property bool isSystemOpera: false
+    property var systemData: 0
     background: Rectangle
     {
         color: "transparent"  // 完全透明
@@ -96,6 +98,7 @@ Page
         radius: 10
         Rectangle
         {
+            id: shutDownRect
             x: srcDict.scaled(15)
             y: srcDict.scaled(4)
             width: parent.width - srcDict.scaled(30)
@@ -110,9 +113,36 @@ Page
                 anchors.centerIn: parent
                 text: qsTr("系统关机")
             }
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    isSystemOpera = true
+                    systemData = 1
+                    shutDownRect.color = "white"
+                }
+                onReleased:
+                {
+                    console.log("放开")
+                    releaseTimer1.start()
+                }
+                Timer
+                {
+                    id: releaseTimer1
+                    interval: 150
+                    repeat: false
+                    onTriggered:
+                    {
+                        shutDownRect.color = "transparent"
+                        passwordDialog.open()
+                    }
+                }
+            }
         }
         Rectangle
         {
+            id: rebootDev
             x: srcDict.scaled(15)
             y: srcDict.scaled(136)
             width: parent.width - srcDict.scaled(30)
@@ -120,16 +150,46 @@ Page
             border.color: "white"
             color: "transparent"
             radius: 10
-            Text {
+            Text
+            {
                 id: name1
                 color: "white"
                 font.pixelSize: 25
                 anchors.centerIn: parent
                 text: qsTr("重启系统")
             }
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    isSystemOpera = true
+                    systemData = 0
+                    rebootDev.color = "white"
+                    console.log("按下")
+
+                }
+                onReleased:
+                {
+                    console.log("放开")
+                    releaseTimer2.start()
+                }
+                Timer
+                {
+                    id: releaseTimer2
+                    interval: 150
+                    repeat: false
+                    onTriggered:
+                    {
+                        rebootDev.color = "transparent"
+                        passwordDialog.open()
+                    }
+                }
+            }
         }
         Rectangle
         {
+            id: recoverRect
             x: srcDict.scaled(15)
             y: srcDict.scaled(70)
             width: parent.width - 30
@@ -143,6 +203,32 @@ Page
                 font.pixelSize: 25
                 anchors.centerIn: parent
                 text: qsTr("恢复出厂")
+            }
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    isSystemOpera = true
+                    systemData = 2
+                    recoverRect.color = "white"
+                }
+                onReleased:
+                {
+                    console.log("放开")
+                    releaseTimer3.start()
+                }
+                Timer
+                {
+                    id: releaseTimer3
+                    interval: 150
+                    repeat: false
+                    onTriggered:
+                    {
+                        recoverRect.color = "transparent"
+                        passwordDialog.open()
+                    }
+                }
             }
         }
     }
@@ -158,8 +244,16 @@ Page
             console.log("输入密码:", pwd)
             if(pwd)
             {
-                control.checked = !pendingSwitchState
-                srcDict.writeToBlue(517, flagOpen)
+                 if(!isSystemOpera)
+                 {
+                    control.checked = !pendingSwitchState
+                    srcDict.writeToBlue(517, flagOpen)
+                 }
+                 else
+                {
+                    srcDict.writeToBlue(systemData, flagOpen)
+                 }
+
                 passwordDialog.close()
             }
             else

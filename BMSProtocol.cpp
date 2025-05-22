@@ -343,6 +343,8 @@ QByteArray BMSProtocol::byte_uint32and2(const QVariantMap &data)
     // 从输入获取用户数据并转换为 quint32
     bool ok;
     quint32 userInput = data.value("inputData", 0).toUInt(&ok);
+    userInput *= 1000;
+    qDebug()<<userInput<<"00000";
     if (!ok) {
         qWarning() << "Invalid uint32 input";
         return {};
@@ -352,6 +354,7 @@ QByteArray BMSProtocol::byte_uint32and2(const QVariantMap &data)
     quint32 beValue = qToBigEndian(userInput);
     QByteArray data_(reinterpret_cast<const char*>(&beValue), sizeof(beValue));
 
+    qDebug()<<beValue<<"00000";
     // 添加数据长度和数据内容
     array.append(static_cast<char>(data_.size())); // 数据长度固定为4字节
     array.append(data_);
@@ -941,7 +944,7 @@ QVariantMap BMSProtocol::deal_00(const QByteArray &v, int dataLen)
         return response;
     }
     quint16 temp = (static_cast<quint8>(v[5]) << 8 | static_cast<quint8>(v[6]));
-    response["mosTemp"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 2);
+    response["mosTemp"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 1);
     return response;
 }
 
@@ -954,7 +957,7 @@ QVariantMap BMSProtocol::deal_01(const QByteArray &v, int dataLen)
         return response;
     }
     quint16 temp = (static_cast<quint8>(v[5]) << 8) | static_cast<quint8>(v[6]);
-    response["cell_temp1"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 2);
+    response["cell_temp1"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 1);
     return response;
 }
 QVariantMap BMSProtocol::deal_02(const QByteArray &v, int dataLen)
@@ -965,7 +968,7 @@ QVariantMap BMSProtocol::deal_02(const QByteArray &v, int dataLen)
         return response;
     }
     quint16 temp = (static_cast<quint8>(v[5]) << 8) | static_cast<quint8>(v[6]);
-    response["cell_temp2"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 2);
+    response["cell_temp2"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 1);
     return response;
 }
 QVariantMap BMSProtocol::deal_03(const QByteArray &v, int dataLen)
@@ -982,7 +985,7 @@ QVariantMap BMSProtocol::deal_03(const QByteArray &v, int dataLen)
     }
     else
     {
-        response["cell_temp3"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 2);
+        response["cell_temp3"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 1);
     }
     response["cell_temp3"] = "-- --";
     return response;

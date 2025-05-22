@@ -122,7 +122,7 @@ Row
     Timer
     {
         id: resetTimer
-        interval: 3000
+        interval: 2000
         onTriggered:
         {
             btnText = qsTr("设置")

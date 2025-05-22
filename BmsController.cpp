@@ -13,7 +13,7 @@ BmsController::BmsController(QObject *parent)
                 qDebug() << "蓝牙发现错误：" << error;
         emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("blueclose");
             });
-    sendTimer.setInterval(50);
+    sendTimer.setInterval(100);
     connect(&sendTimer, &QTimer::timeout, this, &BmsController::sendMsgByQueue);
 
     m_writeTimeoutTimer.setSingleShot(true);

@@ -43,7 +43,18 @@ Page {
         //     }
         // }
     }
-
+    LoadingIndicator
+    {
+        id: loadRect
+        anchors.centerIn: parent
+        width: srcDict.scaled(300)  // 自定义尺寸
+        height: srcDict.scaled(150)
+        z: 999
+        bgColor: "#CC303030"  // 自定义背景色
+        textColor: "#00FF00"   // 自定义文字颜色
+        iconColor: "#FFA500"   // 橙色加载图标
+        text: qsTr("刷新中，请稍后") // 自定义提示内容
+    }
     property bool isTriggered: false
     // 主内容容器
     Flickable
@@ -56,7 +67,8 @@ Page {
         onContentYChanged:
         {
             // 当下拉超过顶部时触发（contentY为负值）
-            if(contentY < -100 && !isTriggered) {
+            if(contentY < -100 && !isTriggered && !loadRect.visible)
+            {
                 console.log("下拉到位")
                 isTriggered = true
             }
@@ -64,9 +76,12 @@ Page {
         onMovementEnded:
         {
 
-            if(isTriggered)
+            if(isTriggered && !loadRect.visible)
             {
                 console.log("下拉结束")
+                srcDict.sendToBlue(24)
+                srcDict.getProtectMessage(1)
+                loadRect.startLoad()
             }
 
             isTriggered = false  // 重置状态
@@ -184,10 +199,11 @@ Page {
                             text: model.typeData
                             font.pixelSize: 16
                             color: "white"
-                            // anchors.left: parent.left
+                            anchors.left: parent.left
+                            anchors.leftMargin: srcDict.scaled(15)
                             anchors.bottom: parent.bottom
                             anchors.bottomMargin: srcDict.scaled(20)
-                            anchors.horizontalCenter: parent.horizontalCenter
+                            // anchors.horizontalCenter: parent.horizontalCenter
                         }
 
                         Image

@@ -79,8 +79,8 @@ Page
                 minePage.reallStackView.pop(null, StackView.Immediate);
                 swipeView.currentIndex = 0
                 devPage.realDrawer.close()
-                devPage.realTimer.start()
-                mainPage.realTimer.stop()
+                // devPage.realTimer.start()
+                // mainPage.realTimer.stop()
             }
 
         }
@@ -96,8 +96,8 @@ Page
                 minePage.reallStackView.pop(null, StackView.Immediate);
                 swipeView.currentIndex = 1
                 devPage.realDrawer.close()
-                mainPage.realTimer.start()
-                devPage.realTimer.stop()
+                // mainPage.realTimer.start()
+                // devPage.realTimer.stop()
             }
         }
         STabButton
@@ -111,9 +111,8 @@ Page
                 devPage.reallStackView.pop(null, StackView.Immediate);
                 swipeView.currentIndex = 2
                 devPage.realDrawer.close()
-                devPage.realTimer.stop()
-                mainPage.realTimer.stop()
-
+                // devPage.realTimer.stop()
+                // mainPage.realTimer.stop()
             }
 
         }

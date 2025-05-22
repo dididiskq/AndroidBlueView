@@ -225,6 +225,6 @@ bool CHMViewCommand::onGetProtectMsg(const QVariantMap &op)
 
 bool CHMViewCommand::onCloseApp(const QVariantMap &op)
 {
-    QCoreApplication::quit();
+    emit closeAppSignal();
     return true;
 }

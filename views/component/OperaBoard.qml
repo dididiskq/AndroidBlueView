@@ -29,7 +29,23 @@ Page
             anchors.fill: parent
             onClicked:
             {
-
+                srcDict.writeToBlue(257, 0)
+                rectangle.color = "white"
+            }
+            onReleased:
+            {
+                console.log("放开")
+                releaseTimer1.start()
+            }
+            Timer
+            {
+                id: releaseTimer1
+                interval: 150
+                repeat: false
+                onTriggered:
+                {
+                    rectangle.color = "transparent"
+                }
             }
         }
     }
@@ -76,6 +92,7 @@ Page
                 anchors.fill: parent
                 onClicked:
                 {
+                    writeLabel.color = "green"
                     if(inputRec.inputObj.text === "")
                     {
                         loadRect.startLoad()
@@ -86,6 +103,20 @@ Page
                         srcDict.writeToBlue(582, inputRec.inputObj.text)
                         loadRect.visible = true
                         loadRect.text = qsTr("请稍后...")
+                    }
+                }
+                onReleased:
+                {
+                    releaseTimer2.start()
+                }
+                Timer
+                {
+                    id: releaseTimer2
+                    interval: 150
+                    repeat: false
+                    onTriggered:
+                    {
+                        writeLabel.color = "white"
                     }
                 }
             }
@@ -147,7 +178,21 @@ Page
             anchors.fill: parent
             onClicked:
             {
-
+                rectangle2.color = "white"
+            }
+            onReleased:
+            {
+                releaseTimer3.start()
+            }
+            Timer
+            {
+                id: releaseTimer3
+                interval: 150
+                repeat: false
+                onTriggered:
+                {
+                    rectangle2.color = "transparent"
+                }
             }
         }
     }

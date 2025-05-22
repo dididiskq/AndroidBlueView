@@ -19,21 +19,16 @@ Page
         repeat: false     // 首次不重复
         onTriggered:
         {
-            srcDict.sendToBlue(20)
-            srcDict.sendToBlue(4)
-            srcDict.sendToBlue(6)
-            srcDict.sendToBlue(0)
-            srcDict.sendToBlue(1)
-            srcDict.sendToBlue(2)
-            srcDict.sendToBlue(14)
-            srcDict.sendToBlue(26)
+            return
+
 
             // 调整间隔和重复模式
-            interval = 5000
-            repeat = true
-            start()
+            // interval = 5000
+            // repeat = true
+            // start()
         }
     }
+
     StackView
     {
         id: stackView1
@@ -59,6 +54,19 @@ Page
         return res
     }
 
+    function sendDataToBlue()
+    {
+        srcDict.sendToBlue(20)
+        srcDict.sendToBlue(4)
+        srcDict.sendToBlue(6)
+        srcDict.sendToBlue(0)
+        srcDict.sendToBlue(1)
+        srcDict.sendToBlue(2)
+        srcDict.sendToBlue(8)
+        srcDict.sendToBlue(14)
+        srcDict.sendToBlue(26)
+        srcDict.sendToBlue(27)
+    }
 
     property bool isTriggered: false
     Page
@@ -175,6 +183,19 @@ Page
         //         mainPageTimer.start()
         //     }
         // }
+
+        LoadingIndicator
+        {
+            id: loadRect
+            anchors.centerIn: parent
+            width: srcDict.scaled(300)  // 自定义尺寸
+            height: srcDict.scaled(150)
+            z: 999
+            bgColor: "#CC303030"  // 自定义背景色
+            textColor: "#00FF00"   // 自定义文字颜色
+            iconColor: "#FFA500"   // 橙色加载图标
+            text: qsTr("刷新中，请稍后") // 自定义提示内容
+        }
         Flickable
         {
             id: flickable
@@ -187,7 +208,7 @@ Page
             onContentYChanged:
             {
                 // 当下拉超过顶部时触发（contentY为负值）
-                if(contentY < -100 && !isTriggered) {
+                if(contentY < -100 && !isTriggered && !loadRect.visible) {
                     console.log("下拉到位")
                     isTriggered = true
                 }
@@ -195,9 +216,11 @@ Page
             onMovementEnded:
             {
 
-                if(isTriggered)
+                if(isTriggered && !loadRect.visible)
                 {
                     console.log("下拉结束")
+                    sendDataToBlue()
+                    loadRect.startLoad()
                 }
 
                 isTriggered = false  // 重置状态
@@ -315,7 +338,7 @@ Page
                     font.pixelSize: 12
                     font.bold: true
                     // text: String(srcDict.remaining_capacity === undefined ? "0" : srcDict.remaining_capacity) + "AH"
-                    text: String(srcDict.remaining_capacity !== undefined ? (srcDict.remaining_capacity / 100).toFixed(2) : "0.00") + "AH"
+                    text: String(srcDict.remaining_capacity !== undefined ? (srcDict.remaining_capacity / 1000).toFixed(2) : "0.00") + "AH"
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: lab2.right
                     anchors.leftMargin: srcDict.scaled(10)
@@ -460,7 +483,7 @@ Page
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: srcDict.scaled(10)
                         color: "white"
-                        font.pixelSize: 23
+                        font.pixelSize: 20
                         text: srcDict.temperature1 === undefined ? "" : (srcDict.temperature1 + "℃")
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
@@ -487,7 +510,7 @@ Page
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: srcDict.scaled(10)
                         color: "white"
-                        font.pixelSize: 23
+                        font.pixelSize: 20
                         text: srcDict.temperature2 === undefined ? "" : (srcDict.temperature2 + "℃")
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
@@ -514,7 +537,7 @@ Page
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: srcDict.scaled(10)
                         color: "white"
-                        font.pixelSize: 23
+                        font.pixelSize: 20
                         text: srcDict.mosTemperature === undefined ? "" : (srcDict.mosTemperature  + "℃")
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
@@ -576,7 +599,7 @@ Page
                         anchors.left: img.right
                         font.pixelSize: {
                                     const length = text.length
-                                    return length > 2 ? 24 : 30
+                                    return length > 2 ? 24 : 26
                                 }
                         text: srcDict.alarmlStatus === undefined ? "0" : String(srcDict.alarmlStatus)
                     }
@@ -635,7 +658,7 @@ Page
                         anchors.left: imgCir.right
                         font.pixelSize: {
                                     const length = text.length
-                                    return length > 2 ? 24 : 30
+                                    return length > 2 ? 24 : 26
                                 }
                         text: srcDict.cycles_number === undefined ? "0" : srcDict.cycles_number
                     }
@@ -680,12 +703,11 @@ Page
                         anchors.left: imgYc.right
                         font.pixelSize: {
                                     const length = text.length
-                                    return length > 2 ? 24 : 30
+                                    return length > 2 ? 24 : 26
                                 }
                         text: srcDict.yaCha === undefined ? "0" : String(srcDict.yaCha)
                     }
                 }
-
 
             }
 
@@ -707,7 +729,7 @@ Page
                     font.pixelSize: 14
                     anchors.centerIn: parent
                     color: "white"
-                    text: srcDict.conectedBlueName === undefined ? "请先连接设备": srcDict.conectedBlueName
+                    text: srcDict.conectedBlueName === undefined ? "请先连接设备": srcDict.conectedBlueName.trim()
                 }
             }
         }

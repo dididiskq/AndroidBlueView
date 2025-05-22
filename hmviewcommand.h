@@ -59,6 +59,7 @@ signals:
     void protectMsgSignal(const int type);
     void parseCodeSlot(const QImage& img);
     void cameraOpera(const int type);
+    void closeAppSignal();
 public:
     CHMModule *selfObj;
     CHMView selfView;                                             // 界面对象

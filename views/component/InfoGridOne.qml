@@ -67,7 +67,7 @@ Row
             Label
             {
                 // text: "剩余容量：" + String(srcDict.remaining_capacity === undefined ? "0" : srcDict.remaining_capacity)+ "AH"
-                text: qsTr("剩余容量：") + String(srcDict.remaining_capacity !== undefined ? (srcDict.remaining_capacity / 100).toFixed(2) : "0.00") + "AH"
+                text: qsTr("剩余容量：") + String(srcDict.remaining_capacity !== undefined ? (srcDict.remaining_capacity / 1000).toFixed(2) : "0.00") + "AH"
                 font.pixelSize: 14
                 color: "white"
             }

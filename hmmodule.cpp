@@ -44,6 +44,7 @@ void CHMModule::initConnectSlots()
     connect(selfViewCommand, &CHMViewCommand::connectBlueSlot, selfBmsCommand, &BmsController::connectBlue);
     connect(selfViewCommand, &CHMViewCommand::protectMsgSignal, selfBmsCommand, &BmsController::getProtectMsgSlot);
     connect(selfViewCommand, &CHMViewCommand::parseCodeSlot, this, &CHMModule::parseCode);
+    connect(selfViewCommand, &CHMViewCommand::closeAppSignal, this, &CHMModule::closeAppSlot);
 
 }
 // 重写父类的方法
@@ -136,6 +137,38 @@ void CHMModule::parseCode(const QImage&  img)
         }
         qDebug()<<info<<"666";
     });
+}
+
+void CHMModule::closeAppSlot()
+{
+    // 获取系统 fade_out 动画资源 ID
+    jint exitAnimId = QJniObject::getStaticField<jint>(
+        "android/R$anim",      // Java类路径
+        "fade_out"             // 资源字段名
+        );
+
+    // 调用 Activity 的 finish 方法
+    QJniObject activity = QJniObject::callStaticObjectMethod(
+        "org/qtproject/qt/android/QtActivityDelegate",
+        "activity",
+        "()Landroid/app/Activity;"
+        );
+
+    if (activity.isValid()) {
+        activity.callMethod<void>("finish");
+
+        // 设置退出动画
+        QJniObject::callStaticMethod<void>(
+            "android/app/Activity",
+            "overridePendingTransition",
+            "(II)V",
+            0,         // enterAnim (0表示无动画)
+            exitAnimId // 使用获取到的系统退出动画ID
+            );
+    } else {
+        qApp->quit();
+    }
+    // qApp->quit();
 }
 
 

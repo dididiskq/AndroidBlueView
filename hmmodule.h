@@ -30,6 +30,7 @@ public slots:
 
     void playVoices(const QString path);
     void parseCode(const QImage&  img);
+    void closeAppSlot();
 
 public:
         // 配置文件

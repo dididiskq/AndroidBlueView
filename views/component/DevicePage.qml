@@ -15,13 +15,13 @@ Page
         repeat: false     // 首次不重复
         onTriggered:
         {
-
+            return
             // srcDict.sendToBlue(24)
-            srcDict.getProtectMessage(1)
-            // 调整间隔和重复模式
-            interval = 5000
-            repeat = true
-            start()
+            // srcDict.getProtectMessage(1)
+            // // 调整间隔和重复模式
+            // interval = 5000
+            // repeat = true
+            // start()
         }
     }
 
