@@ -5,7 +5,8 @@
 #include <QQuickWindow>
 #include <QJniObject>
 #include <QJniEnvironment>
-
+#include <QtCore/qnativeinterface.h>
+using namespace QNativeInterface;
 void setImmersiveMode()
 {
     // 获取当前 Activity 对象
@@ -81,6 +82,19 @@ int main(int argc, char *argv[])
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
     QGuiApplication a(argc, argv);  // 主线程
     setImmersiveMode();
+    QObject::connect(&a, &QCoreApplication::aboutToQuit, []() {
+        jobject activity = QAndroidApplication::context();
+        QJniObject javaActivity(activity);
+
+        if (javaActivity.isValid()) {
+            // 使用系统动画方式退出
+            javaActivity.callMethod<void>("finishAndRemoveTask");
+
+            // 清理引用
+            QJniEnvironment env;
+            env->DeleteLocalRef(activity);
+        }
+    });
 
    // CHMModule module;
     std::unique_ptr<CHMModule> module(new CHMModule());

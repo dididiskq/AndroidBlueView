@@ -71,5 +71,7 @@
         <file>android/res/mipmap-xxhdpi/ic_launcher.png</file>
         <file>views/component/AlarmMsgPage.qml</file>
         <file>views/component/LoadingIndicator.qml</file>
+        <file>android/res/values/styles.xml</file>
+        <file>android/res/drawable/splash_image.png</file>
     </qresource>
 </RCC>
