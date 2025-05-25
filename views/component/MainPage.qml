@@ -601,7 +601,7 @@ Page
                                     const length = text.length
                                     return length > 2 ? 24 : 26
                                 }
-                        text: srcDict.alarmlStatus === undefined ? "0" : String(srcDict.alarmlStatus)
+                        text: srcDict.alarmCount === undefined ? "0" : String(srcDict.alarmCount)
                     }
                     MouseArea
                     {

@@ -79,7 +79,7 @@ Page {
             if(isTriggered && !loadRect.visible)
             {
                 console.log("下拉结束")
-                srcDict.sendToBlue(24)
+                // srcDict.sendToBlue(24)
                 srcDict.getProtectMessage(1)
                 loadRect.startLoad()
             }

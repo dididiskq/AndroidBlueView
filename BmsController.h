@@ -13,6 +13,8 @@
 #include "hmmodule.h"
 #include<QQueue>
 #include"BMSProtocol.h"
+#include<QMutex>
+#include<QWaitCondition>
 class CHMModule;
 static QString byteArrayToHexStr(const QByteArray &data)
 {
@@ -129,7 +131,8 @@ public slots:
 
     void forceDisconnect();
     void cleanupResources();
-private:
+
+    QVariantMap sendSync(const QVariantMap &op, int timeout);
 
     void processNextWriteRequest();
 public:
@@ -179,4 +182,12 @@ private:
                            17,18,19,20,21,22,
                            23,24,26,27,28,
                            29,30,31};
+    int alarmCount = 0;
+private:
+    QMutex m_syncMutex;
+    QWaitCondition m_syncCondition;
+    QByteArray m_lastSyncResponse;
+    bool m_waitingForResponse = false;
+    int m_currentSyncCmd = -1;
+    QElapsedTimer m_syncTimer;
 };

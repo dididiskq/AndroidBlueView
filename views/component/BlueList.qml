@@ -187,6 +187,11 @@ Page
                 sracchLab.text = qsTr("搜索设备")
                 searchBlue.enabled = true
             }
+            else if(message === "errorCon")
+            {
+                blueName.text = conectedName + qsTr("-连接错误，请重试")
+                icConnecting = false
+            }
         }
     }
 
@@ -262,14 +267,16 @@ Page
                             anchors.fill: parent
                             onClicked:
                             {
-                                print("发送连接请求",model.text ,model.addr)
+
                                 if(icConnecting)
                                 {
                                     return
                                 }
+                                print("发送连接请求",model.text ,model.addr)
                                 icConnecting = true
                                 conectedName = model.text
-                                model.text = model.text + qsTr("-正在连接")
+                                blueName.text = conectedName + qsTr("-正在连接")
+                                // model.text = model.text + qsTr("-正在连接")
                                 deRect.color = "green"
                                 srcDict.connectBlue(model.addr)
 

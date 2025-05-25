@@ -103,6 +103,12 @@ public:
     QByteArray byte_int16and1(const QVariantMap& data);
     QByteArray byte_uint32and2(const QVariantMap& data);
     QByteArray byte_floatand2(const QVariantMap& data);
+    QByteArray byte_0000(const QVariantMap& data);
+    QByteArray byte_0001(const QVariantMap& data);
+    QByteArray byte_0002(const QVariantMap& data);
+    QByteArray byte_0003(const QVariantMap& data);
+    QByteArray byte_0004(const QVariantMap& data);
+    QByteArray byte_0101(const QVariantMap& data);
 
 
 

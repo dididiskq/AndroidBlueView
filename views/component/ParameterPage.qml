@@ -41,7 +41,19 @@ ColumnLayout
             }
         }
     }
+    LoadingIndicator
+    {
+        id: loadRect
 
+        Layout.preferredWidth: srcDict.scaled(300)   // 替代 width
+        Layout.preferredHeight: srcDict.scaled(150)  // 替代 height
+        Layout.alignment: Qt.AlignCenter            // 替代 anchors.centerIn
+        z: 999
+        bgColor: "#CC303030"  // 自定义背景色
+        textColor: "#00FF00"   // 自定义文字颜色
+        iconColor: "#FFA500"   // 橙色加载图标
+        text: qsTr("设置成功") // 自定义提示内容
+    }
     Connections
     {
         target: context
@@ -50,9 +62,19 @@ ColumnLayout
             var item = repeater.itemAt(srcDict.itemIndex)
             if(message === "66")
             {
+                if(srcDict.temType === 513)
+                {
+                    loadRect.startLoad()
+                    return
+                }
                 item.btnText = qsTr("设置成功")
                 item.resetTimer.start()
-                console.log("设置成功")
+                console.log("设置成功", celldata)
+                if(celldata === 512)
+                {
+                    chuanTimer.start()
+                }
+
             }
             else if(message === "-66")
             {
@@ -66,6 +88,17 @@ ColumnLayout
             }
         }
     }
+    Timer
+    {
+        id: chuanTimer
+        interval: 500
+        repeat: false
+        onTriggered:
+        {
+            srcDict.sendToBlue(24)
+        }
+    }
+
     PasswordDialog
     {
         id: passwordDialog

@@ -100,6 +100,12 @@ BMSProtocol::BMSProtocol(QObject *parent) : QObject(parent)
 
     //写组装函数
     //寄存器数量相同，数据段类型相同
+    writeByteCommands[0x0000] = [this](const QVariantMap& data) { return byte_0000(data); };
+    writeByteCommands[0x0001] = [this](const QVariantMap& data) { return byte_0001(data); };
+    writeByteCommands[0x0002] = [this](const QVariantMap& data) { return byte_0002(data); };
+    writeByteCommands[0x0003] = [this](const QVariantMap& data) { return byte_0003(data); };
+    writeByteCommands[0x0004] = [this](const QVariantMap& data) { return byte_0004(data); };
+    writeByteCommands[0x0101] = [this](const QVariantMap& data) { return byte_0101(data); };
     writeByteCommands[0x200] = [this](const QVariantMap& data) { return byte_200(data); };
     writeByteCommands[0x201] = [this](const QVariantMap& data) { return byte_200(data); };
     writeByteCommands[0x202] = [this](const QVariantMap& data) { return byte_200(data); };
@@ -344,7 +350,6 @@ QByteArray BMSProtocol::byte_uint32and2(const QVariantMap &data)
     bool ok;
     quint32 userInput = data.value("inputData", 0).toUInt(&ok);
     userInput *= 1000;
-    qDebug()<<userInput<<"00000";
     if (!ok) {
         qWarning() << "Invalid uint32 input";
         return {};
@@ -354,7 +359,7 @@ QByteArray BMSProtocol::byte_uint32and2(const QVariantMap &data)
     quint32 beValue = qToBigEndian(userInput);
     QByteArray data_(reinterpret_cast<const char*>(&beValue), sizeof(beValue));
 
-    qDebug()<<beValue<<"00000";
+
     // 添加数据长度和数据内容
     array.append(static_cast<char>(data_.size())); // 数据长度固定为4字节
     array.append(data_);
@@ -370,7 +375,8 @@ QByteArray BMSProtocol::byte_floatand2(const QVariantMap &data)
     // 从输入获取用户数据并转换为 float
     bool ok;
     float userInput = data.value("inputData", 0.0f).toFloat(&ok);
-    if (!ok) {
+    if (!ok)
+    {
         qWarning() << "Invalid float input";
         return {};
     }
@@ -384,6 +390,96 @@ QByteArray BMSProtocol::byte_floatand2(const QVariantMap &data)
     // 添加数据长度和数据内容
     array.append(static_cast<char>(data_.size())); // 数据长度固定为4字节
     array.append(data_);
+    return array;
+}
+
+QByteArray BMSProtocol::byte_0000(const QVariantMap &data)
+{
+    QByteArray array;
+    quint16 regCount = 1;
+    array.append(static_cast<char>((regCount >> 8) & 0xFF));
+    array.append(static_cast<char>(regCount & 0xFF));
+
+    QByteArray data_;
+    QDataStream stream(&data_, QIODevice::WriteOnly);
+    stream.setByteOrder(QDataStream::BigEndian);  // 强制大端序
+    stream << 0x0000;
+    array.append(data_);
+
+    return array;
+}
+
+QByteArray BMSProtocol::byte_0001(const QVariantMap &data)
+{
+    QByteArray array;
+
+    quint16 regCount = 1;
+    array.append(static_cast<char>((regCount >> 8) & 0xFF));
+    array.append(static_cast<char>(regCount & 0xFF));
+
+    QByteArray data_;
+    QDataStream stream(&data_, QIODevice::WriteOnly);
+    stream.setByteOrder(QDataStream::BigEndian);  // 强制大端序
+    stream << 0x0000;
+    array.append(data_);
+
+    return array;
+}
+
+QByteArray BMSProtocol::byte_0002(const QVariantMap &data)
+{
+    QByteArray array;
+    return array;
+}
+
+QByteArray BMSProtocol::byte_0003(const QVariantMap &data)
+{
+    QByteArray array;
+
+    quint16 regCount = 1;
+    array.append(static_cast<char>((regCount >> 8) & 0xFF));
+    array.append(static_cast<char>(regCount & 0xFF));
+
+    QByteArray data_;
+    QDataStream stream(&data_, QIODevice::WriteOnly);
+    stream.setByteOrder(QDataStream::BigEndian);  // 强制大端序
+    stream << 0x0000;
+    array.append(data_);
+
+    return array;
+}
+
+QByteArray BMSProtocol::byte_0004(const QVariantMap &data)
+{
+    QByteArray array;
+
+    quint16 regCount = 1;
+    array.append(static_cast<char>((regCount >> 8) & 0xFF));
+    array.append(static_cast<char>(regCount & 0xFF));
+
+    QByteArray data_;
+    QDataStream stream(&data_, QIODevice::WriteOnly);
+    stream.setByteOrder(QDataStream::BigEndian);  // 强制大端序
+    stream << 0x0000;
+    array.append(data_);
+
+    return array;
+}
+
+QByteArray BMSProtocol::byte_0101(const QVariantMap &data)
+{
+    QByteArray array;
+
+    quint16 regCount = 1;
+    array.append(static_cast<char>((regCount >> 8) & 0xFF));
+    array.append(static_cast<char>(regCount & 0xFF));
+
+    QByteArray data_;
+    QDataStream stream(&data_, QIODevice::WriteOnly);
+    stream.setByteOrder(QDataStream::BigEndian);  // 强制大端序
+    stream << 0x0000;
+    array.append(data_);
+
     return array;
 }
 
@@ -886,9 +982,102 @@ QVariantMap BMSProtocol::deal_0C(const QByteArray &v, int dataLen)
     int fangStatus = static_cast<quint8>(v[6]) & 1;
     int chongStatus = static_cast<quint8>(v[6]) & 2;
     int junhengStatus = static_cast<quint8>(v[6]) & 0x80;
+    int b11 = static_cast<quint8>(v[7]) & 8;
+    int b10 = static_cast<quint8>(v[7]) & 4;
+    int b9 = static_cast<quint8>(v[7]) & 2;
+    int b8 = static_cast<quint8>(v[7]) & 1;
+    int b7 = static_cast<quint8>(v[8]) & 0x80;
+    int b6 = static_cast<quint8>(v[8]) & 0x40;
+    int b5 = static_cast<quint8>(v[8]) & 0x20;
+    int b4 = static_cast<quint8>(v[8]) & 0x10;
+    int b3 = static_cast<quint8>(v[8]) & 8;
+    int b2 = static_cast<quint8>(v[8]) & 4;
+    int b1 = static_cast<quint8>(v[8]) & 2;
+    int b0 = static_cast<quint8>(v[8]) & 1;
+
+
     response["fMos"] = fangStatus;
     response["cMos"] = chongStatus;
     response["junhengStatus"] = junhengStatus;
+
+    QVector<QString> errMsgArray;
+    QString res = "normal";
+    int alarmCount = 0;
+    if(b11)
+    {
+        res = "放电高温标志";
+        errMsgArray.push_back(res);
+        alarmCount++;
+
+    }
+    if(b10)
+    {
+        res = "放电低温标志";
+        errMsgArray.push_back(res);
+alarmCount++;
+    }
+    if(b9)
+    {
+        res = "充电高温标志";
+        errMsgArray.push_back(res);
+alarmCount++;
+    }
+    if(b8)
+    {
+        res = "充电低温标志";
+        errMsgArray.push_back(res);
+alarmCount++;
+    }
+    if(b7)
+    {
+        res = "低压禁充标志";
+        errMsgArray.push_back(res);
+alarmCount++;
+    }
+    if(b6)
+    {
+        res = "断线标志";
+        errMsgArray.push_back(res);
+alarmCount++;
+    }
+    if(b5)
+    {
+        res = "短路标志";
+        errMsgArray.push_back(res);
+alarmCount++;
+    }
+    if(b4)
+    {
+        res = "充电过流标志";
+        errMsgArray.push_back(res);
+alarmCount++;
+    }
+    if(b3)
+    {
+        res = "放电过流2标志";
+        errMsgArray.push_back(res);
+alarmCount++;
+    }
+    if(b2)
+    {
+        res = "放电过流1标志";
+        errMsgArray.push_back(res);
+alarmCount++;
+    }
+    if(b1)
+    {
+        res = "欠压标志";
+        errMsgArray.push_back(res);
+alarmCount++;
+    }
+    if(b0)
+    {
+        res = "过压标志";
+        errMsgArray.push_back(res);
+alarmCount++;
+    }
+    response["afeList"] = errMsgArray;
+    response["alarmCount"] = alarmCount;
     return response;
 }
 
@@ -1048,7 +1237,7 @@ QVariantMap BMSProtocol::deal_0E(const QByteArray &v, int dataLen)
         alarmCount++;
     }
 
-    response["alarm_status"] = alarmCount;
+    response["alarmCount"] = alarmCount;
     response["alarm_msg_array"] = errMsgArray;
     return response;
 }
@@ -1063,13 +1252,105 @@ QVariantMap BMSProtocol::deal_0F(const QByteArray &v, int dataLen)
         return response;
     }
     quint16 status = (static_cast<quint8>(v[5]) << 8) | static_cast<quint8>(v[6]);
+    int b15 = static_cast<quint8>(v[5]) & 0x80;
+    int b14 = static_cast<quint8>(v[5]) & 0x40;
+    int b13 = static_cast<quint8>(v[5]) & 0x20;
+    int b12 = static_cast<quint8>(v[5]) & 0x10;
+    int b11 = static_cast<quint8>(v[5]) & 8;
+    int b10 = static_cast<quint8>(v[5]) & 4;
+    int b8 = static_cast<quint8>(v[5]) & 1;
 
-    QVariantMap statusMap;
-    statusMap["放电状态"] = (status & 0x0800) ? "放电中" : "未放电";
-    statusMap["充电状态"] = (status & 0x1000) ? "充电中" : "未充电";
-    statusMap["满充标志"] = (status & 0x0100) ? "已满充" : "未满充";
-    // ... 其他位解析类似
-    response["pack_status"] = statusMap;
+    int b5 = static_cast<quint8>(v[6]) & 0x20;
+    int b4 = static_cast<quint8>(v[6]) & 0x10;
+    int b3 = static_cast<quint8>(v[6]) & 8;
+    int b2 = static_cast<quint8>(v[6]) & 4;
+    int b1 = static_cast<quint8>(v[6]) & 2;
+    int b0 = static_cast<quint8>(v[6]) & 1;
+    QVector<QString> errMsgArray;
+    QString res = "normal";
+    int alarmCount = 0;
+    if(b15)
+    {
+        res = "正版固件标志";
+        errMsgArray.push_back(res);
+        alarmCount++;
+
+    }
+    if(b14)
+    {
+        res = "允许放电标志";
+        errMsgArray.push_back(res);
+        alarmCount++;
+    }
+    if(b13)
+    {
+        res = "AFE配置失败标志";
+        errMsgArray.push_back(res);
+        alarmCount++;
+    }
+    if(b12)
+    {
+        res = "充电标志";
+        errMsgArray.push_back(res);
+        alarmCount++;
+    }
+    if(b11)
+    {
+        res = "放电标志";
+        errMsgArray.push_back(res);
+        alarmCount++;
+    }
+    if(b10)
+    {
+        res = "允许容量更新标志";
+        errMsgArray.push_back(res);
+        alarmCount++;
+    }
+
+    if(b8)
+    {
+        res = "满充电标志";
+        errMsgArray.push_back(res);
+        alarmCount++;
+    }
+    if(b5)
+    {
+        res = "强制关闭充电标志";
+        errMsgArray.push_back(res);
+        alarmCount++;
+    }
+    if(b4)
+    {
+        res = "强制开启充电标志";
+        errMsgArray.push_back(res);
+        alarmCount++;
+    }
+    if(b3)
+    {
+        res = "强制关闭放电标志";
+        errMsgArray.push_back(res);
+        alarmCount++;
+    }
+    if(b2)
+    {
+        res = "强制开启放电标志";
+        errMsgArray.push_back(res);
+        alarmCount++;
+    }
+    if(!b1)
+    {
+        res = "电流校准标志";
+        errMsgArray.push_back(res);
+        alarmCount++;
+    }
+    if(!b0)
+    {
+        res = "零电流未校准标志";
+        errMsgArray.push_back(res);
+        alarmCount++;
+    }
+    response["pack_status"] = errMsgArray;
+    response["alarmCount"] = alarmCount;
     return response;
 }
 

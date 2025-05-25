@@ -13,7 +13,7 @@ BmsController::BmsController(QObject *parent)
                 qDebug() << "蓝牙发现错误：" << error;
         emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("blueclose");
             });
-    sendTimer.setInterval(100);
+    sendTimer.setInterval(150);
     connect(&sendTimer, &QTimer::timeout, this, &BmsController::sendMsgByQueue);
 
     m_writeTimeoutTimer.setSingleShot(true);
@@ -156,19 +156,36 @@ void BmsController::cleanupResources()
 }
 void BmsController::connectBlue(const QString addr)
 {
-    // 强制断开旧连接
-    // this->forceDisconnect();
+
 
     // 如果当前控制器存在且未断开，先断开旧连接
     if (mController && mController->state() != QLowEnergyController::UnconnectedState)
     {
         // 使用SingleShot确保只触发一次
-        QObject::connect(mController, &QLowEnergyController::disconnected, this,
-                         [this, addr]() {
-                             mController->deleteLater();
-                             mController = nullptr;
-                             this->connectBlue(addr); // 重新调用以连接新设备
-                         }, Qt::SingleShotConnection);
+        // QObject::connect(mController, &QLowEnergyController::disconnected, this,
+        //                  [this, addr]() {
+        //                      mController->deleteLater();
+        //                      mController = nullptr;
+        //                      this->connectBlue(addr); // 重新调用以连接新设备
+        //                  }, Qt::SingleShotConnection);
+
+        // mController->disconnectFromDevice();
+        // isConnected = false;
+        // return; // 等待断开完成
+
+        // 避免重复连接信号
+        static QMetaObject::Connection disconnectHandler;
+        QObject::disconnect(disconnectHandler);
+
+        // 使用SingleShot确保只触发一次
+        disconnectHandler = QObject::connect(mController, &QLowEnergyController::disconnected, this,
+                                             [this, addr]() {
+                                                 if (mController) {
+                                                     mController->deleteLater();
+                                                     mController = nullptr;
+                                                 }
+                                                 this->connectBlue(addr); // 重新调用以连接新设备
+                                             }, Qt::SingleShotConnection);
 
         mController->disconnectFromDevice();
         isConnected = false;
@@ -189,9 +206,10 @@ void BmsController::connectBlue(const QString addr)
     connect(mController, &QLowEnergyController::serviceDiscovered,this, &BmsController::serviceDiscovered);//扫描目标BLE服务,获取一次触发一次
     connect(mController, &QLowEnergyController::discoveryFinished,this, &BmsController::serviceScanDone);//扫描完成之后会触发此信号
 
-    connect(mController, &QLowEnergyController::errorOccurred,this, [](QLowEnergyController::Error error) {
+    connect(mController, &QLowEnergyController::errorOccurred,this, [this](QLowEnergyController::Error error) {
         Q_UNUSED(error);
         qDebug()<<"Cannot connect to remote device.";
+        emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("errorCon");
     });//连接出错
     connect(mController, &QLowEnergyController::connected, this, [this]() {
         qDebug()<< "Controller connected. Search services...";
@@ -209,7 +227,7 @@ void BmsController::viewWriteMessage(const QVariantMap &op)
 {
     if(isConnected == false || isWriting)
     {
-        qDebug()<<"蓝牙未连接";
+        qDebug()<<"蓝牙未连接6666";
         return;
     }
     QByteArray array;
@@ -218,6 +236,10 @@ void BmsController::viewWriteMessage(const QVariantMap &op)
 
     v = op;
     v["funcCode"] = 0x10;
+
+    // sendSync(v, 5000);
+
+
     array = protocal.byte(v);
 
     // 将请求加入队列
@@ -229,20 +251,6 @@ void BmsController::viewWriteMessage(const QVariantMap &op)
         processNextWriteRequest();
     }
 
-    // 暂停读取队列
-    // sendTimer.stop();
-    // if (currentService && m_Characteristic[0].isValid())
-    // {
-
-        //     m_waitingWriteResponse = true;
-        //     m_writeTimeoutTimer.start(5000); // 5秒超时
-        //     currentService->writeCharacteristic(m_Characteristic[0], array, QLowEnergyService::WriteWithoutResponse);
-        // }
-        // else
-        // {
-        //     emit writeOperationCompleted(false, "服务或特征无效");
-        //     sendTimer.start(); // 恢复队列
-        // }
 }
 void BmsController::processNextWriteRequest()
 {
@@ -514,13 +522,6 @@ void BmsController::getProtectMsgSlot(const int type)
 {
     if(type == 1)
     {
-        // QVector<int> cellVcmdList{32,33,34,35,36,37,38,39,40,
-        //                           41,42,43,44,45,46,47,48,49,50,51,52,53,54,
-        //                           55, 56,57,58,59,60,61,62,63};
-        // for(const auto& i: cellVcmdList)
-        // {
-        //     viewMessage(i);
-        // }
 
         for(int i = 32; i <= 32 + cellNums; i++)
         {
@@ -634,6 +635,7 @@ void BmsController::serviceScanDone()
         {
             currentService = it;
             qDebug()<<"serviceScanDone"<<currentService->serviceUuid();
+            // qDebug()<<"serviceScanDone"<<(SERVICE_UUID == currentService->serviceUuid());
             break;
         }
     }
@@ -667,6 +669,20 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
         QVariantMap map = protocal.parse(value);
         // qDebug()<<"数据解析内容："<<map;
 
+        // 先处理同步响应 --------------------------------------------------
+        // if (m_waitingForResponse &&
+        //     map.contains("funcCode") &&
+        //     map.value("funcCode").toInt() == m_currentSyncCmd &&
+        //     !map.contains("error")) // 排除错误响应
+        // {
+        //     QMutexLocker locker(&m_syncMutex);
+        //     m_lastSyncResponse = value;
+        //     m_waitingForResponse = false;
+        //     m_syncCondition.wakeAll();
+        //     return; // 同步响应优先处理，无需后续处理
+        // }
+
+
         if(map.value("error", -1).toInt() == 1)
         {
             qDebug()<<"报文错误";
@@ -677,6 +693,7 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
             qDebug()<<"command not found";
             return;
         }
+
 
         quint16 funcCode = map.value("funcCode").toUInt();
 
@@ -725,6 +742,8 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("cMos", map.value("cMos"));
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fMos", map.value("fMos"));
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("junhengStatus", map.value("junhengStatus"));
+                selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("afeList", map.value("afeList").toList());
+                alarmCount += map.value("alarmCount").toInt();
             }
             else if(funcCode == 0x0018)
             {
@@ -759,12 +778,15 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
             }
             else if(funcCode == 0x000E)
             {
-                selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("alarmlStatus", map.value("alarm_status"));
+                alarmCount += map.value("alarmCount").toInt();
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("alarmlMsgList", map.value("alarm_msg_array").toList());
             }
             else if(funcCode == 0x000F)
             {
-                selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("packStatus", map.value("pack_status"));
+                alarmCount += map.value("alarmCount").toInt();
+                selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("alarmCount", alarmCount);
+                selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("statusMsgList", map.value("pack_status").toList());
+                alarmCount = 0;
             }
             else if(funcCode == 0x0010)
             {
@@ -890,3 +912,45 @@ void BmsController::BleServiceCharacteristicRead(const QLowEnergyCharacteristic 
     qDebug()<<valuetoHexString;
 
 }
+
+
+QVariantMap BmsController::sendSync(const QVariantMap &op, int timeout)
+{
+    QMutexLocker locker(&m_syncMutex);
+
+    // 生成请求数据
+    QByteArray array = protocal.byte(op);
+
+    // 保存当前命令标识
+    m_currentSyncCmd = op.value("funcCode", -1).toInt();
+    m_lastSyncResponse.clear();
+    m_waitingForResponse = true;
+
+    // 直接写入特征（不经过队列）
+    if (currentService && m_Characteristic[0].isValid())
+    {
+        currentService->writeCharacteristic(m_Characteristic[0], array,
+                                            QLowEnergyService::WriteWithResponse);
+    }
+    else
+    {
+        return {{"error", "Invalid service or characteristic"}};
+    }
+
+    // 等待响应
+    bool waitResult = m_syncCondition.wait(&m_syncMutex, timeout);
+
+    QVariantMap result;
+    if (waitResult && !m_lastSyncResponse.isEmpty()) {
+        result = protocal.parse(m_lastSyncResponse);
+    } else {
+        result.insert("error", "Timeout");
+    }
+
+    m_waitingForResponse = false;
+
+    return result;
+}
+
+
+

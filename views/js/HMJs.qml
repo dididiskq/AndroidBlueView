@@ -33,7 +33,7 @@ QtObject
     property var remaining_capacity: fields["remaining_capacity"] //剩余容量
     property var balStatus: fields["balStatus"] //平衡状态
     property var afeStatus: fields["afeStatus"] //AFE状态
-    property var alarmlStatus: fields["alarmlStatus"] //报警状态
+    property var alarmCount: fields["alarmCount"] //报警状态个数
     property var packStatus: fields["packStatus"] //电池状态
     property var secondYa: fields["secondYa"] //二次电压
     property var secondLiu: fields["secondLiu"] //二次电流
@@ -114,10 +114,13 @@ QtObject
     property var sjCirCount: fields["sjCirCount"]
     property var sn: fields["sn"]
     property var alarmMsgList: fields["alarmlMsgList"]
+    property var afeList: fields["afeList"]
+    property var statusMsgList: fields["statusMsgList"]
     property int itemIndex: -1
 
 
     property var operaCode: fields["operaCode"]
+    property var temType: 0
 
     // 动态缩放函数
     function scaled(value)
