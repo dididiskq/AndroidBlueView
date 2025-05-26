@@ -169,7 +169,13 @@ void CHMViewCommand::render_image(const QString &base64)
 bool CHMViewCommand::onSendToBlue(const QVariantMap &op)
 {
     int type = op.value("type", -1).toInt();
-    if(type >= 0x200)
+    int inputData = op.value("inputData", 0).toInt();
+    if(inputData == 10000)
+    {
+        emit writeBlueSlot(op);
+        return true;
+    }
+    else if(type >= 0x200)
     {
         emit writeBlueSlot(op);
     }

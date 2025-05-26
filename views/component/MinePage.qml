@@ -65,7 +65,7 @@ Page
         onConfirmed: (pwd) =>
         {
             console.log("输入密码:", pwd)
-            if(pwd)
+            if(pwd === "0909")
             {
                 if(currIndex === 3)
                 {

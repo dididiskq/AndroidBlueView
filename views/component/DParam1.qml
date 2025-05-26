@@ -51,7 +51,7 @@ Page
         onConfirmed: (pwd) =>
         {
             console.log("输入密码:", pwd)
-            if(pwd)
+            if(pwd === "8257")
             {
                 srcDict.temType = 513
                 srcDict.writeToBlue(513, celldata)

@@ -109,7 +109,7 @@ ColumnLayout
         onConfirmed: (pwd) =>
         {
             console.log("输入密码:", pwd)
-            if(pwd)
+            if(pwd === "8257")
             {
                 var item = repeater.itemAt(srcDict.itemIndex)
                 item.btnText = qsTr("请稍后...")

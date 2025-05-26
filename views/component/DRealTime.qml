@@ -55,6 +55,22 @@ Page {
         iconColor: "#FFA500"   // 橙色加载图标
         text: qsTr("刷新中，请稍后") // 自定义提示内容
     }
+    function getRealData()
+    {
+        srcDict.getProtectMessage(1)
+
+        srcDict.sendToBlue(20)
+        srcDict.sendToBlue(4)
+        srcDict.sendToBlue(6)
+        srcDict.sendToBlue(0)
+        srcDict.sendToBlue(1)
+        srcDict.sendToBlue(2)
+        srcDict.sendToBlue(8)
+        srcDict.sendToBlue(14)
+        srcDict.sendToBlue(26)
+        srcDict.sendToBlue(27)
+    }
+
     property bool isTriggered: false
     // 主内容容器
     Flickable
@@ -80,7 +96,7 @@ Page {
             {
                 console.log("下拉结束")
                 // srcDict.sendToBlue(24)
-                srcDict.getProtectMessage(1)
+                getRealData()
                 loadRect.startLoad()
             }
 
@@ -202,7 +218,7 @@ Page {
                             anchors.left: parent.left
                             anchors.leftMargin: srcDict.scaled(15)
                             anchors.bottom: parent.bottom
-                            anchors.bottomMargin: srcDict.scaled(20)
+                            anchors.bottomMargin: srcDict.scaled(25)
                             // anchors.horizontalCenter: parent.horizontalCenter
                         }
 

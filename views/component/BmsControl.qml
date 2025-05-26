@@ -242,7 +242,7 @@ Page
         onConfirmed: (pwd) =>
         {
             console.log("输入密码:", pwd)
-            if(pwd)
+            if(pwd === "0909")
             {
                  if(!isSystemOpera)
                  {
@@ -251,7 +251,8 @@ Page
                  }
                  else
                 {
-                    srcDict.writeToBlue(systemData, flagOpen)
+                                 console.log(systemData)
+                    srcDict.writeToBlue(systemData, 10000)
                  }
 
                 passwordDialog.close()

@@ -25,7 +25,7 @@ Item {
     Timer
     {
         id: timerLoad
-        interval: 2500
+        interval: 3000
         onTriggered:
         {
             root.visible = false

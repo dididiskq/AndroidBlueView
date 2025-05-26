@@ -380,15 +380,14 @@ QByteArray BMSProtocol::byte_floatand2(const QVariantMap &data)
         qWarning() << "Invalid float input";
         return {};
     }
-
-    // 转换为大端序字节流（使用 QDataStream 确保跨平台兼容性）
+    quint32 rawValue;
+    memcpy(&rawValue, &userInput, sizeof(float));  // 安全转换
+    rawValue = qToBigEndian(rawValue);  // 转为网络字节序（大端）
     QByteArray data_;
-    QDataStream stream(&data_, QIODevice::WriteOnly);
-    stream.setByteOrder(QDataStream::BigEndian);  // 强制大端序
-    stream << userInput;  // 写入浮点数
+    data_.append(reinterpret_cast<const char*>(&rawValue), sizeof(float));
 
     // 添加数据长度和数据内容
-    array.append(static_cast<char>(data_.size())); // 数据长度固定为4字节
+    array.append(static_cast<char>(data_.size()));
     array.append(data_);
     return array;
 }
@@ -400,10 +399,15 @@ QByteArray BMSProtocol::byte_0000(const QVariantMap &data)
     array.append(static_cast<char>((regCount >> 8) & 0xFF));
     array.append(static_cast<char>(regCount & 0xFF));
 
+    quint32 rawValue;
+    int userInput = 0;
+    memcpy(&rawValue, &userInput, sizeof(float));  // 安全转换
+    rawValue = qToBigEndian(rawValue);  // 转为网络字节序（大端）
     QByteArray data_;
-    QDataStream stream(&data_, QIODevice::WriteOnly);
-    stream.setByteOrder(QDataStream::BigEndian);  // 强制大端序
-    stream << 0x0000;
+    data_.append(reinterpret_cast<const char*>(&rawValue), sizeof(float));
+
+    // 添加数据长度和数据内容
+    array.append(static_cast<char>(data_.size()));
     array.append(data_);
 
     return array;
@@ -417,10 +421,15 @@ QByteArray BMSProtocol::byte_0001(const QVariantMap &data)
     array.append(static_cast<char>((regCount >> 8) & 0xFF));
     array.append(static_cast<char>(regCount & 0xFF));
 
+    quint32 rawValue;
+    int userInput = 0;
+    memcpy(&rawValue, &userInput, sizeof(float));  // 安全转换
+    rawValue = qToBigEndian(rawValue);  // 转为网络字节序（大端）
     QByteArray data_;
-    QDataStream stream(&data_, QIODevice::WriteOnly);
-    stream.setByteOrder(QDataStream::BigEndian);  // 强制大端序
-    stream << 0x0000;
+    data_.append(reinterpret_cast<const char*>(&rawValue), sizeof(float));
+
+    // 添加数据长度和数据内容
+    array.append(static_cast<char>(data_.size()));
     array.append(data_);
 
     return array;
@@ -429,6 +438,20 @@ QByteArray BMSProtocol::byte_0001(const QVariantMap &data)
 QByteArray BMSProtocol::byte_0002(const QVariantMap &data)
 {
     QByteArray array;
+    quint16 regCount = 1;
+    array.append(static_cast<char>((regCount >> 8) & 0xFF));
+    array.append(static_cast<char>(regCount & 0xFF));
+
+    quint32 rawValue;
+    int userInput = 0;
+    memcpy(&rawValue, &userInput, sizeof(float));  // 安全转换
+    rawValue = qToBigEndian(rawValue);  // 转为网络字节序（大端）
+    QByteArray data_;
+    data_.append(reinterpret_cast<const char*>(&rawValue), sizeof(float));
+
+    // 添加数据长度和数据内容
+    array.append(static_cast<char>(data_.size()));
+    array.append(data_);
     return array;
 }
 
@@ -440,10 +463,15 @@ QByteArray BMSProtocol::byte_0003(const QVariantMap &data)
     array.append(static_cast<char>((regCount >> 8) & 0xFF));
     array.append(static_cast<char>(regCount & 0xFF));
 
+    quint32 rawValue;
+    int userInput = 0;
+    memcpy(&rawValue, &userInput, sizeof(float));  // 安全转换
+    rawValue = qToBigEndian(rawValue);  // 转为网络字节序（大端）
     QByteArray data_;
-    QDataStream stream(&data_, QIODevice::WriteOnly);
-    stream.setByteOrder(QDataStream::BigEndian);  // 强制大端序
-    stream << 0x0000;
+    data_.append(reinterpret_cast<const char*>(&rawValue), sizeof(float));
+
+    // 添加数据长度和数据内容
+    array.append(static_cast<char>(data_.size()));
     array.append(data_);
 
     return array;
@@ -452,34 +480,40 @@ QByteArray BMSProtocol::byte_0003(const QVariantMap &data)
 QByteArray BMSProtocol::byte_0004(const QVariantMap &data)
 {
     QByteArray array;
-
     quint16 regCount = 1;
     array.append(static_cast<char>((regCount >> 8) & 0xFF));
     array.append(static_cast<char>(regCount & 0xFF));
 
+    quint32 rawValue;
+    int userInput = 0;
+    memcpy(&rawValue, &userInput, sizeof(float));  // 安全转换
+    rawValue = qToBigEndian(rawValue);  // 转为网络字节序（大端）
     QByteArray data_;
-    QDataStream stream(&data_, QIODevice::WriteOnly);
-    stream.setByteOrder(QDataStream::BigEndian);  // 强制大端序
-    stream << 0x0000;
-    array.append(data_);
+    data_.append(reinterpret_cast<const char*>(&rawValue), sizeof(float));
 
+    // 添加数据长度和数据内容
+    array.append(static_cast<char>(data_.size()));
+    array.append(data_);
     return array;
 }
 
 QByteArray BMSProtocol::byte_0101(const QVariantMap &data)
 {
     QByteArray array;
-
     quint16 regCount = 1;
     array.append(static_cast<char>((regCount >> 8) & 0xFF));
     array.append(static_cast<char>(regCount & 0xFF));
 
+    quint32 rawValue;
+    int userInput = 0;
+    memcpy(&rawValue, &userInput, sizeof(float));  // 安全转换
+    rawValue = qToBigEndian(rawValue);  // 转为网络字节序（大端）
     QByteArray data_;
-    QDataStream stream(&data_, QIODevice::WriteOnly);
-    stream.setByteOrder(QDataStream::BigEndian);  // 强制大端序
-    stream << 0x0000;
-    array.append(data_);
+    data_.append(reinterpret_cast<const char*>(&rawValue), sizeof(float));
 
+    // 添加数据长度和数据内容
+    array.append(static_cast<char>(data_.size()));
+    array.append(data_);
     return array;
 }
 
