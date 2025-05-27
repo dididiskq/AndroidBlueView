@@ -7,6 +7,8 @@ Page
     {
         color: "transparent"  // 完全透明
     }
+
+
     Rectangle
     {
         id: rectangle
@@ -29,7 +31,7 @@ Page
             anchors.fill: parent
             onClicked:
             {
-                srcDict.writeToBlue(257, 0)
+                srcDict.writeToBlue(257, 10000)
                 rectangle.color = "white"
             }
             onReleased:
@@ -84,6 +86,13 @@ Page
                 topMargin:  srcDict.scaled(20)
                 horizontalCenter:parent.horizontalCenter
             }
+            background: Rectangle
+            {
+                color: "transparent"
+                radius: 10
+                border.color: "white"
+            }
+
             font.pixelSize: 25
             color: "white"
             text: qsTr("写入蓝牙名称")
@@ -98,11 +107,15 @@ Page
                         loadRect.startLoad()
                         loadRect.text = qsTr("名称不能为空")
                     }
+                    else if(inputRec.inputObj.text.length >24)
+                    {
+                        loadRect.startLoad()
+                        loadRect.text = qsTr("名称太长")
+                    }
+
                     else
                     {
-                        srcDict.writeToBlue(582, inputRec.inputObj.text)
-                        loadRect.visible = true
-                        loadRect.text = qsTr("请稍后...")
+                        srcDict.writeToBlue(586, inputRec.inputObj.text)
                     }
                 }
                 onReleased:
@@ -142,17 +155,17 @@ Page
             if(message === "66")
             {
                 loadRect.text = qsTr("设置成功")
-                loadRect.visible = false
+                loadRect.startLoad()
             }
             else if(message === "-66")
             {
                 loadRect.text = qsTr("超时失败")
-                loadRect.visible = false
+                loadRect.startLoad()
             }
             else if(message === "-67")
             {
                 loadRect.text = qsTr("服务无效")
-                loadRect.visible = false
+                loadRect.startLoad()
             }
         }
     }
@@ -192,6 +205,8 @@ Page
                 onTriggered:
                 {
                     rectangle2.color = "transparent"
+                    loadRect.text = "还未开发此功能"
+                    loadRect.startLoad()
                 }
             }
         }

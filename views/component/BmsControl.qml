@@ -12,7 +12,40 @@ Page
         color: "transparent"  // 完全透明
     }
 
-
+    Connections
+    {
+        target: context
+        function onMySignal(message)
+        {
+            if(message === "66")
+            {
+                loadRect.text = "设置成功"
+                loadRect.startLoad()
+            }
+            else if(message === "-66")
+            {
+                loadRect.text = "超时失败"
+                loadRect.startLoad()
+            }
+            else if(message === "-67")
+            {
+                loadRect.text = "服务无效"
+                loadRect.startLoad()
+            }
+        }
+    }
+    LoadingIndicator
+    {
+        id: loadRect
+        anchors.centerIn: parent
+        width: srcDict.scaled(300)  // 自定义尺寸
+        height: srcDict.scaled(150)
+        z: 999
+        bgColor: "#CC303030"  // 自定义背景色
+        textColor: "#00FF00"   // 自定义文字颜色
+        iconColor: "#FFA500"   // 橙色加载图标
+        text: qsTr("刷新中，请稍后") // 自定义提示内容
+    }
     Rectangle
     {
         id: rectangle
@@ -267,6 +300,22 @@ Page
             console.log("操作取消")
         }
     }
+    function getRuo()
+    {
+
+        if(srcDict.functionConfig === undefined)
+        {
+            return false
+        }
+        else if(srcDict.functionConfig === "1")
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
     Rectangle
     {
         id: rectangle2
@@ -290,12 +339,15 @@ Page
             text: qsTr("弱电开关")
         }
 
+
+
         Switch
         {
             id: control
             x: srcDict.scaled(310)
             y: srcDict.scaled(31)
             text: qsTr("")
+            checked: srcDict.functionConfig === "1"
             onClicked:
             {
                 pendingSwitchState = !checked
@@ -346,5 +398,9 @@ Page
                 }
             }
         }
+    }
+    Component.onCompleted:
+    {
+        // console.log(srcDict.functionConfig, "00000")
     }
 }

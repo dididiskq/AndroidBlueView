@@ -686,12 +686,12 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
         if(map.value("error", -1).toInt() == 1)
         {
             qDebug()<<"报文错误";
-            return;
+
         }
         if(map.value("error", -1).toInt() == 2)
         {
             qDebug()<<"command not found";
-            return;
+
         }
 
 
@@ -848,6 +848,7 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
             else if(funcCode == 0x001F)
             {
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("functionConfig", map.value("functionConfig"));
+                qDebug()<<map.value("functionConfig")<<"99999999";
             }
             else if(funcCode >= 0x0020 && funcCode <= 0x003F) //单体电压
             {
