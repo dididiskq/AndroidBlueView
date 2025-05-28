@@ -970,15 +970,21 @@ QVariantMap BMSProtocol::deal_06(const QByteArray &v, int dataLen)
         response["error"] = "Invalid data length";
         return response;
     }
-    // 提取数据部分的4字节（大端序）
-    quint32 rawValue = (static_cast<quint8>(v[5]) << 24) |  // 00
-                       (static_cast<quint8>(v[6]) << 16) |  // 01
-                       (static_cast<quint8>(v[7]) << 8)  |  // 37
-                       static_cast<quint8>(v[8]);          // 20
+    // // 提取数据部分的4字节（大端序）
+    // quint32 rawValue = (static_cast<quint8>(v[5]) << 24) |  // 00
+    //                    (static_cast<quint8>(v[6]) << 16) |  // 01
+    //                    (static_cast<quint8>(v[7]) << 8)  |  // 37
+    //                    static_cast<quint8>(v[8]);          // 20
 
-    // 计算电流值（假设单位为mA，需根据设备协议调整比例）
-    double current_A = rawValue / 1000.0;  // 转换为安培
+    // // 计算电流值（假设单位为mA，需根据设备协议调整比例）
+    // double current_A = rawValue / 1000.0;  // 转换为安培
+    // 正确提取有符号32位整数（大端序）
+    qint32 rawValue;
+    const char* dataPtr = v.constData() + 5;  // 数据起始位置
+    rawValue = qFromBigEndian<qint32>(dataPtr);  // Qt内置大端序转换
 
+    // 处理单位转换（mA -> A），保留符号
+    double current_A = rawValue / 1000.0;
     response["electLiu"] = QString::number(current_A, 'f', 2);
     return response;
 }
@@ -1591,7 +1597,7 @@ QVariantMap BMSProtocol::deal_1F(const QByteArray &v, int dataLen)
     alarm["b3"] = (status & 0x0008);
     alarm["b4"] = (status & 0x0010);
     alarm["b5"] = (status & 0x0020);
-    response["functionConfig"] = alarm;
+    response["functionConfig"] = alarm["b0"];
     return response;
 }
 

@@ -97,7 +97,7 @@ Page {
                 console.log("下拉结束")
                 // srcDict.sendToBlue(24)
                 getRealData()
-                loadRect.startLoad()
+                loadRect.startLoad(5000)
             }
 
             isTriggered = false  // 重置状态

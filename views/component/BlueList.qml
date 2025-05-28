@@ -181,7 +181,7 @@ Page
             }
             else if(message === "blueclose")
             {
-                loadRect.startLoad()
+                loadRect.startLoad(3000)
                 loadRect.text = qsTr("请先打开蓝牙")
                 icConnecting = false
                 sracchLab.text = qsTr("搜索设备")

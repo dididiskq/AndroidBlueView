@@ -111,6 +111,7 @@ Page
                 devPage.reallStackView.pop(null, StackView.Immediate);
                 swipeView.currentIndex = 2
                 devPage.realDrawer.close()
+                srcDict.sendToBlue(31)
                 // devPage.realTimer.stop()
                 // mainPage.realTimer.stop()
             }

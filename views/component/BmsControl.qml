@@ -20,17 +20,17 @@ Page
             if(message === "66")
             {
                 loadRect.text = "设置成功"
-                loadRect.startLoad()
+                loadRect.startLoad(3000)
             }
             else if(message === "-66")
             {
                 loadRect.text = "超时失败"
-                loadRect.startLoad()
+                loadRect.startLoad(3000)
             }
             else if(message === "-67")
             {
                 loadRect.text = "服务无效"
-                loadRect.startLoad()
+                loadRect.startLoad(3000)
             }
         }
     }
@@ -347,7 +347,7 @@ Page
             x: srcDict.scaled(310)
             y: srcDict.scaled(31)
             text: qsTr("")
-            checked: srcDict.functionConfig === "1"
+            checked: srcDict.functionConfig === 1
             onClicked:
             {
                 pendingSwitchState = !checked

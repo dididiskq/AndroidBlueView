@@ -64,7 +64,7 @@ ColumnLayout
             {
                 if(srcDict.temType === 513)
                 {
-                    loadRect.startLoad()
+                    loadRect.startLoad(3000)
                     return
                 }
                 item.btnText = qsTr("设置成功")
@@ -74,7 +74,6 @@ ColumnLayout
                 {
                     chuanTimer.start()
                 }
-
             }
             else if(message === "-66")
             {

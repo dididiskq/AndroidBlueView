@@ -63,7 +63,9 @@ Page
         srcDict.sendToBlue(1)
         srcDict.sendToBlue(2)
         srcDict.sendToBlue(8)
+        srcDict.sendToBlue(12)
         srcDict.sendToBlue(14)
+        srcDict.sendToBlue(15)
         srcDict.sendToBlue(26)
         srcDict.sendToBlue(27)
     }
@@ -220,7 +222,7 @@ Page
                 {
                     console.log("下拉结束")
                     sendDataToBlue()
-                    loadRect.startLoad()
+                    loadRect.startLoad(3000)
                 }
 
                 isTriggered = false  // 重置状态

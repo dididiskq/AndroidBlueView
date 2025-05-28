@@ -12,12 +12,14 @@ Item {
     property alias iconColor: loaderIcon.color
     property alias iconSize: loaderIcon.width
     property alias animationSpeed: rotationAnim.duration
+    property var intervalData: 3000
     visible: false
     width: 200  // 默认尺寸
     height: 120
 
-    function startLoad()
+    function startLoad(loadtime)
     {
+        timerLoad.interval = loadtime
         root.visible = true
         timerLoad.start()
     }

@@ -104,12 +104,12 @@ Page
                     writeLabel.color = "green"
                     if(inputRec.inputObj.text === "")
                     {
-                        loadRect.startLoad()
+                        loadRect.startLoad(3000)
                         loadRect.text = qsTr("名称不能为空")
                     }
                     else if(inputRec.inputObj.text.length >24)
                     {
-                        loadRect.startLoad()
+                        loadRect.startLoad(3000)
                         loadRect.text = qsTr("名称太长")
                     }
 
@@ -155,17 +155,17 @@ Page
             if(message === "66")
             {
                 loadRect.text = qsTr("设置成功")
-                loadRect.startLoad()
+                loadRect.startLoad(3000)
             }
             else if(message === "-66")
             {
                 loadRect.text = qsTr("超时失败")
-                loadRect.startLoad()
+                loadRect.startLoad(3000)
             }
             else if(message === "-67")
             {
                 loadRect.text = qsTr("服务无效")
-                loadRect.startLoad()
+                loadRect.startLoad(3000)
             }
         }
     }
@@ -206,10 +206,9 @@ Page
                 {
                     rectangle2.color = "transparent"
                     loadRect.text = "还未开发此功能"
-                    loadRect.startLoad()
+                    loadRect.startLoad(3000)
                 }
             }
         }
     }
-
 }
