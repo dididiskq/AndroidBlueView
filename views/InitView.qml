@@ -79,7 +79,14 @@ Page
                 minePage.reallStackView.pop(null, StackView.Immediate);
                 swipeView.currentIndex = 0
                 devPage.realDrawer.close()
-                // devPage.realTimer.start()
+                srcDict.currentPageIndex = 1
+                if(srcDict.isConnected)
+                {
+                    if (!devPage.realTimer.running)
+                    {
+                        devPage.realTimer.start()
+                    }
+                }
                 // mainPage.realTimer.stop()
             }
 
@@ -96,6 +103,14 @@ Page
                 minePage.reallStackView.pop(null, StackView.Immediate);
                 swipeView.currentIndex = 1
                 devPage.realDrawer.close()
+                srcDict.currentPageIndex = 2
+                if(srcDict.isConnected)
+                {
+                    if (!mainPage.realTimer.running)
+                    {
+                        mainPage.realTimer.start();
+                    }
+                }
                 // mainPage.realTimer.start()
                 // devPage.realTimer.stop()
             }
@@ -112,10 +127,10 @@ Page
                 swipeView.currentIndex = 2
                 devPage.realDrawer.close()
                 srcDict.sendToBlue(31)
+                srcDict.currentPageIndex = 3
                 // devPage.realTimer.stop()
                 // mainPage.realTimer.stop()
             }
-
         }
     }
 

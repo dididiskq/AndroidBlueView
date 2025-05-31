@@ -19,13 +19,17 @@ Page
         repeat: false     // 首次不重复
         onTriggered:
         {
-            return
-
+            if(srcDict.currentPageIndex !== 2)
+            {
+                return
+            }
+            srcDict.timerGetData(2)
+            // sendDataToBlue()
 
             // 调整间隔和重复模式
-            // interval = 5000
-            // repeat = true
-            // start()
+            interval = 3000
+            repeat = true
+            start()
         }
     }
 
@@ -221,7 +225,7 @@ Page
                 if(isTriggered && !loadRect.visible)
                 {
                     console.log("下拉结束")
-                    sendDataToBlue()
+                    // sendDataToBlue()
                     loadRect.startLoad(3000)
                 }
 

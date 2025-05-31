@@ -38,6 +38,7 @@ public:
     bool onConnectBlue(const QVariantMap &op);
     bool onGetProtectMsg(const QVariantMap &op);
     bool onCloseApp(const QVariantMap &op);
+    bool onTimerData(const QVariantMap &op);
 
     void playAudio(const QString &filePath);
 public:
@@ -59,6 +60,7 @@ signals:
     void protectMsgSignal(const int type);
     void parseCodeSlot(const QImage& img);
     void cameraOpera(const int type);
+    void getTimerDataSignal(const int type);
     void closeAppSignal();
 public:
     CHMModule *selfObj;

@@ -80,6 +80,7 @@ Page {
         contentHeight: contentColumn.height // 动态计算总高度
         clip: true
         flickDeceleration: 500
+
         onContentYChanged:
         {
             // 当下拉超过顶部时触发（contentY为负值）
@@ -87,6 +88,9 @@ Page {
             {
                 console.log("下拉到位")
                 isTriggered = true
+            }
+            if (contentY + height >= contentHeight) {
+                console.log("滑动到底部了！");
             }
         }
         onMovementEnded:
@@ -96,7 +100,7 @@ Page {
             {
                 console.log("下拉结束")
                 // srcDict.sendToBlue(24)
-                getRealData()
+                // getRealData()
                 loadRect.startLoad(5000)
             }
 

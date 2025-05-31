@@ -16,6 +16,30 @@ Rectangle
 
     width: srcDict.winWidth
     height: srcDict.winHeight
+    Rectangle {
+            id: splash
+            anchors.fill: parent
+            color: "white"  // 或你的启动图背景色
+            z: 9999
+
+            Image {
+                anchors.centerIn: parent
+                source: "qrc:/android/res/drawable/splash_image.png"  // 加入你的启动图资源
+            }
+            Label
+            {
+                text: srcDict.version
+                anchors.centerIn: parent
+            }
+
+            // 自动隐藏 splash 画面
+            Timer {
+                interval: 1500  // 启动持续时间
+                running: true
+                repeat: false
+                onTriggered: splash.visible = false
+            }
+        }
 
 
     function putOp(command,params)

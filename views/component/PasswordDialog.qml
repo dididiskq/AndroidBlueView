@@ -22,7 +22,14 @@ Popup
     // 信号
     signal confirmed(string password)
     signal canceled()
-
+    onVisibleChanged: {
+        if (visible) {
+            Qt.callLater(() => {
+                passwordField.forceActiveFocus()
+                Qt.inputMethod.show()
+            })
+        }
+    }
     // 主内容
     Rectangle
     {

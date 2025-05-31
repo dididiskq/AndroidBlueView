@@ -46,6 +46,7 @@ void CHMModule::initConnectSlots()
     connect(selfViewCommand, &CHMViewCommand::protectMsgSignal, selfBmsCommand, &BmsController::getProtectMsgSlot);
     connect(selfViewCommand, &CHMViewCommand::parseCodeSlot, this, &CHMModule::parseCode);
     connect(selfViewCommand, &CHMViewCommand::closeAppSignal, this, &CHMModule::closeAppSlot);
+    connect(selfViewCommand, &CHMViewCommand::getTimerDataSignal, selfBmsCommand, &BmsController::getTimerDataSignalSlot);
 
 }
 // 重写父类的方法

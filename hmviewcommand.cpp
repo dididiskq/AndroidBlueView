@@ -52,7 +52,7 @@ bool CHMViewCommand::initViewVariable()
     HMUtils::log() <<"initViewVariable:" << QGuiApplication::applicationDirPath() <<HMLog::endl;
     QString absPath = "../";
 
-
+    selfView.context("HMStmView")->setFieldValue("version", selfObj->version);
     selfView.context("HMStmView")->setFieldValue("soh", 0);
     selfView.context("HMStmView")->setFieldValue("soc", 0);
     int width = QGuiApplication::primaryScreen()->geometry().width();
@@ -80,6 +80,7 @@ void CHMViewCommand::initCommands()
     selfCommands["connect.blue"] = &CHMViewCommand::onConnectBlue;
     selfCommands["get.protectMsg"] = &CHMViewCommand::onGetProtectMsg;
     selfCommands["close.app"] = &CHMViewCommand::onCloseApp;
+    selfCommands["get.timerData"] = &CHMViewCommand::onTimerData;
 }
 
 bool CHMViewCommand::isCommand(const QString &command)
@@ -232,5 +233,12 @@ bool CHMViewCommand::onGetProtectMsg(const QVariantMap &op)
 bool CHMViewCommand::onCloseApp(const QVariantMap &op)
 {
     emit closeAppSignal();
+    return true;
+}
+
+bool CHMViewCommand::onTimerData(const QVariantMap &op)
+{
+    int type = op.value("type", -1).toInt();
+    emit getTimerDataSignal(type);
     return true;
 }

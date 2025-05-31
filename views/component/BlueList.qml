@@ -122,6 +122,7 @@ Page
                 onClicked:
                 {
                     // myLoader.source = "InitView.qml"
+                    srcDict.currentPageIndex = 2
                     stackView1.pop()
                 }
             }
@@ -167,6 +168,7 @@ Page
                 blueName.text = conectedName + qsTr("-已连接，请稍等")
                 blueName.visible = true
                 srcDict.conectedBlueName = conectedName
+                srcDict.isConnected = true
             }
             else if (message === "2")
             {
@@ -191,6 +193,7 @@ Page
             {
                 blueName.text = conectedName + qsTr("-连接错误，请重试")
                 icConnecting = false
+                srcDict.isConnected = false
             }
         }
     }

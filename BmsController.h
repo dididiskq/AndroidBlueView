@@ -131,7 +131,7 @@ public slots:
 
     void forceDisconnect();
     void cleanupResources();
-
+    void getTimerDataSignalSlot(const int type);
     QVariantMap sendSync(const QVariantMap &op, int timeout);
 
     void processNextWriteRequest();
@@ -180,7 +180,7 @@ private:
     QList<int> initCmdList{24, 0, 1, 2,3,4,6,
                            8, 10, 12,14 ,15,16,
                            17,18,19,20,21,22,
-                           23,24,26,27,28,
+                           23,26,27,28,
                            29,30,31};
     int alarmCount = 0;
 private:
@@ -190,4 +190,5 @@ private:
     bool m_waitingForResponse = false;
     int m_currentSyncCmd = -1;
     QElapsedTimer m_syncTimer;
+    bool isFirstCells = true;
 };

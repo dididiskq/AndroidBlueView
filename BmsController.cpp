@@ -13,7 +13,7 @@ BmsController::BmsController(QObject *parent)
                 qDebug() << "蓝牙发现错误：" << error;
         emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("blueclose");
             });
-    sendTimer.setInterval(150);
+    sendTimer.setInterval(101);
     connect(&sendTimer, &QTimer::timeout, this, &BmsController::sendMsgByQueue);
 
     m_writeTimeoutTimer.setSingleShot(true);
@@ -154,6 +154,37 @@ void BmsController::cleanupResources()
 
     qDebug() << "所有蓝牙资源已释放";
 }
+
+void BmsController::getTimerDataSignalSlot(const int type)
+{
+    if(type == 1)
+    {
+        viewMessage(6);
+        viewMessage(4);
+        viewMessage(6);
+        viewMessage(0);
+        viewMessage(1);
+        viewMessage(2);
+        viewMessage(8);
+        viewMessage(14);
+        viewMessage(26);
+        viewMessage(27);
+    }
+    else if(type == 2){
+        viewMessage(20);
+        viewMessage(4);
+        viewMessage(6);
+        viewMessage(0);
+        viewMessage(1);
+        viewMessage(2);
+        viewMessage(8);
+        viewMessage(12);
+        viewMessage(14);
+        viewMessage(15);
+        viewMessage(26);
+        viewMessage(27);
+    }
+}
 void BmsController::connectBlue(const QString addr)
 {
 
@@ -261,7 +292,7 @@ void BmsController::processNextWriteRequest()
     }
     isWriting = true;
     QByteArray array = writeQueue.dequeue();
-    qDebug()<<"发送报文：" << byteArrayToHexStr(array);
+    // qDebug()<<"发送报文：" << byteArrayToHexStr(array);
 
     sendTimer.stop();
     if (currentService && m_Characteristic[0].isValid())
@@ -513,7 +544,7 @@ void BmsController::sendMsgByQueue()
     if (!commandQueue.isEmpty())
     {
         QByteArray array = commandQueue.dequeue();
-        qDebug()<<"发送报文：" << byteArrayToHexStr(array);
+        // qDebug()<<"发送报文：" << byteArrayToHexStr(array);
         currentService->writeCharacteristic(m_Characteristic[0], array, mode);
     }
 }
@@ -522,12 +553,10 @@ void BmsController::getProtectMsgSlot(const int type)
 {
     if(type == 1)
     {
-
         for(int i = 32; i <= 32 + cellNums; i++)
         {
             viewMessage(i);
         }
-
     }
     else
     {
@@ -565,7 +594,6 @@ void BmsController::onDescriptorWritten(const QLowEnergyDescriptor &descriptor, 
             {
                 viewMessage(it);
             }
-            getProtectMsgSlot(1);
         }
         else
         {
@@ -655,9 +683,9 @@ void BmsController::serviceStateChanged(QLowEnergyService::ServiceState s)
 void BmsController::BleServiceCharacteristicWrite(const QLowEnergyCharacteristic &c, const QByteArray &value)
 {
     qDebug()<<"消息发送成功"<<QString(value);
-    QString str(c.uuid().toString());
-    QString str2("instructions %1 send to success!");
-    QString str3 = str + QString(":") + str2.arg(QString(value));
+    // QString str(c.uuid().toString());
+    // QString str2("instructions %1 send to success!");
+    // QString str3 = str + QString(":") + str2.arg(QString(value));
 }
 //接收通知
 void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacteristic &c, const QByteArray &value)
@@ -665,7 +693,7 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
     QString valueStr = byteArrayToHexStr(value);
     if(c.uuid() == NOTIFY_UUID)
     {
-        qDebug() << "收到通知数据:" << value.toHex(' ');
+        // qDebug() << "收到通知数据:" << value.toHex(' ');
         QVariantMap map = protocal.parse(value);
         // qDebug()<<"数据解析内容："<<map;
 
@@ -848,6 +876,11 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
             else if(funcCode == 0x001F)
             {
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("functionConfig", map.value("functionConfig"));
+                if(isFirstCells)
+                {
+                    isFirstCells = false;
+                    getProtectMsgSlot(1);
+                }
             }
             else if(funcCode >= 0x0020 && funcCode <= 0x003F) //单体电压
             {

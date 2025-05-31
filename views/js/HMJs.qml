@@ -120,7 +120,10 @@ QtObject
 
 
     property var operaCode: fields["operaCode"]
+    property var version: fields["version"]
     property var temType: 0
+    property var currentPageIndex: 0
+    property var isConnected: false
 
     // 动态缩放函数
     function scaled(value)
@@ -169,5 +172,11 @@ QtObject
     {
         var data = {}
         putOp("close.app", data)
+    }
+    function timerGetData(type)
+    {
+        var data = {}
+        data["type"] = type
+        putOp("get.timerData", data)
     }
 }
