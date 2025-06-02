@@ -16,30 +16,49 @@ Rectangle
 
     width: srcDict.winWidth
     height: srcDict.winHeight
-    Rectangle {
-            id: splash
-            anchors.fill: parent
-            color: "white"  // 或你的启动图背景色
-            z: 9999
+    Rectangle
+    {
+        id: splash
+        anchors.fill: parent
+        color: "white"  // 或你的启动图背景色
+        z: 9999
 
-            Image {
-                anchors.centerIn: parent
-                source: "qrc:/android/res/drawable/splash_image.png"  // 加入你的启动图资源
-            }
-            Label
+        // Image {
+        //     anchors.centerIn: parent
+        //     source: "qrc:/android/res/drawable/splash_image.png"
+        // }
+        Label
+        {
+            text: "ULTRA BMS" + srcDict.version
+            anchors.centerIn: parent
+        }
+
+        // Behavior 自动为 opacity 添加渐变
+        Behavior on opacity
+        {
+            NumberAnimation
             {
-                text: srcDict.version
-                anchors.centerIn: parent
-            }
-
-            // 自动隐藏 splash 画面
-            Timer {
-                interval: 1500  // 启动持续时间
-                running: true
-                repeat: false
-                onTriggered: splash.visible = false
+                duration: 500    // 渐变时长 500ms
+                easing.type: Easing.InOutQuad
             }
         }
+
+        // 自动隐藏 splash 画面
+        Timer {
+            interval: 1100  // 启动持续时间
+            running: true
+            repeat: false
+            onTriggered:
+            {
+                splash.opacity = 0.0
+            }
+        }
+        onOpacityChanged: {
+                    if (opacity === 0) {
+                        splash.visible = false
+                    }
+                }
+    }
 
 
     function putOp(command,params)

@@ -8,7 +8,8 @@ Page
     property var codeData: srcDict.codeData
     property bool isCapturing: false
     visible: true
-    anchors.fill: parent
+    width: parent.width
+    height: srcDict.winHeight
     signal returnPage()
 
     onCodeDataChanged:

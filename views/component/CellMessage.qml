@@ -34,10 +34,12 @@ Page
     {
         id: root
         width: srcDict.winWidth
-        height: parent.height
+        anchors.fill: parent
+        contentHeight: contentColumn.height // 动态计算总高度
         clip: true
         ColumnLayout
         {
+            id: contentColumn
             width: Math.max(implicitWidth, root.width)
             spacing: 20
 
@@ -122,43 +124,32 @@ Page
                     Text { text: srcDict.majNoElect === undefined ? "" : srcDict.majNoElect; color: "white"  }
 
                     Text { text: qsTr("BT码"); font.bold: true; color: "white"  }
-                    Text { text: srcDict.bt === undefined ? "" : srcDict.bt; color: "white"  }
+                    Text { text: srcDict.bt === undefined ? "" : srcDict.bt; color: "white" ; font.pixelSize: 13 }
 
                 }
             }
 
 
-            // 保护事件表格
+            // ================ 保护事件表格 =================
             ColumnLayout
             {
                 Layout.fillWidth: true
                 spacing: 10
 
-                // Text {
-                //     text: "保护事件记录"
-                //     font.bold: true
-                //     font.pixelSize: 18
-                //     Layout.leftMargin: 20
-                // }
-
-                // 表格头部
-                RowLayout
-                {
+                // —— 表头 ——
+                RowLayout {
                     Layout.leftMargin: 20
                     Layout.rightMargin: 20
                     spacing: 0
 
-                    Text
-                    {
+                    Text {
                         text: qsTr("保护时间")
                         font.bold: true
                         color: "white"
                         Layout.preferredWidth: srcDict.scaled(200)
                         horizontalAlignment: Text.AlignLeft
                     }
-
-                    Text
-                    {
+                    Text {
                         text: qsTr("保护事件")
                         font.bold: true
                         color: "white"
@@ -167,43 +158,40 @@ Page
                     }
                 }
 
-                // 表格内容
-                ListView
+                // —— 用 Column + Repeater 来替代 ListView ——
+                Column
                 {
-                    id: eventList
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: srcDict.scaled(200)
-                    model: eventModel
-                    // clip: true
+                    id: eventContainer
+                    width: parent.width
                     spacing: 2
-                    delegate: RowLayout
+
+                    Repeater
                     {
-                        width: eventList.width
-                        height: 30
-                        spacing: 0
+                        model: eventModel
 
-                        Text
-                        {
-                            text: model.eventTime
-                            Layout.preferredWidth: srcDict.scaled(200)
-                            leftPadding: 20
-                            color: "white"
-                            verticalAlignment: Text.AlignVCenter
-                        }
+                        RowLayout {
+                            width: eventContainer.width
+                            height: srcDict.scaled(30)   // 每行高度
+                            spacing: 0
 
-                        Text
-                        {
-                            text: eventCode
-                            Layout.fillWidth: true
-                            color: "white"
-                            verticalAlignment: Text.AlignVCenter
-                        }
-
-                        Rectangle
-                        {
-                            height: 1
-                            color: "#eee"
-                            Layout.fillWidth: true
+                            Text {
+                                text: model.eventTime
+                                Layout.preferredWidth: srcDict.scaled(200)
+                                leftPadding: 20
+                                color: "white"
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                text: model.eventCode
+                                Layout.fillWidth: true
+                                color: "white"
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Rectangle {
+                                height: 1
+                                color: "#eee"
+                                Layout.fillWidth: true
+                            }
                         }
                     }
                 }

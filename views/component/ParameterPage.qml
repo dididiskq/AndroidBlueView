@@ -72,6 +72,7 @@ ColumnLayout
                 console.log("设置成功", celldata)
                 if(celldata === 512)
                 {
+                    srcDict.sendToBlue(24)
                     chuanTimer.start()
                 }
             }
@@ -94,7 +95,7 @@ ColumnLayout
         repeat: false
         onTriggered:
         {
-            srcDict.sendToBlue(24)
+            srcDict.getProtectMessage(1)
         }
     }
 

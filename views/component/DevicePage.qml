@@ -21,7 +21,7 @@ Page
                 return
             }
 
-            if(count % 4 === 0)
+            if(count % 2 === 0)
             {
                 console.log("单体电压")
                 srcDict.getProtectMessage(1)

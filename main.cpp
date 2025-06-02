@@ -32,10 +32,12 @@ void setImmersiveMode()
     // 设置窗口标志（允许绘制系统栏背景）
     window.callMethod<void>("addFlags", "(I)V", 0x80000000); // FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS
     window.callMethod<void>("clearFlags", "(I)V", 0x04000000); // FLAG_TRANSLUCENT_STATUS
+     window.callMethod<void>("clearFlags", "(I)V", 0x08000000); //FLAG_TRANSLUCENT_NAVIGATION 6/2
 
     // 设置状态栏和导航栏颜色为透明
     window.callMethod<void>("setStatusBarColor", "(I)V", 0x00000000);
     window.callMethod<void>("setNavigationBarColor", "(I)V", 0x00000000);
+
 
     // 获取 DecorView
     QJniObject decorView = window.callObjectMethod("getDecorView", "()Landroid/view/View;");
