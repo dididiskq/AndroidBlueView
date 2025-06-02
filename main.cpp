@@ -97,13 +97,13 @@ int main(int argc, char *argv[])
     });
 
    // CHMModule module;
-    QNativeInterface::QAndroidApplication::hideSplashScreen(0);
+
     std::unique_ptr<CHMModule> module(new CHMModule());
     if(!module->start())
     {
         return 1;
     }
-
+    QNativeInterface::QAndroidApplication::hideSplashScreen(0);
 
     int ret = a.exec();
     // module->stop();

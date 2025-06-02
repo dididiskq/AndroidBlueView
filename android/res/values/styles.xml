@@ -1,8 +1,8 @@
 <!--  -->
 <resources>
     <style name="SplashTheme" parent="android:Theme.NoTitleBar.Fullscreen">
-		<item name="android:windowBackground">@android:color/white</item>  
+		<item name="android:windowBackground">@android:color/transparent</item>  
 	</style>
 </resources>
 
- 
+  
