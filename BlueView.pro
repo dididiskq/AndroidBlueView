@@ -100,6 +100,7 @@ DISTFILES += \
     views/component/DParam6.qml \
     views/component/DRealTime.qml \
     views/component/DevicePage.qml \
+    views/component/FirmwareUpdate.qml \
     views/component/HMCNCulture.qml \
     views/component/InfoGrid.qml \
     views/component/InfoGridLang.qml \

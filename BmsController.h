@@ -129,12 +129,11 @@ public slots:
     void sendMsgByQueue();
     void getProtectMsgSlot(const int type);
 
-    void forceDisconnect();
-    void cleanupResources();
     void getTimerDataSignalSlot(const int type);
     QVariantMap sendSync(const QVariantMap &op, int timeout);
 
     void processNextWriteRequest();
+    void clearAllResourcesForNextConnect();
 public:
     bool isScanConn = false;
 private:

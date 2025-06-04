@@ -162,8 +162,9 @@ Page
                     anchors.fill: parent
                     onClicked:
                     {
-                        loadRect.text = "功能未开放"
-                        loadRect.startLoad(3000)
+                        // loadRect.text = "功能未开放"
+                        // loadRect.startLoad(3000)
+                        stackViewMine.push("FirmwareUpdate.qml")
                     }
                 }
 

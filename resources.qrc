@@ -73,5 +73,6 @@
         <file>views/component/LoadingIndicator.qml</file>
         <file>android/res/values/styles.xml</file>
         <file>android/res/drawable/splash_image.png</file>
+        <file>views/component/FirmwareUpdate.qml</file>
     </qresource>
 </RCC>

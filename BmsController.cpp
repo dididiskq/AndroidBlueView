@@ -89,71 +89,12 @@ void BmsController::searchCharacteristic()
             }
         }
     }
-}
-void BmsController::forceDisconnect()
-{
-    qDebug() << "强制断开连接流程启动";
-
-    // 停止设备发现
-    if (Discovery->isActive()) {
-        Discovery->stop();
+    else
+    {
+        qDebug() << "45454545454找到Write特征：" << currentService->serviceUuid();
     }
-
-    // 停止发送队列
-    sendTimer.stop();
-
-    // 清理服务特征缓存
-    cleanupResources();
-
-    // 处理控制器
-    if (mController) {
-        // 断开所有信号
-        mController->disconnect();
-
-        // 如果正在连接/已连接状态
-        if (mController->state() != QLowEnergyController::UnconnectedState) {
-            qDebug() << "正在主动断开设备连接...";
-
-            // 使用智能指针防止野指针
-            QPointer<QLowEnergyController> oldController = mController;
-
-            // 连接断开信号
-            connect(oldController, &QLowEnergyController::disconnected, this, [oldController]() {
-                qDebug() << "设备已物理断开";
-                if (!oldController.isNull()) {
-                    oldController->deleteLater();
-                }
-            });
-
-            // 启动断开流程
-            oldController->disconnectFromDevice();
-        } else {
-            qDebug() << "控制器已处于未连接状态，直接清理";
-            mController->deleteLater();
-        }
-
-        mController = nullptr;
-    }
-
-    isConnected = false;
-    m_waitingWriteResponse = false;
-    qDebug() << "强制断开完成";
 }
 
-void BmsController::cleanupResources()
-{
-    // 清理服务对象
-    qDeleteAll(serviceList);
-    serviceList.clear();
-
-    // 清理特征
-    // m_Characteristic.clear();
-
-    // 清理设备缓存
-    deviceList.clear();
-
-    qDebug() << "所有蓝牙资源已释放";
-}
 
 void BmsController::getTimerDataSignalSlot(const int type)
 {
@@ -185,40 +126,154 @@ void BmsController::getTimerDataSignalSlot(const int type)
         viewMessage(27);
     }
 }
+void BmsController::clearAllResourcesForNextConnect()
+{
+    // 1) 停掉所有定时器
+    sendTimer.stop();
+    m_writeTimeoutTimer.stop();
+
+    // 2) 清理写入/命令队列
+    writeQueue.clear();
+    commandQueue.clear();
+    m_waitingWriteResponse = false;
+    isWriting = false;
+
+    // 3) 把之前的特征句柄全部 reset 掉
+    for (int i = 0; i < 3; ++i) {
+        m_Characteristic[i] = QLowEnergyCharacteristic();
+    }
+
+    // 4) 删除并清空 serviceList 中残留的所有服务对象
+    qDeleteAll(serviceList);
+    serviceList.clear();
+    currentService = nullptr;
+
+    // 5) 如果有旧的 controller，就先断开它
+    if (mController) {
+        // 断开所有信号，避免在 deleteLater 之后还触发回调
+        mController->disconnect();
+
+        // 如果当前还没完全断开，就先 call disconnectFromDevice()
+        if (mController->state() != QLowEnergyController::UnconnectedState) {
+            mController->disconnectFromDevice();
+        }
+
+        // 延迟 delete
+        mController->deleteLater();
+        mController = nullptr;
+    }
+
+    isConnected = false;
+    deviceList.clear();
+    currentDevice = QBluetoothDeviceInfo();
+}
 void BmsController::connectBlue(const QString addr)
 {
+    // 如果当前已经有一个 controller 且还没断开，就先让它断开并在断开完成后再连接新设备
+    if (mController && mController->state() != QLowEnergyController::UnconnectedState)
+    {
+        // 先把这次“要连接的 addr”保存在局部变量里，带到 lambda 中去
+        QString newAddr = addr;
 
+        // 避免重复连接同一个槽：如果之前已经对旧 mController 绑定过 lambda，就先断开
+        // 这一步是可选的：如果你不担心重复绑定，就可以省略
+        // QObject::disconnect(mController, &QLowEnergyController::disconnected, this, nullptr);
+
+        // 当旧的 controller 真的断开（发出 disconnected 信号）时，再去清理资源并且调用一次 connectBlue(newAddr)
+        QObject::connect(mController, &QLowEnergyController::disconnected, this,
+                         [this, newAddr]() {
+                             // ① 先把上一轮的资源全部清空
+                             clearAllResourcesForNextConnect();
+
+                             // ② 再次调用 connectBlue(newAddr)，此时 mController == nullptr，就会走“新建 controller → 连接新设备”那条分支
+                             this->connectBlue(newAddr);
+                         }, Qt::SingleShotConnection);
+
+        // 直接让旧控制器断开
+        mController->disconnectFromDevice();
+
+        // 插入一条日志，方便调试
+        qDebug() << ">>> 发起旧控制器断开流程，等待 disconnected() 信号之后再连接" << addr;
+
+        return;
+    }
+
+    // —— 如果走到这里，说明 mController 为 nullptr，或者它已经是 UnconnectedState（未连接状态）——
+    // 这就直接当作“创建并连接新设备”来处理
+
+    // 1. 从之前扫描到的 deviceList 中找出地址和 addr 匹配的 QBluetoothDeviceInfo
+    bool found = false;
+    for (const auto &dev : deviceList)
+    {
+        if (dev.address().toString() == addr)
+        {
+            currentDevice = dev;
+            found = true;
+            break;
+        }
+    }
+    if (!found)
+    {
+        qWarning() << "找不到地址对应的设备：" << addr;
+        // return;
+    }
+
+    // 2. 创建新的 QLowEnergyController
+    mController = QLowEnergyController::createCentral(currentDevice, this);
+
+    // 3. 绑定信号槽：扫描 Service、扫描完成、连接/断开/出错 等
+    connect(mController, &QLowEnergyController::serviceDiscovered,
+            this, &BmsController::serviceDiscovered);
+    connect(mController, &QLowEnergyController::discoveryFinished,
+            this, &BmsController::serviceScanDone);
+
+    connect(mController, &QLowEnergyController::errorOccurred, this,
+            [this](QLowEnergyController::Error error) {
+                Q_UNUSED(error);
+                qDebug() << "Cannot connect to remote device.";
+                emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("errorCon");
+            });
+
+    connect(mController, &QLowEnergyController::connected, this,
+            [this]() {
+                qDebug() << "Controller connected. Search services...";
+                mController->discoverServices();
+                emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("1");
+            });
+
+    connect(mController, &QLowEnergyController::disconnected, this,
+            [this]() {
+                qDebug() << "LowEnergy controller disconnected";
+                // 这里不做自动重连，交给上面的逻辑去触发
+            });
+
+    // 4. 发起连接
+    mController->connectToDevice();
+    qDebug() << ">>> 正在连接新设备：" << addr;
+}
+/*
+void BmsController::connectBlue(const QString addr)
+{
 
     // 如果当前控制器存在且未断开，先断开旧连接
     if (mController && mController->state() != QLowEnergyController::UnconnectedState)
     {
-        // 使用SingleShot确保只触发一次
-        // QObject::connect(mController, &QLowEnergyController::disconnected, this,
-        //                  [this, addr]() {
-        //                      mController->deleteLater();
-        //                      mController = nullptr;
-        //                      this->connectBlue(addr); // 重新调用以连接新设备
-        //                  }, Qt::SingleShotConnection);
+        // 避免重复连接信号
+        // static QMetaObject::Connection disconnectHandler;
+        // QObject::disconnect(disconnectHandler);
+
+        // // 使用SingleShot确保只触发一次
+        // disconnectHandler = QObject::connect(mController, &QLowEnergyController::disconnected, this,
+        //                                      [this, addr]() {
+        //                                          if (mController) {
+        //                                              mController->deleteLater();
+        //                                              mController = nullptr;
+        //                                          }
+        //                                          this->connectBlue(addr); // 重新调用以连接新设备
+        //                                      }, Qt::SingleShotConnection);
 
         // mController->disconnectFromDevice();
-        // isConnected = false;
-        // return; // 等待断开完成
-
-        // 避免重复连接信号
-        static QMetaObject::Connection disconnectHandler;
-        QObject::disconnect(disconnectHandler);
-
-        // 使用SingleShot确保只触发一次
-        disconnectHandler = QObject::connect(mController, &QLowEnergyController::disconnected, this,
-                                             [this, addr]() {
-                                                 if (mController) {
-                                                     mController->deleteLater();
-                                                     mController = nullptr;
-                                                 }
-                                                 this->connectBlue(addr); // 重新调用以连接新设备
-                                             }, Qt::SingleShotConnection);
-
-        mController->disconnectFromDevice();
+        clearAllResourcesForNextConnect();
         isConnected = false;
         return; // 等待断开完成
     }
@@ -230,6 +285,7 @@ void BmsController::connectBlue(const QString addr)
         if(currAddr == addr)
         {
             currentDevice = dev;
+            break;
         }
     }
     mController = QLowEnergyController::createCentral(currentDevice,this);
@@ -253,6 +309,7 @@ void BmsController::connectBlue(const QString addr)
     });//断开连接
     mController->connectToDevice();//建立连接
 }
+*/
 //写数据函数
 void BmsController::viewWriteMessage(const QVariantMap &op)
 {

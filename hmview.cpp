@@ -6,7 +6,6 @@
 #include "hmview.h"
 #include "hmlog.h"
 #include "hmutils.h"
-
 CHMView::CHMView(QObject *parent) : QObject(parent)
 {
     init();
@@ -119,7 +118,6 @@ void CHMView::switchLanguage(const QString &lang)
 }
 void CHMView::init()
 {
-
 }
 
 bool CHMView::initViews()
