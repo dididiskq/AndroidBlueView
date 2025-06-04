@@ -109,6 +109,11 @@ void HMViewContext::setRfid(const QString &m)
     rfid = m;
 }
 
+void HMViewContext::switchLanguage(const QString &language)
+{
+    emit languageChangeRequested(language);
+}
+
 void HMViewContext::setVideoSink(QVideoSink *sink)
 {
     if (m_videoSink != sink) {

@@ -34,6 +34,7 @@ public:
     Q_INVOKABLE void keyPressed(QObject* tf, Qt::Key k); //调用键盘按键
     Q_INVOKABLE QString  getRfid();
     Q_INVOKABLE void setRfid(const QString & m);
+    Q_INVOKABLE void switchLanguage(const QString &language);
 
     Q_PROPERTY(QVideoSink *videoSink WRITE setVideoSink);
     void setVideoSink(QVideoSink* sink);
@@ -45,7 +46,7 @@ signals:
     void codeImageReady(const QString &message);
 
     void sinkChanged();
-
+    void languageChangeRequested(const QString &language);
 
 public slots:
     void processFrame(const QVideoFrame &frame);

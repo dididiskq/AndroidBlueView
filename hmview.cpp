@@ -95,7 +95,28 @@ bool CHMView::initContext(HMViewContext *context)
 
     return true;
 }
+void CHMView::switchLanguage(const QString &lang)
+{
+    if (m_translator)
+    {
+        QCoreApplication::removeTranslator(m_translator);
+        delete m_translator;
+    }
 
+    // 加载新翻译
+    m_translator = new QTranslator(this);
+
+
+    if (m_translator->load("../language/" +lang + ".qm"))
+    {
+        QCoreApplication::installTranslator(m_translator);
+        qDebug()<<":/language/" +lang + ".qm"<<"66666";
+    }
+
+    QQuickView* v = view(QString("HMStmView"));
+    v->engine()->retranslate();
+
+}
 void CHMView::init()
 {
 
@@ -120,7 +141,7 @@ bool CHMView::initViews()
 
 
         connect(c, SIGNAL(viewInvoke(QString,QVariant,QVariant&)), SLOT(onViewInvoke(QString,QVariant,QVariant&)));
-
+        connect(c, &HMViewContext::languageChangeRequested, this, &CHMView::switchLanguage);
 
         v->setResizeMode(QQuickView::SizeRootObjectToView);
         v->rootContext()->setContextProperty("HMStmViewContext", c);

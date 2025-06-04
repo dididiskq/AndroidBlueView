@@ -6,6 +6,7 @@
 #include <QThread>
 #include <QtQuick>
 #include "hmviewcontext.h"
+#include<QTranslator>
 // 定义一个类
 class CHMView: public QObject
 {
@@ -28,7 +29,7 @@ signals:
 
 private:
     void init();
-
+    void switchLanguage(const QString &lang);
 public:
 
 private:
@@ -36,6 +37,7 @@ private:
     HMViewContext viewContext;
     QMap<QString, QQuickView*> views;
     QMap<QString, HMViewContext*> contexts;
+    QTranslator* m_translator = nullptr;
 };
 
 #endif // HMVIEW_H
