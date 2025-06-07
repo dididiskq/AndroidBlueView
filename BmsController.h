@@ -15,6 +15,7 @@
 #include"BMSProtocol.h"
 #include<QMutex>
 #include<QWaitCondition>
+#include "hmcommand.h"
 class CHMModule;
 static QString byteArrayToHexStr(const QByteArray &data)
 {
@@ -87,12 +88,12 @@ static unsigned short crc16_ccitt(const char *buf, int len)
     }
     return crc;
 }
-
-class BmsController : public QObject
+//public QObject
+class BmsController : public CHMCommand
 {
     Q_OBJECT
 public:
-    explicit BmsController(QObject *parent = nullptr);
+    explicit BmsController(QObject *parent = nullptr, const QString &name = "");
 
     ~BmsController();
 
@@ -100,9 +101,24 @@ public:
 
     void viewWriteMessage(const QVariantMap &op);
     void connectBlue(const QString addr);
+
+
+    virtual  bool isCommand(const QString& command) override;
+    virtual void processCommand(const QString &command, const QVariantMap &op, QVariant &result) override;
+    virtual void initCommands() override;
+    virtual void processOp(const QVariantMap &op) override;
+    virtual void clearBuf() override;
+    virtual void appendCommand(const QVariantMap &op) override;
+    virtual void sendOp(const QVariantMap &op) override;
+    virtual void onHeartbeatTimer() override;
+    bool onSendCommand(const QVariantMap &op) ;
+    bool onSeceiveCommand(const QVariantMap &op);
+
+
 signals:
     void startBlue();
     void writeOperationCompleted(bool success, const QString &error);
+    void updateCommand(QVariantMap&, QVariant&);
 public slots:
     void onWriteTimeout();
 
@@ -193,4 +209,8 @@ private:
     int m_currentSyncCmd = -1;
     QElapsedTimer m_syncTimer;
     bool isFirstCells = true;
+
+
+    typedef bool (BmsController::*func)(const QVariantMap &op);
+    QMap<QString, BmsController::func> selfCommands;
 };

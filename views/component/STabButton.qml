@@ -57,11 +57,10 @@ TabButton
         color: "#7A7E7D"
         anchors.bottom: parent.bottom
         anchors.bottomMargin: srcDict.scaled(0)
-        anchors.left: parent.left
-        anchors.leftMargin: srcDict.scaled(52)
+        // anchors.left: parent.left
+        // anchors.leftMargin: srcDict.scaled(52)
+        anchors.horizontalCenter: parent.horizontalCenter
         text: buttonText
         font.pointSize: buttonTextPointSize
     }
-
-
 }

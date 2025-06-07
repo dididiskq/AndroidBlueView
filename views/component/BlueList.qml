@@ -165,7 +165,7 @@ Page
         {
             if(message === "1")
             {
-                blueName.text = conectedName + qsTr("-已连接，请稍等")
+                blueName.text = conectedName + qsTr("-连接中，请稍等")
                 blueName.visible = true
                 srcDict.conectedBlueName = conectedName
                 srcDict.isConnected = true

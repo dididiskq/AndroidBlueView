@@ -190,6 +190,23 @@ Page
         //     }
         // }
 
+        Connections
+        {
+            target: context
+            function onMySignal(message)
+            {
+                if(message === "firstLoadStart")
+                {
+                    loadRect.text = "数据加载中..."
+                    loadRect.visible = true
+                }
+                else if(message === "firstLoadEnd")
+                {
+                    loadRect.visible = false
+                }
+            }
+        }
+
         LoadingIndicator
         {
             id: loadRect
@@ -602,10 +619,7 @@ Page
                         color: "white"
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: img.right
-                        font.pixelSize: {
-                                    const length = text.length
-                                    return length > 2 ? 24 : 26
-                                }
+                        font.pixelSize: 20
                         text: srcDict.alarmCount === undefined ? "0" : String(srcDict.alarmCount)
                     }
                     MouseArea
@@ -661,10 +675,7 @@ Page
                         color: "white"
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: imgCir.right
-                        font.pixelSize: {
-                                    const length = text.length
-                                    return length > 2 ? 24 : 26
-                                }
+                        font.pixelSize: 20
                         text: srcDict.cycles_number === undefined ? "0" : srcDict.cycles_number
                     }
                 }
@@ -706,10 +717,7 @@ Page
                         color: "white"
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: imgYc.right
-                        font.pixelSize: {
-                                    const length = text.length
-                                    return length > 2 ? 24 : 26
-                                }
+                        font.pixelSize: 20
                         text: srcDict.yaCha === undefined ? "0" : String(srcDict.yaCha)
                     }
                 }

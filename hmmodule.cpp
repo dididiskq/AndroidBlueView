@@ -12,14 +12,15 @@ CHMModule::CHMModule(QObject *parent)
         版本:1.00.001.20250117
         @author:skq
     */
-    version = "1.00.001.20250606";
+    version = "1.00.001.20250607";
     HMUtils::log() << QString("界面程序版本： %1").arg(version) <<HMLog::endl;
 
 
-    selfViewCommand = new CHMViewCommand(this, "hmView");  // 界面对象
-    selfRegister.setRegister("hmView", selfViewCommand);
+    selfViewCommand = new CHMViewCommand(this, "View");  // 界面对象
+    selfRegister.setRegister("View", selfViewCommand);
 
-    selfBmsCommand = new BmsController(this);
+    selfBmsCommand = new BmsController(this, "Ble");
+    selfRegister.setRegister("Ble", selfBmsCommand);
     m_camera = new CameraCapture(this);
     initConnectSlots();
 }
@@ -30,7 +31,12 @@ CHMModule::~CHMModule()
     if (selfViewCommand)
     {
         delete selfViewCommand;
-        selfViewCommand = NULL;
+        selfViewCommand = nullptr;
+    }
+    if (selfBmsCommand)
+    {
+        delete selfBmsCommand;
+        selfBmsCommand = nullptr;
     }
 
 }
@@ -56,19 +62,25 @@ void CHMModule::doProcessOp(const QVariantMap &op)
     QString command = op.value("command").toString();
     CHMCommand* obj = (CHMCommand*)selfRegister.isHasObj(name);
     QVariant result = true;
+
     if (obj)
     {
         if (obj->isCommand(command))
         {
             obj->isConnect();
+            // qDebug()<<"主线程"<<name<<command;
             obj->processCommand(command, op, result);
         }
-        else {
-            HMUtils::log() << name << "模块, " << command << ", 无此命令" << HMLog::endl;
+        else
+        {
+            qDebug() << name << "模块, " << command << ", 无此命令";
+            // HMUtils::log() << name << "模块, " << command << ", 无此命令" << HMLog::endl;
         }
     }
-    else {
-        HMUtils::log() << name << ", 模块未注册" << HMLog::endl;
+    else
+    {
+        qDebug()<< name << ", 模块未注册" ;
+        // HMUtils::log() << name << ", 模块未注册" << HMLog::endl;
     }
 }
 
@@ -103,6 +115,7 @@ void CHMModule::parseCode(const QImage&  img)
         decoder.setTryHarderBehaviour(QZXing::TryHarderBehaviour_ThoroughScanning |
                                       QZXing::TryHarderBehaviour_Rotate);
         QString info = decoder.decodeImage(img);
+        qDebug()<<"二维码识别结果:"<<info;
         if(info == "")
         {
 
