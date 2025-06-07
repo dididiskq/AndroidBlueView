@@ -16,6 +16,7 @@ BmsController::BmsController(QObject *parent)
     sendTimer.setInterval(101);
     connect(&sendTimer, &QTimer::timeout, this, &BmsController::sendMsgByQueue);
 
+
     m_writeTimeoutTimer.setSingleShot(true);
     connect(&m_writeTimeoutTimer, &QTimer::timeout, this, &BmsController::onWriteTimeout);
 }
@@ -98,8 +99,13 @@ void BmsController::searchCharacteristic()
 
 void BmsController::getTimerDataSignalSlot(const int type)
 {
+    if(!isConnected)
+    {
+        return;
+    }
     if(type == 1)
     {
+        viewMessage(24);
         viewMessage(6);
         viewMessage(4);
         viewMessage(6);
@@ -111,7 +117,8 @@ void BmsController::getTimerDataSignalSlot(const int type)
         viewMessage(26);
         viewMessage(27);
     }
-    else if(type == 2){
+    else if(type == 2)
+    {
         viewMessage(20);
         viewMessage(4);
         viewMessage(6);
@@ -164,9 +171,65 @@ void BmsController::clearAllResourcesForNextConnect()
     }
 
     isConnected = false;
-    deviceList.clear();
+    // deviceList.clear();
     currentDevice = QBluetoothDeviceInfo();
+
+    //初始化界面数据
+    initViewData();
 }
+void BmsController::initViewData()
+{
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("soh", 0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("soc", 0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("alarmCount", 0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("statusMsgList", QVariant());
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("electYa", "");
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("electLiu", "");
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("cMos", 0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fMos", 0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("junhengStatus", 0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("afeList", QVariant());
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("celllType", 0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("cellNum", 0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("mosTemperature", "");
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("temperature1", "");
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("temperature2", "");
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("temperature3", "");
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("remaining_capacity", 0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("balStatus", 0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("alarmlMsgList",  QVariant());
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("secondYa", "");
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("cycles_number", 0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("mainVer", "");
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("cellVlist", QVariantList());
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("yaCha",0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("maxYa", 0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("minYa", 0);
+
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("secondLiu", "");
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("secondTemperature", map.value("secondary_temperature"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("subVer", map.value("subVer"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("rtcY", map.value("rtc_year"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("rtcM", map.value("rtc_month"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("rtcD", map.value("rtc_day"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("rtcH", map.value("rtc_hour"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("rtcM1", map.value("rtc_minute"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("rtcS", map.value("rtc_second"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("afeNum", map.value("afeNum"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("cusNum", map.value("cusNum"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fcc", map.value("full_charge_capacity"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("dc", map.value("dc"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("maxNoElect", map.value("maxNoElect"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("majNoElect", map.value("majNoElect"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("functionConfig", map.value("functionConfig"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("protectMap", protectMap);
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue(viewValue, map.value(viewValue));
+}
+void BmsController::connectSec(const QString newAddr)
+{
+    connectBlue(newAddr);
+}
+
 void BmsController::connectBlue(const QString addr)
 {
     // 如果当前已经有一个 controller 且还没断开，就先让它断开并在断开完成后再连接新设备
@@ -203,6 +266,7 @@ void BmsController::connectBlue(const QString addr)
 
     // 1. 从之前扫描到的 deviceList 中找出地址和 addr 匹配的 QBluetoothDeviceInfo
     bool found = false;
+
     for (const auto &dev : deviceList)
     {
         if (dev.address().toString() == addr)
@@ -244,7 +308,9 @@ void BmsController::connectBlue(const QString addr)
     connect(mController, &QLowEnergyController::disconnected, this,
             [this]() {
                 qDebug() << "LowEnergy controller disconnected";
-                // 这里不做自动重连，交给上面的逻辑去触发
+
+                emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("disconnected");
+                clearAllResourcesForNextConnect();
             });
 
     // 4. 发起连接
@@ -258,23 +324,15 @@ void BmsController::connectBlue(const QString addr)
     // 如果当前控制器存在且未断开，先断开旧连接
     if (mController && mController->state() != QLowEnergyController::UnconnectedState)
     {
-        // 避免重复连接信号
-        // static QMetaObject::Connection disconnectHandler;
-        // QObject::disconnect(disconnectHandler);
-
-        // // 使用SingleShot确保只触发一次
-        // disconnectHandler = QObject::connect(mController, &QLowEnergyController::disconnected, this,
-        //                                      [this, addr]() {
-        //                                          if (mController) {
-        //                                              mController->deleteLater();
-        //                                              mController = nullptr;
-        //                                          }
-        //                                          this->connectBlue(addr); // 重新调用以连接新设备
-        //                                      }, Qt::SingleShotConnection);
-
         // mController->disconnectFromDevice();
         clearAllResourcesForNextConnect();
         isConnected = false;
+
+        connect(&connectTimer, &QTimer::timeout, this, [this, addr]() {
+            connectSec(addr);
+        });
+
+        connectTimer.start(300); // 启动定时器并传递参数
         return; // 等待断开完成
     }
 

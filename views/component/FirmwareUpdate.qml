@@ -41,7 +41,7 @@ Page
             }
             Text
             {
-                text: srcDict.mainVer === undefined ? "v1.0.0" : srcDict.mainVer
+                text: srcDict.mainVer === undefined ? "v1.0.0" : ("v" + srcDict.mainVer + ".0")
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: srcDict.scaled(18)

@@ -734,7 +734,7 @@ Page
                     font.pixelSize: 14
                     anchors.centerIn: parent
                     color: "white"
-                    text: srcDict.conectedBlueName === undefined ? "请先连接设备": srcDict.conectedBlueName.trim()
+                    text: srcDict.conectedBlueName === undefined ? srcDict.conectedBlueName : srcDict.conectedBlueName.trim()
                 }
             }
         }

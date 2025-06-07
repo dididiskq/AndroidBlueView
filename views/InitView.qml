@@ -171,7 +171,32 @@ Page
         }
 
     }
+    Connections
+    {
+        target: context
+        function onMySignal(message)
+        {
+            if(message === "disconnected")
+            {
+                loadRectMain.text = srcDict.conectedBlueName + "已断开"
+                loadRectMain.startLoad(3000)
+                srcDict.conectedBlueName = "请先连接设备"
+            }
+        }
+    }
 
+    LoadingIndicator
+    {
+        id: loadRectMain
+        anchors.centerIn: parent
+        width: srcDict.scaled(300)  // 自定义尺寸
+        height: srcDict.scaled(150)
+        z: 999
+        bgColor: "#CC303030"  // 自定义背景色
+        textColor: "#00FF00"   // 自定义文字颜色
+        iconColor: "#FFA500"   // 橙色加载图标
+        text: qsTr("...") // 自定义提示内容
+    }
     Component.onCompleted:
     {
         forceActiveFocus();

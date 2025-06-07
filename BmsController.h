@@ -134,6 +134,8 @@ public slots:
 
     void processNextWriteRequest();
     void clearAllResourcesForNextConnect();
+    void connectSec(const QString newAddr);
+    void initViewData();
 public:
     bool isScanConn = false;
 private:
@@ -160,6 +162,7 @@ private:
     // 定义发送队列和定时器
     QQueue<QByteArray> commandQueue;
     QTimer sendTimer;
+    QTimer connectTimer;
 
     QQueue<QByteArray> writeQueue;  // 写入请求队列
     bool isWriting = false;         // 当前是否正在写入
