@@ -10,3 +10,11 @@
     解决：手动安装gradle-7.2-bin
       网址：https://mirrors.aliyun.com/gradle/distributions/v7.2.0/
       将zip包放在此目录下面C:\Users\QH\.gradle\wrapper\dists\gradle-7.2-bin\2dnblmf4td7x66yl1d74lt32g\
+
+二维码库编译：
+构建工具：
+  cmake:cmake version 3.30.3
+编译器环境：
+Windows：msvc2019
+Android：Clang_arm64_v8a
+ios：待定
