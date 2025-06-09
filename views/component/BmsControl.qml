@@ -125,7 +125,7 @@ Page
         anchors.top: parent.top
         anchors.topMargin: srcDict.scaled(10)
         width: parent.width
-        height: srcDict.scaled(200)
+        height: srcDict.scaled(270)
         border.color: "white"
         color: "transparent"
         radius: 10
@@ -260,6 +260,48 @@ Page
                     {
                         recoverRect.color = "transparent"
                         passwordDialog.open()
+                    }
+                }
+            }
+        }
+        Rectangle
+        {
+            id: changeLanguage
+            width: parent.width - 30
+            height: srcDict.scaled(60)
+            anchors.top: rebootDev.bottom
+            anchors.topMargin: srcDict.scaled(5)
+            anchors.horizontalCenter: parent.horizontalCenter
+            border.color: "white"
+            color: "transparent"
+            radius: 10
+            Text
+            {
+                color: "white"
+                font.pixelSize: 25
+                anchors.centerIn: parent
+                text: qsTr("切换为英文")
+            }
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    changeLanguage.color = "white"
+                }
+                onReleased:
+                {
+                    releaseTimer4.start()
+                }
+                Timer
+                {
+                    id: releaseTimer4
+                    interval: 150
+                    repeat: false
+                    onTriggered:
+                    {
+                        changeLanguage.color = "transparent"
+                        // HMStmViewContext.switchLanguage("english")
                     }
                 }
             }

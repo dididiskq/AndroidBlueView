@@ -80,7 +80,6 @@ HEADERS += \
 # 资源文件
 DISTFILES += \
     views/HMStmView.qml \
-    views/HMTest.qml \
     views/InitView.qml \
     views/component/AlarmMsgPage.qml \
     views/component/BatteryArc.qml \
@@ -101,7 +100,6 @@ DISTFILES += \
     views/component/DRealTime.qml \
     views/component/DevicePage.qml \
     views/component/FirmwareUpdate.qml \
-    views/component/HMCNCulture.qml \
     views/component/InfoGrid.qml \
     views/component/InfoGridLang.qml \
     views/component/InfoGridOne.qml \

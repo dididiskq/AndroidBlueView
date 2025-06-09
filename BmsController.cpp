@@ -442,6 +442,10 @@ void BmsController::viewMessage(const int type)
         qDebug()<<"蓝牙未连接";
         return;
     }
+    if(m_writeTimeoutTimer.isActive())
+    {
+        m_writeTimeoutTimer.stop();
+    }
     if(!sendTimer.isActive())
     {
         sendTimer.start();
@@ -662,7 +666,6 @@ void BmsController::SendMsg(const QByteArray& array)
 
 void BmsController::sendMsgByQueue()
 {
-
 
     // QLowEnergyService::WriteMode mode = QLowEnergyService::WriteWithResponse;
 
@@ -1181,9 +1184,12 @@ bool BmsController::onSeceiveCommand(const QVariantMap &op)
     {
         if (m_waitingWriteResponse)
         {
-            m_writeTimeoutTimer.stop();
+            // m_writeTimeoutTimer.stop();
             m_waitingWriteResponse = false;
-            sendTimer.start(); // 恢复读取队列
+            // if(!sendTimer.isActive())
+            // {
+            //     sendTimer.start(); // 恢复读取队列
+            // }
             qDebug()<<"改写成功";
             // 检查响应是否正确
             if (true)
@@ -1193,7 +1199,7 @@ bool BmsController::onSeceiveCommand(const QVariantMap &op)
                 // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("operaCode", "6" +now );
                 emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("66");
                 isWriting = false;
-                processNextWriteRequest();
+                // processNextWriteRequest();
             }
             else
             {
