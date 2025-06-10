@@ -30,7 +30,8 @@ Row
 
         }
         // 可编辑的数值输入框
-        TextInput {
+        TextInput
+        {
             id: valueEditor
             width: srcDict.scaled(50)
             height: btnReal.height

@@ -6,42 +6,68 @@ Page {
     property var soc: srcDict.soc
     property var soh: srcDict.soh
     property var cellList: srcDict.cellVlist
+    property var firstCell: 0
 
     background: Rectangle
     {
         color: "transparent"
     }
     title: qsTr("Ultra BMS")
-
-    onCellListChanged:
+    Connections
     {
-        if(cellList === undefined)
+        target: context
+        function onMySignal(message)
         {
-            return
-        }
-        batteryModel.clear();
-        for (var i = 0; i < cellList.length; i++)
-        {
-            // console.log(i, cellList[i])
-            var voltage = String(cellList[i].toFixed(2)) + "V"; // 结果: "3.14"
-            // batteryModel.setProperty(i, "typeData", str)
-            batteryModel.append({
-                        text: "" + (i + 1),
-                        imgSrc: "../res/danCell.svg",
-                        typeData: voltage
-                    });
+            if(message === "cellNumDone")
+            {
+                if(firstCell === srcDict.cellNum)
+                {
+                    return
+                }
+
+                batteryModel.clear()
+
+                for (var i = 0; i < srcDict.cellNum; i++)
+                {
+                    batteryModel.append({text: "" + (i + 1), imgSrc: "../res/danCell.svg", typeData: "..."})
+                }
+                firstCell = srcDict.cellNum
+            }
+            else if(message === "cellListDone")
+            {
+                console.log("cellListDone")
+                for (var i = 0; i < srcDict.cellNum; i++)
+                {
+                    var voltage = String(cellList[i].toFixed(2)) + "V"; // 结果: "3.14"
+                    batteryModel.setProperty(i, "typeData", voltage)
+                }
+            }
         }
     }
-    ListModel {
-        id: batteryModel
-        // Component.onCompleted:
-        // {
-        //     for (var i = 0; i < (srcDict.cellNum === undefined ? 0:srcDict.cellNum); i++)
-        //     {
 
-        //         append({text: "" + (i + 1), imgSrc: "../res/danCell.svg", typeData: ""})
-        //     }
-        // }
+
+    // onCellListChanged:
+    // {
+    //     if(cellList === undefined)
+    //     {
+    //         return
+    //     }
+    //     // batteryModel.clear();
+    //     for (var i = 0; i < srcDict.cellNum; i++)
+    //     {
+    //         // console.log("cellList--->", cellList[i])
+    //         var voltage = String(cellList[i].toFixed(2)) + "V"; // 结果: "3.14"
+    //         batteryModel.setProperty(i, "typeData", voltage)
+    //         // batteryModel.append({
+    //         //             text: "" + (i + 1),
+    //         //             imgSrc: "../res/danCell.svg",
+    //         //             typeData: voltage
+    //         //         });
+    //     }
+    // }
+    ListModel
+    {
+        id: batteryModel
     }
     LoadingIndicator
     {

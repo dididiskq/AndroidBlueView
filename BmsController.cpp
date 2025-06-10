@@ -116,6 +116,7 @@ void BmsController::getTimerDataSignalSlot(const int type)
         viewMessage(1);
         viewMessage(2);
         viewMessage(8);
+        viewMessage(12);
         viewMessage(14);
         viewMessage(26);
         viewMessage(27);
@@ -1051,6 +1052,8 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
                     {
                         isFirstCells = false;
                         emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("firstLoadEnd");
+                        emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("cellNumDone");
+                        emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("cellListDone");
                     }
                 }
             }
@@ -1169,12 +1172,10 @@ bool BmsController::onSeceiveCommand(const QVariantMap &op)
     if(map.value("error", -1).toInt() == 1)
     {
         qDebug()<<"报文错误";
-        return false;
     }
     if(map.value("error", -1).toInt() == 2)
     {
         qDebug()<<"command not found";
-        return false;
     }
 
 
@@ -1236,6 +1237,9 @@ bool BmsController::onSeceiveCommand(const QVariantMap &op)
             selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("celllType", map.value("celllType"));
             cellNums = map.value("cellNum").toInt();
             selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("cellNum", map.value("cellNum"));
+
+            emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("cellNumDone");
+
 
         }
         else if(funcCode == 0x0000)
@@ -1362,6 +1366,7 @@ bool BmsController::onSeceiveCommand(const QVariantMap &op)
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("yaCha",tem);
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("cellVlist", cellVlist);
                 cellVlist.clear();
+                emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("cellListDone");
             }
         }
         else if(funcCode >= 0x200 ) //可读写数据and funcCode <= 0x221

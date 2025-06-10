@@ -106,10 +106,9 @@ void CHMView::switchLanguage(const QString &lang)
     m_translator = new QTranslator(this);
 
 
-    if (m_translator->load("../language/" +lang + ".qm"))
+    if (m_translator->load(":/language/" +lang + ".qm"))
     {
         QCoreApplication::installTranslator(m_translator);
-        qDebug()<<":/language/" +lang + ".qm"<<"66666";
     }
 
     QQuickView* v = view(QString("HMStmView"));

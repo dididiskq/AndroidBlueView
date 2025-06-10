@@ -301,7 +301,17 @@ Page
                     onTriggered:
                     {
                         changeLanguage.color = "transparent"
-                        // HMStmViewContext.switchLanguage("english")
+                        if(srcDict.isChinese)
+                        {
+                            HMStmViewContext.switchLanguage("english")
+                            srcDict.isChinese = false
+                        }
+                        else
+                        {
+                            HMStmViewContext.switchLanguage("chinese")
+                            srcDict.isChinese = true
+                        }
+
                     }
                 }
             }

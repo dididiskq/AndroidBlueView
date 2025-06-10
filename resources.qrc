@@ -6,7 +6,6 @@
         <file>views/component/DControl.qml</file>
         <file>views/component/DevicePage.qml</file>
         <file>views/component/DMessage.qml</file>
-        <file>views/component/DParam.qml</file>
         <file>views/component/DParam1.qml</file>
         <file>views/component/DParam2.qml</file>
         <file>views/component/DParam3.qml</file>
@@ -74,5 +73,7 @@
         <file>android/res/values/styles.xml</file>
         <file>android/res/drawable/splash_image.png</file>
         <file>views/component/FirmwareUpdate.qml</file>
+        <file>language/chinese.qm</file>
+        <file>language/english.qm</file>
     </qresource>
 </RCC>

@@ -124,7 +124,8 @@ QtObject
     property var temType: 0
     property var currentPageIndex: 0
     property var isConnected: false
-
+    property bool setPassFlag: true
+    property bool isChinese: true
     // 动态缩放函数
     function scaled(value)
     {

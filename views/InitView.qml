@@ -41,8 +41,8 @@ Page
     Dialog
     {
         id: exitDialog
-        title: "退出应用"
-        Label { text: "确定要退出吗？" }
+        title: qsTr("退出应用")
+        Label { text: qsTr("确定要退出吗？") }
         anchors.centerIn: parent
         standardButtons: Dialog.Yes | Dialog.No
 
@@ -71,7 +71,7 @@ Page
         STabButton
         {
             id: btnMain
-            buttonText: "设置"
+            buttonText: qsTr("设置")
             sour.source: "../res/setting.svg"
             sourP.source: "../res/settingP.svg"
             onClicked:
@@ -94,7 +94,7 @@ Page
         STabButton
         {
             id: btnDevice
-            buttonText: "实时"
+            buttonText: qsTr("实时")
             sour.source: "../res/main.svg"
             sourP.source: "../res/mainP.svg"
             onClicked:
@@ -118,7 +118,7 @@ Page
         STabButton
         {
             id: btnMine
-            buttonText: "我的"
+            buttonText: qsTr("我的")
             sour.source: "../res/mine.svg"
             sourP.source: "../res/mineP.svg"
             onClicked:
@@ -178,9 +178,9 @@ Page
         {
             if(message === "disconnected")
             {
-                loadRectMain.text = srcDict.conectedBlueName + "已断开"
+                loadRectMain.text = srcDict.conectedBlueName + qsTr("已断开")
                 loadRectMain.startLoad(3000)
-                srcDict.conectedBlueName = "请先连接设备"
+                srcDict.conectedBlueName = qsTr("请先连接设备")
             }
         }
     }

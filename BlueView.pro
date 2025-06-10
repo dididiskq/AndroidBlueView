@@ -10,6 +10,9 @@ CONFIG += resources_big
 CONFIG += C++17
 CONFIG += embed_translations
 
+TRANSLATIONS += \
+    ./language/english.ts \
+    ./language/chinese.ts
 
 
 
@@ -90,7 +93,6 @@ DISTFILES += \
     views/component/CellMessage.qml \
     views/component/DControl.qml \
     views/component/DMessage.qml \
-    views/component/DParam.qml \
     views/component/DParam1.qml \
     views/component/DParam2.qml \
     views/component/DParam3.qml \
