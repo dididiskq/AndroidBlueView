@@ -90,6 +90,7 @@ import QtQuick.Layouts 1.15
                 {
                     if(srcDict.temType === 513)
                     {
+                        srcDict.temType = 0
                         loadRect.text = qsTr("设置成功")
                         loadRect.startLoad(3000)
                         return

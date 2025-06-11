@@ -89,7 +89,6 @@ DISTFILES += \
     views/component/BlueList.qml \
     views/component/BmsControl.qml \
     views/component/CamerView.qml \
-    views/component/CameraImg.qml \
     views/component/CellMessage.qml \
     views/component/DControl.qml \
     views/component/DMessage.qml \

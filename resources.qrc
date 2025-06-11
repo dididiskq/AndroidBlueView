@@ -61,7 +61,6 @@
         <file>views/res/zi.svg</file>
         <file>views/res/guan.svg</file>
         <file>views/res/kai.svg</file>
-        <file>views/component/CameraImg.qml</file>
         <file>android/AndroidManifest.xml</file>
         <file>android/res/mipmap-xxxhdpi/ic_launcher.png</file>
         <file>android/res/mipmap-hdpi/ic_launcher.png</file>
