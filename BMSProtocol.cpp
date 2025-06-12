@@ -294,7 +294,22 @@ QByteArray BMSProtocol::byte_200(const QVariantMap &data)
 QByteArray BMSProtocol::byte_string(const QVariantMap &data)
 {
     QByteArray array;
-    quint16 regCount = 6;//变值
+    quint16 startAddr = data.value("startAddr").toUInt();
+    quint16 regCount = 0;//变值
+    if(startAddr == 0x23A ||startAddr == 0x24A)
+    {
+        regCount = 12;
+    }
+    else if(startAddr == 0x256 || startAddr == 0x246 || startAddr == 0x236)
+    {
+        regCount = 4;
+    }
+    else if(startAddr == 0x230)
+    {
+        regCount = 6;
+    }
+
+
     array.append(static_cast<char>((regCount >> 8) & 0xFF));
     array.append(static_cast<char>(regCount & 0xFF));
 

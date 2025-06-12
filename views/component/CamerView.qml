@@ -59,6 +59,7 @@ Page
         onClicked:
         {
             hidenTabbar(0)
+            srcDict.currentPageIndex = 2
             stackView1.pop()
         }
     }
@@ -85,6 +86,7 @@ Page
     Component.onCompleted:
     {
         cap.camera.start()
+        srcDict.currentPageIndex = 4
     }
     Timer
     {

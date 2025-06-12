@@ -414,7 +414,7 @@ void BmsController::processNextWriteRequest()
     }
     isWriting = true;
     QByteArray array = writeQueue.dequeue();
-    // qDebug()<<"发送报文：" << byteArrayToHexStr(array);
+    // qDebug()<<"发送写报文：" << byteArrayToHexStr(array);
 
     sendTimer.stop();
     if (currentService && m_Characteristic[0].isValid())

@@ -10,189 +10,189 @@ Page
     }
 
     // 主操作面板（初始状态）
-    Item {
+    Item
+    {
         id: mainPanel
         anchors.fill: parent
         visible: true
-    Rectangle
-    {
-        id: rectangle
-        anchors.top: parent.top
-        anchors.topMargin: srcDict.scaled(10)
-        width: parent.width
-        height: srcDict.scaled(50)
-        border.color: "white"
-        color: "transparent"
-        radius: 10
-        Label
+        Rectangle
         {
-            anchors.centerIn: parent
-            text: qsTr("电流归零")
-            color: "white"
-            font.pixelSize: 25
-        }
-        MouseArea
-        {
-            anchors.fill: parent
-            onClicked:
+            id: rectangle
+            anchors.top: parent.top
+            anchors.topMargin: srcDict.scaled(10)
+            width: parent.width
+            height: srcDict.scaled(50)
+            border.color: "white"
+            color: "transparent"
+            radius: 10
+            Label
             {
-                srcDict.writeToBlue(257, 10000)
-                rectangle.color = "white"
+                anchors.centerIn: parent
+                text: qsTr("电流归零")
+                color: "white"
+                font.pixelSize: 25
             }
-            onReleased:
-            {
-                console.log("放开")
-                releaseTimer1.start()
-            }
-            Timer
-            {
-                id: releaseTimer1
-                interval: 150
-                repeat: false
-                onTriggered:
-                {
-                    rectangle.color = "transparent"
-                }
-            }
-        }
-    }
-    Rectangle
-    {
-        id: rectangle1
-        anchors.top: rectangle.bottom
-        anchors.topMargin: srcDict.scaled(50)
-        width: parent.width
-        height: srcDict.scaled(150)
-        border.color: "white"
-        color: "transparent"
-        radius: 10
-        TextFieldTemplate
-        {
-            id: inputRec
-            anchors
-            {
-                // left: parent.left
-                top: parent.top
-                topMargin: srcDict.scaled(30)
-                // leftMargin: srcDict.scaled(30)
-                horizontalCenter:parent.horizontalCenter
-            }
-            width: parent.width * 0.75
-            height: parent.height * 0.3
-            inputObj.placeholderText: qsTr("请输入蓝牙名称")
-        }
-
-        Label
-        {
-            id: writeLabel
-            anchors
-            {
-                top: inputRec.bottom
-                topMargin:  srcDict.scaled(20)
-                horizontalCenter:parent.horizontalCenter
-            }
-            background: Rectangle
-            {
-                color: "transparent"
-                radius: 10
-                border.color: "white"
-            }
-
-            font.pixelSize: 25
-            color: "white"
-            text: qsTr("写入蓝牙名称")
             MouseArea
             {
                 anchors.fill: parent
                 onClicked:
                 {
-                    writeLabel.color = "green"
-                    if(inputRec.inputObj.text === "")
-                    {
-                        loadRect.startLoad(3000)
-                        loadRect.text = qsTr("名称不能为空")
-                    }
-                    else if(inputRec.inputObj.text.length >24)
-                    {
-                        loadRect.startLoad(3000)
-                        loadRect.text = qsTr("名称太长")
-                    }
-
-                    else
-                    {
-                        srcDict.writeToBlue(586, inputRec.inputObj.text)
-                    }
+                    srcDict.writeToBlue(257, 10000)
+                    rectangle.color = "white"
                 }
                 onReleased:
                 {
-                    releaseTimer2.start()
+                    console.log("放开")
+                    releaseTimer1.start()
                 }
                 Timer
                 {
-                    id: releaseTimer2
+                    id: releaseTimer1
                     interval: 150
                     repeat: false
                     onTriggered:
                     {
-                        writeLabel.color = "white"
+                        rectangle.color = "transparent"
                     }
                 }
             }
         }
-    }
-
-    Timer
-    {
-        id: timer1
-        interval: 1000
-        onTriggered:
+        Rectangle
         {
-            srcDict.conectedBlueName = srcDict.customerMode
-        }
-    }
-
-    Rectangle
-    {
-        id: rectangle2
-        anchors.top: rectangle1.bottom
-        anchors.topMargin: srcDict.scaled(50)
-        width: parent.width
-        height: srcDict.scaled(50)
-        border.color: "white"
-        color: "transparent"
-        radius: 10
-        Label
-        {
-            anchors.centerIn: parent
-            text: qsTr("扫描条形码")
-            color: "white"
-            font.pixelSize: 25
-        }
-        MouseArea
-        {
-            anchors.fill: parent
-            onClicked:
+            id: rectangle1
+            anchors.top: rectangle.bottom
+            anchors.topMargin: srcDict.scaled(50)
+            width: parent.width
+            height: srcDict.scaled(150)
+            border.color: "white"
+            color: "transparent"
+            radius: 10
+            TextFieldTemplate
             {
-                rectangle2.color = "white"
-            }
-            onReleased:
-            {
-                releaseTimer3.start()
-            }
-            Timer
-            {
-                id: releaseTimer3
-                interval: 150
-                repeat: false
-                onTriggered:
+                id: inputRec
+                anchors
                 {
-                    rectangle2.color = "transparent"
-                    mainPanel.visible = false
-                    scanPanel.visible = true
+                    // left: parent.left
+                    top: parent.top
+                    topMargin: srcDict.scaled(30)
+                    // leftMargin: srcDict.scaled(30)
+                    horizontalCenter:parent.horizontalCenter
+                }
+                width: parent.width * 0.75
+                height: parent.height * 0.3
+                inputObj.placeholderText: qsTr("请输入蓝牙名称")
+            }
+
+            Label
+            {
+                id: writeLabel
+                anchors
+                {
+                    top: inputRec.bottom
+                    topMargin:  srcDict.scaled(20)
+                    horizontalCenter:parent.horizontalCenter
+                }
+                background: Rectangle
+                {
+                    color: "transparent"
+                    radius: 10
+                    border.color: "white"
+                }
+
+                font.pixelSize: 25
+                color: "white"
+                text: qsTr("写入蓝牙名称")
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        writeLabel.color = "green"
+                        if(inputRec.inputObj.text === "")
+                        {
+                            loadRect.startLoad(3000)
+                            loadRect.text = qsTr("名称不能为空")
+                        }
+                        else if(inputRec.inputObj.text.length >24)
+                        {
+                            loadRect.startLoad(3000)
+                            loadRect.text = qsTr("名称太长")
+                        }
+                        else
+                        {
+                            srcDict.writeToBlue(586, inputRec.inputObj.text)
+                        }
+                    }
+                    onReleased:
+                    {
+                        releaseTimer2.start()
+                    }
+                    Timer
+                    {
+                        id: releaseTimer2
+                        interval: 150
+                        repeat: false
+                        onTriggered:
+                        {
+                            writeLabel.color = "white"
+                        }
+                    }
                 }
             }
         }
-    }
+
+        Timer
+        {
+            id: timer1
+            interval: 1000
+            onTriggered:
+            {
+                srcDict.conectedBlueName = srcDict.customerMode
+            }
+        }
+
+        Rectangle
+        {
+            id: rectangle2
+            anchors.top: rectangle1.bottom
+            anchors.topMargin: srcDict.scaled(50)
+            width: parent.width
+            height: srcDict.scaled(50)
+            border.color: "white"
+            color: "transparent"
+            radius: 10
+            Label
+            {
+                anchors.centerIn: parent
+                text: qsTr("扫描条形码")
+                color: "white"
+                font.pixelSize: 25
+            }
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    rectangle2.color = "white"
+                }
+                onReleased:
+                {
+                    releaseTimer3.start()
+                }
+                Timer
+                {
+                    id: releaseTimer3
+                    interval: 150
+                    repeat: false
+                    onTriggered:
+                    {
+                        rectangle2.color = "transparent"
+                        mainPanel.visible = false
+                        scanPanel.visible = true
+                    }
+                }
+            }
+        }
     }
 
     // 扫描条形码面板（默认隐藏）
@@ -230,7 +230,8 @@ Page
             border.width: 2
 
             // 扫描线
-            Rectangle {
+            Rectangle
+            {
                 id: scanLine
                 width: parent.width
                 height: 2
@@ -246,7 +247,8 @@ Page
             }
 
             // 提示文本
-            Label {
+            Label
+            {
                 anchors.top: parent.bottom
                 anchors.topMargin: 20
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -257,7 +259,8 @@ Page
         }
 
         // 扫描结果
-        Label {
+        Label
+        {
             id: resultText
             anchors.top: scanFrame.bottom
             anchors.topMargin: 50
@@ -274,7 +277,8 @@ Page
             id: backButton
             width: srcDict.scaled(100)
             height: srcDict.scaled(50)
-            anchors {
+            anchors
+            {
                 top: parent.top
                 left: parent.left
                 margins: srcDict.scaled(20)
@@ -283,14 +287,16 @@ Page
             border.color: "white"
             radius: 5
 
-            Label {
+            Label
+            {
                 anchors.centerIn: parent
                 text: qsTr("返回")
                 color: "white"
                 font.pixelSize: 20
             }
 
-            MouseArea {
+            MouseArea
+            {
                 anchors.fill: parent
                 onClicked: {
                     // 返回主面板

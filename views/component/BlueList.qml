@@ -25,6 +25,7 @@ Page
         // blueModel.clear()
         srcDict.startSearch()
         sracchLab.text = qsTr("搜索中...")
+        srcDict.currentPageIndex = 4
     }
     Keys.onBackPressed: {
 

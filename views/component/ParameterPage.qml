@@ -16,6 +16,7 @@ import QtQuick.Layouts 1.15
         property var celldata: ""
         property var userInput: ""
         property var operaCode: srcDict.operaCode
+        property bool isProcessing: false  // 保证独立处理标识
         LoadingIndicator
         {
             id: loadRect
@@ -52,6 +53,12 @@ import QtQuick.Layouts 1.15
 
                 onClicked:
                 {
+                    if(isProcessing)
+                    {
+                        loadRect.text = qsTr("请求处理中，请稍后")
+                        loadRect.startLoad(3000)
+                        return
+                    }
                     console.log("设置参数：", modelData.name, modelData.cellData, realValueEditor.text);
                     srcDict.itemIndex = index
                     celldata = modelData.cellData
@@ -74,6 +81,7 @@ import QtQuick.Layouts 1.15
                     {
                         var item = repeater.itemAt(srcDict.itemIndex)
                         item.btnText = qsTr("请稍后...")
+                        isProcessing = true
                         srcDict.writeToBlue(celldata, userInput)
                     }
                 }
@@ -114,6 +122,7 @@ import QtQuick.Layouts 1.15
                     item.btnText = qsTr("服务无效")
                     item.resetTimer.start()
                 }
+                isProcessing = false
             }
         }
         Timer
@@ -142,6 +151,7 @@ import QtQuick.Layouts 1.15
                     srcDict.setPassFlag = false
                     var item = repeater.itemAt(srcDict.itemIndex)
                     item.btnText = qsTr("请稍后...")
+                    isProcessing = true
                     srcDict.writeToBlue(celldata, userInput)
                     passwordDialog.close()
                 }
