@@ -43,7 +43,7 @@ signals:
     void viewInvoke(const QString &method, const QVariant &parameters, QVariant &result);
 
     void mySignal(const QString &message);
-    void codeImageReady(const QString &message);
+    void codeImageReady(const QString &message, const int& type);
 
     void sinkChanged();
     void languageChangeRequested(const QString &language);

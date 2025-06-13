@@ -191,7 +191,7 @@ bool CHMViewCommand::onSendToBlue(const QVariantMap &op)
 bool CHMViewCommand::onSendCodeData(const QVariantMap &op)
 {
 
-
+    int type = op.value("type", -1).toInt();
     QVariant imageVar = op.value("codeData");
 
     if (!imageVar.canConvert<QImage>())
@@ -207,13 +207,32 @@ bool CHMViewCommand::onSendCodeData(const QVariantMap &op)
         return true;
     }
 
-    if (image.isNull())
+    QZXing decoder;
+    decoder.setDecoder(QZXing::DecoderFormat_QR_CODE);
+
+    decoder.setSourceFilterType(QZXing::SourceFilter_ImageNormal);
+    decoder.setTryHarderBehaviour(QZXing::TryHarderBehaviour_ThoroughScanning |
+                                  QZXing::TryHarderBehaviour_Rotate);
+    QString info = decoder.decodeImage(image);
+    qDebug()<<"扫描结果："<<info;
+    if(info == "")
     {
-        qCritical() << "Error: Image file not loaded!";
-        return -1;
+
+    }
+    else
+    {
+        if(type == 1)
+        {
+            emit parseCodeSlot(image);
+        }
+        else if(type == 2)
+        {
+            emit selfObj->selfViewCommand->selfView.context("HMStmView")->codeImageReady(info, type);
+        }
     }
 
-    emit parseCodeSlot(image);
+
+    // emit parseCodeSlot(image);
     return true;
 }
 

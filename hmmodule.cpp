@@ -12,7 +12,7 @@ CHMModule::CHMModule(QObject *parent)
         版本:1.00.001.20250117
         @author:skq
     */
-    version = "1.00.001.20250612";
+    version = "1.00.001.20250613";
     HMUtils::log() << QString("界面程序版本： %1").arg(version) <<HMLog::endl;
 
 
@@ -143,14 +143,13 @@ void CHMModule::parseCode(const QImage&  img)
                    !cleaned.contains("  ");  // 排除连续分隔符的情况
             if(res)
             {
-                emit selfViewCommand->selfView.context("HMStmView")->codeImageReady("connecting");
+                emit selfViewCommand->selfView.context("HMStmView")->codeImageReady("connecting", 1);
                 selfViewCommand->selfView.context("HMStmView")->setFieldValue("codeData", info);
                 selfBmsCommand->isScanConn = true;
                 selfBmsCommand->connectBlue(info);
             }
 
         }
-        qDebug()<<info<<"666";
     });
 }
 

@@ -125,6 +125,7 @@ QtObject
     property var currentPageIndex: 0
     property var isConnected: false
     property bool setPassFlag: true
+    property bool setPassFlag2: true
     property bool isChinese: true
     // 动态缩放函数
     function scaled(value)
@@ -151,10 +152,11 @@ QtObject
         putOp("send.to.blue", data)
     }
 
-    function sendCodeData(codeData)
+    function sendCodeData(codeData, type)
     {
         var data = {}
         data["codeData"] = codeData
+        data["type"] = type
         putOp("send.codeData", data)
     }
     function connectBlue(addr)

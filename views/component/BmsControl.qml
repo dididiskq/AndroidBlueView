@@ -168,7 +168,22 @@ Page
                     onTriggered:
                     {
                         shutDownRect.color = "transparent"
-                        passwordDialog.open()
+                        if(srcDict.setPassFlag2)
+                        {
+                            passwordDialog.open()
+                        }
+                        else
+                        {
+                            if(!isSystemOpera)
+                            {
+                               control.checked = !pendingSwitchState
+                               srcDict.writeToBlue(517, flagOpen)
+                            }
+                            else
+                           {
+                               srcDict.writeToBlue(systemData, 10000)
+                            }
+                        }
                     }
                 }
             }
@@ -215,7 +230,22 @@ Page
                     onTriggered:
                     {
                         rebootDev.color = "transparent"
-                        passwordDialog.open()
+                        if(srcDict.setPassFlag2)
+                        {
+                            passwordDialog.open()
+                        }
+                        else
+                        {
+                            if(!isSystemOpera)
+                            {
+                               control.checked = !pendingSwitchState
+                               srcDict.writeToBlue(517, flagOpen)
+                            }
+                            else
+                           {
+                               srcDict.writeToBlue(systemData, 10000)
+                            }
+                        }
                     }
                 }
             }
@@ -259,7 +289,22 @@ Page
                     onTriggered:
                     {
                         recoverRect.color = "transparent"
-                        passwordDialog.open()
+                        if(srcDict.setPassFlag2)
+                        {
+                            passwordDialog.open()
+                        }
+                        else
+                        {
+                            if(!isSystemOpera)
+                            {
+                               control.checked = !pendingSwitchState
+                               srcDict.writeToBlue(517, flagOpen)
+                            }
+                            else
+                           {
+                               srcDict.writeToBlue(systemData, 10000)
+                            }
+                        }
                     }
                 }
             }
@@ -329,6 +374,7 @@ Page
             console.log("输入密码:", pwd)
             if(pwd === "0909")
             {
+                srcDict.setPassFlag2 = false
                  if(!isSystemOpera)
                  {
                     control.checked = !pendingSwitchState
@@ -336,7 +382,6 @@ Page
                  }
                  else
                 {
-                                 console.log(systemData)
                     srcDict.writeToBlue(systemData, 10000)
                  }
 
@@ -405,7 +450,22 @@ Page
                 pendingSwitchState = !checked
                 checked = !checked
 
-                passwordDialog.open()
+                if(srcDict.setPassFlag2)
+                {
+                    passwordDialog.open()
+                }
+                else
+                {
+                    if(!isSystemOpera)
+                    {
+                       control.checked = !pendingSwitchState
+                       srcDict.writeToBlue(517, flagOpen)
+                    }
+                    else
+                   {
+                       srcDict.writeToBlue(systemData, 10000)
+                    }
+                }
 
                 flagOpen = pendingSwitchState ? 0 : 1
             }

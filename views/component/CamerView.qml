@@ -33,7 +33,7 @@ Page
     Connections
     {
         target: context
-        function onCodeImageReady(message)
+        function onCodeImageReady(message, type)
         {
             if(message === "connecting")
             {
@@ -102,7 +102,7 @@ Page
             {
                 // result.image 就是一个 QImage
                 // HMStmViewContext.onFrameGrabbed(result.image)
-                srcDict.sendCodeData(result.image)
+                srcDict.sendCodeData(result.image, 1)
             });
         }
     }

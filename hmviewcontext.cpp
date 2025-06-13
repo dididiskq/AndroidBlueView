@@ -167,7 +167,7 @@ void HMViewContext::onFrameGrabbed(const QImage &img)
                    !cleaned.contains("  ");  // 排除连续分隔符的情况
         if(res)
         {
-            emit codeImageReady(info);
+            emit codeImageReady(info, 1);
         }
 
     }

@@ -79,6 +79,7 @@ Page
             console.log("输入密码:", pwd)
             if(pwd === "0909")
             {
+                srcDict.setPassFlag2 = false
                 if(currIndex === 3)
                 {
                     stackViewMine.push("BmsControl.qml")
@@ -197,7 +198,22 @@ Page
                     onClicked:
                     {
                         currIndex = 2
-                        passwordDialog.open()
+                        if(srcDict.setPassFlag2)
+                        {
+                            passwordDialog.open()
+                        }
+                        else
+                        {
+                            if(currIndex === 3)
+                            {
+                                stackViewMine.push("BmsControl.qml")
+                            }
+                            else if(currIndex === 2)
+                            {
+                                stackViewMine.push("OperaBoard.qml")
+                            }
+
+                        }
 
                     }
                 }

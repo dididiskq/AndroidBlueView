@@ -161,7 +161,7 @@ Page
                 {
                     hidenTabbar(1)
                     // mainPageTimer.stop()
-                    srcDict.sendCodeData(1)
+                    // srcDict.sendCodeData(1)
                     // cameraRect.visible = true
                     // cameraRect.capReal.camera.start()
                     stackView1.push("CamerView.qml")

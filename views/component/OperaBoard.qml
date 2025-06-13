@@ -164,7 +164,7 @@ Page
             Label
             {
                 anchors.centerIn: parent
-                text: qsTr("扫描条形码")
+                text: qsTr("扫一扫")
                 color: "white"
                 font.pixelSize: 25
             }
@@ -217,7 +217,35 @@ Page
             id: output
             anchors.fill: parent
         }
+        Connections
+        {
+            target: context
+            function onCodeImageReady(message, type)
+            {
+                if(type === 2)
+                {
+                    timer.stop();
+                    scanPanel.visible = false
+                    mainPanel.visible = true
+                    inputRec.inputObj.text = message
+                }
+            }
+        }
+        Timer
+        {
+            id: timer
+            interval: 600
+            running: cap.camera.active
+            repeat: true
+            onTriggered:
+            {
 
+                output.grabToImage(function(result)
+                {
+                    srcDict.sendCodeData(result.image, 2)
+                });
+            }
+        }
         // 扫描框
         Rectangle
         {

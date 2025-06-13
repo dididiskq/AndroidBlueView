@@ -115,6 +115,8 @@ BMSProtocol::BMSProtocol(QObject *parent) : QObject(parent)
     writeByteCommands[0x206] = [this](const QVariantMap& data) { return byte_200(data); };
     writeByteCommands[0x207] = [this](const QVariantMap& data) { return byte_200(data); };
     writeByteCommands[0x208] = [this](const QVariantMap& data) { return byte_200(data); };
+    writeByteCommands[0x20A] = [this](const QVariantMap& data) { return byte_200(data); };
+    writeByteCommands[0x20C] = [this](const QVariantMap& data) { return byte_200(data); };
     writeByteCommands[0x210] = [this](const QVariantMap& data) { return byte_200(data); };
     writeByteCommands[0x211] = [this](const QVariantMap& data) { return byte_200(data); };
     writeByteCommands[0x212] = [this](const QVariantMap& data) { return byte_200(data); };
@@ -133,6 +135,7 @@ BMSProtocol::BMSProtocol(QObject *parent) : QObject(parent)
     writeByteCommands[0x21F] = [this](const QVariantMap& data) { return byte_200(data); };
     writeByteCommands[0x220] = [this](const QVariantMap& data) { return byte_200(data); };
     writeByteCommands[0x221] = [this](const QVariantMap& data) { return byte_200(data); };
+
     //数据段为string类型,数据长度不同
     writeByteCommands[0x230] = [this](const QVariantMap& data) { return byte_string(data); };
     writeByteCommands[0x236] = [this](const QVariantMap& data) { return byte_string(data); };
@@ -142,6 +145,8 @@ BMSProtocol::BMSProtocol(QObject *parent) : QObject(parent)
     writeByteCommands[0x256] = [this](const QVariantMap& data) { return byte_string(data); };
     writeByteCommands[0x418] = [this](const QVariantMap& data) { return byte_string(data); };
     //数据段为int16，寄存器为1
+    writeByteCommands[0x209] = [this](const QVariantMap& data) { return byte_int16and1(data); };
+    writeByteCommands[0x20B] = [this](const QVariantMap& data) { return byte_int16and1(data); };
     writeByteCommands[0x20D] = [this](const QVariantMap& data) { return byte_int16and1(data); };
     writeByteCommands[0x222] = [this](const QVariantMap& data) { return byte_int16and1(data); };
     writeByteCommands[0x223] = [this](const QVariantMap& data) { return byte_int16and1(data); };

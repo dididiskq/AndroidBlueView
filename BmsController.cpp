@@ -728,7 +728,7 @@ void BmsController::onDescriptorWritten(const QLowEnergyDescriptor &descriptor, 
             isConnected = true;
             if(isScanConn)
             {
-                emit selfObj->selfViewCommand->selfView.context("HMStmView")->codeImageReady(descriptor.name());
+                emit selfObj->selfViewCommand->selfView.context("HMStmView")->codeImageReady(descriptor.name(), 1);
                 isScanConn = false;
             }
             else

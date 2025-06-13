@@ -56,7 +56,7 @@ import QtQuick.Layouts 1.15
                     if(isProcessing)
                     {
                         loadRect.text = qsTr("请求处理中，请稍后")
-                        loadRect.startLoad(3000)
+                        loadRect.startLoad(2000)
                         return
                     }
                     console.log("设置参数：", modelData.name, modelData.cellData, realValueEditor.text);
