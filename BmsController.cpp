@@ -728,7 +728,7 @@ void BmsController::onDescriptorWritten(const QLowEnergyDescriptor &descriptor, 
             isConnected = true;
             if(isScanConn)
             {
-                emit selfObj->selfViewCommand->selfView.context("HMStmView")->codeImageReady(descriptor.name(), 1);
+                emit selfObj->selfViewCommand->selfView.context("HMStmView")->codeImageReady(currentDevice.name(), 1);
                 isScanConn = false;
             }
             else
@@ -762,7 +762,6 @@ void BmsController::addBlueToothDevicesToList(QBluetoothDeviceInfo Info)
     if(Info.coreConfigurations() & QBluetoothDeviceInfo::LowEnergyCoreConfiguration)
     {
         QString showStr = QString(Info.name()) + QString("(") + QString(Info.address().toString()) + QString (")");
-        // qDebug()<<showStr;
         // ui->listWidget->addItem(showStr);
         QVariantMap map;
         map["name"] = Info.name();

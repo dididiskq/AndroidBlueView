@@ -8,7 +8,7 @@ Page
     property var codeData: srcDict.codeData
     property bool isCapturing: false
     visible: true
-    width: parent.width
+    width: srcDict.winWidth
     height: srcDict.winHeight
     signal returnPage()
 
@@ -35,6 +35,7 @@ Page
         target: context
         function onCodeImageReady(message, type)
         {
+            console.log(message, type, "88888888")
             if(message === "connecting")
             {
                 timer.stop();
@@ -44,7 +45,9 @@ Page
             else
             {
                 srcDict.conectedBlueName = message
-                returnPage()
+                hidenTabbar(0)
+                srcDict.currentPageIndex = 2
+                stackView1.pop()
             }
         }
     }
@@ -85,13 +88,14 @@ Page
     }
     Component.onCompleted:
     {
+        srcDict.startSearch()
         cap.camera.start()
         srcDict.currentPageIndex = 4
     }
     Timer
     {
         id: timer
-        interval: 1000
+        interval: 500
         running: cap.camera.active // 摄像头激活时启动
         repeat: true
         onTriggered:

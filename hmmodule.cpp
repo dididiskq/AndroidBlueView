@@ -12,7 +12,7 @@ CHMModule::CHMModule(QObject *parent)
         版本:1.00.001.20250117
         @author:skq
     */
-    version = "1.00.001.20250613";
+    version = "1.00.001.20250615";
     HMUtils::log() << QString("界面程序版本： %1").arg(version) <<HMLog::endl;
 
 
@@ -107,7 +107,7 @@ void CHMModule::playVoices(const QString path)
 
 void CHMModule::parseCode(const QImage&  img)
 {
-    QFuture<void> future = QtConcurrent::run([=]() {
+    // QFuture<void> future = QtConcurrent::run([=]() {
         //QR Code二维码
         decoder.setDecoder(QZXing::DecoderFormat_QR_CODE);
 
@@ -144,13 +144,12 @@ void CHMModule::parseCode(const QImage&  img)
             if(res)
             {
                 emit selfViewCommand->selfView.context("HMStmView")->codeImageReady("connecting", 1);
-                selfViewCommand->selfView.context("HMStmView")->setFieldValue("codeData", info);
+                // selfViewCommand->selfView.context("HMStmView")->setFieldValue("codeData", info);
                 selfBmsCommand->isScanConn = true;
                 selfBmsCommand->connectBlue(info);
             }
-
         }
-    });
+    // });
 }
 
 void CHMModule::closeAppSlot()

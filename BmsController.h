@@ -154,6 +154,7 @@ public slots:
     void initViewData();
 public:
     bool isScanConn = false;
+
 private:
     CHMModule *selfObj;
     BMSProtocol protocal;
@@ -163,6 +164,7 @@ private:
     QStandardItemModel *item;
 
     QBluetoothDeviceInfo currentDevice;
+
     QVector<QBluetoothDeviceInfo> deviceList;
 
     QLowEnergyCharacteristic  mCharacteristic; //记录当前选定的特性值
