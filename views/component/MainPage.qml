@@ -385,7 +385,12 @@ Page
                 }
                 Text
                 {
-                    anchors.centerIn: parent
+                    anchors
+                    {
+                        horizontalCenter:parent.horizontalCenter
+                        bottom: parent.bottom
+                        bottomMargin: srcDict.scaled(40)
+                    }
                     font.pixelSize: 20
                     color: "white"
                     text: String(srcDict.electYa === undefined ? "0" : srcDict.electYa) + " V"
@@ -396,7 +401,7 @@ Page
                     anchors
                     {
                         top: parent.top
-                        topMargin: srcDict.scaled(25)
+                        topMargin: srcDict.scaled(40)
                         horizontalCenter:parent.horizontalCenter
                     }
                     color: "white"
@@ -421,7 +426,12 @@ Page
                 }
                 Text
                 {
-                    anchors.centerIn: parent
+                    anchors
+                    {
+                        horizontalCenter:parent.horizontalCenter
+                        bottom: parent.bottom
+                        bottomMargin: srcDict.scaled(40)
+                    }
                     font.pixelSize: 20
                     color: "white"
                     text: String(srcDict.electLiu === undefined ? "0" : srcDict.electLiu) + " A"
@@ -432,7 +442,7 @@ Page
                     {
                         top: parent.top
 
-                        topMargin: srcDict.scaled(25)
+                        topMargin: srcDict.scaled(40)
                         horizontalCenter:parent.horizontalCenter
                     }
                     color: "white"
@@ -477,7 +487,8 @@ Page
                     }
                     Label
                     {
-                        anchors.top: img1.bottom
+                        anchors.bottom: warm1.bottom
+                        anchors.bottomMargin: srcDict.scaled(10)
                         text: qsTr("电池温度")
                         color: "white"
                         anchors.horizontalCenter: warm1.horizontalCenter
@@ -708,7 +719,7 @@ Page
                         width: 4 * (font.pixelSize * 1.2)
                         horizontalAlignment: Text.AlignLeft
                         anchors.left: parent.left
-                        anchors.leftMargin: srcDict.scaled(20)
+                        anchors.leftMargin: srcDict.scaled(25)
                         color: "white"
                     }
                     Label

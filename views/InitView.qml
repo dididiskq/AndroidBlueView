@@ -21,7 +21,7 @@ Page
         id: allBg
         width: srcDict.winWidth
         height: srcDict.winHeight
-        source: "./res/104.svg"
+        source: "./res/langbg.svg"//104.svg
     }
     Keys.onBackPressed: {
         if(devPage.reallStackView.depth > 1)
@@ -61,7 +61,7 @@ Page
         visible: srcDict.isShowTool
         z: 1
         width: parent.width
-        contentHeight: parent.height * 0.08
+        contentHeight: parent.height * 0.105
         anchors.bottom: parent.bottom
         currentIndex: swipeView.currentIndex
 

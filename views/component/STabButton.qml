@@ -22,7 +22,9 @@ TabButton
             id: name1
             height: srcDict.scaled(40)
             width: srcDict.scaled(40)
-            anchors.centerIn: parent
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: srcDict.scaled(10)
             visible: true
             source: ""
         }
@@ -31,7 +33,9 @@ TabButton
             id: name2
             height: srcDict.scaled(40)
             width: srcDict.scaled(40)
-            anchors.centerIn: parent
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: srcDict.scaled(10)
             visible: false
             source: ""
         }
@@ -57,9 +61,7 @@ TabButton
         id: fontLabel
         color: "#7A7E7D"
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: srcDict.scaled(0)
-        // anchors.left: parent.left
-        // anchors.leftMargin: srcDict.scaled(52)
+        anchors.bottomMargin: srcDict.scaled(25)
         anchors.horizontalCenter: parent.horizontalCenter
         text: buttonText
         font.pointSize: buttonTextPointSize

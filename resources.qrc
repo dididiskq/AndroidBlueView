@@ -74,5 +74,6 @@
         <file>views/component/FirmwareUpdate.qml</file>
         <file>language/chinese.qm</file>
         <file>language/english.qm</file>
+        <file>views/res/langbg.svg</file>
     </qresource>
 </RCC>
