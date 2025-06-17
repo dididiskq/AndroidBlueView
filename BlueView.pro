@@ -3,7 +3,7 @@ QT += gui qml quick core bluetooth multimedia svg
 greaterThan(QT_MAJOR_VERSION, 5): QT += core5compat
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = ultra_bms
+TARGET = Ultra_bms
 TEMPLATE = app
 
 CONFIG += resources_big
@@ -30,7 +30,7 @@ android {
 
 # 指定Android资源目录
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
-
+# ANDROID_APP_NAME = "Ultra bms"  # 这个才是应用显示名称
 INCLUDEPATH += $$PWD/QZXing/include
 DEPENDPATH += $$PWD/QZXing/include
 

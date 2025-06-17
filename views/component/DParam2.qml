@@ -19,6 +19,12 @@ Page
 
     ParameterPage
     {
+        anchors
+        {
+            top: parent.top
+            topMargin: srcDict.scaled(20)
+
+        }
         width: parent.width
         paramList: [
             { name: qsTr("过充保护电压"), value: srcDict.ov === undefined ? 0 : srcDict.ov, unit: "mV" , cellData: 528},

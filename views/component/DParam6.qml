@@ -21,6 +21,12 @@ Page
     title: qsTr("系统参数")
     ParameterPage
     {
+        anchors
+        {
+            top: parent.top
+            topMargin: srcDict.scaled(20)
+
+        }
         width: parent.width
         paramList: [
             { name: qsTr("额定充电电压"), value: srcDict.eYa === undefined ? 0 : srcDict.eYa, unit: "0.1V", cellData:520 },

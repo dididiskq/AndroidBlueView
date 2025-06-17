@@ -16,6 +16,12 @@ Page
     title: qsTr("均衡参数")
     ParameterPage
     {
+        anchors
+        {
+            top: parent.top
+            topMargin: srcDict.scaled(20)
+
+        }
         width: parent.width
         paramList: [
             { name: qsTr("均衡启动电压"), value: srcDict.vob === undefined ? 0 : srcDict.vob, unit: "mV", cellData:532 },

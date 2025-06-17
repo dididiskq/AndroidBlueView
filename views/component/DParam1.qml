@@ -32,7 +32,7 @@ Page
         anchors
         {
             top: parent.top
-            topMargin: srcDict.scaled(50)
+            topMargin: srcDict.scaled(20)
 
         }
         width: parent.width

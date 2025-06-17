@@ -11,6 +11,7 @@ TabButton
     property alias sour: name1
     property alias sourP: name2
     property string buttonText: ""
+
     background: Rectangle
     {
         id:colorRect

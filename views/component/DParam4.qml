@@ -22,6 +22,12 @@ Page
     title: qsTr("电流参数")
     ParameterPage
     {
+        anchors
+        {
+            top: parent.top
+            topMargin: srcDict.scaled(20)
+
+        }
         width: parent.width
         paramList: [
             { name: qsTr("充电过流1保护电流"), value: srcDict.occ === undefined ? 0 : srcDict.occ, unit: "A", cellData:544},

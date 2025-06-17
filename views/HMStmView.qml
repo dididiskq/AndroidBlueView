@@ -29,7 +29,7 @@ Rectangle
         // }
         Label
         {
-            text: "ULTRA BMS" + srcDict.version
+            text: "welcom into hbj ultra bms"
             anchors.centerIn: parent
         }
 

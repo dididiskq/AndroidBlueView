@@ -22,6 +22,12 @@ Page
 
     ParameterPage
     {
+        anchors
+        {
+            top: parent.top
+            topMargin: srcDict.scaled(20)
+
+        }
         width: parent.width
         paramList: [
             { name: qsTr("充电高温保护"), value: srcDict.otc === undefined ? 0 : srcDict.otc, unit: "℃", cellData: 546},

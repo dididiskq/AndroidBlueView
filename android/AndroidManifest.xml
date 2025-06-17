@@ -24,7 +24,7 @@
 		android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar"
         android:extractNativeLibs="true"
         android:hardwareAccelerated="true"
-        android:label="ultra_bms"
+        android:label="Ultra bms"
         android:requestLegacyExternalStorage="true"
         android:allowNativeHeapPointerTagging="false"
 		android:icon="@mipmap/ic_launcher">
@@ -32,7 +32,7 @@
 			android:name="org.qtproject.qt.android.bindings.QtActivity"
 			android:theme="@style/SplashTheme"
             android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
-            android:label="ultra_bms"
+            android:label="Ultra bms"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>

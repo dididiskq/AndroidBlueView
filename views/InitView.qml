@@ -12,7 +12,6 @@ Page
         right: parent.right
         top: parent.top
         bottom: parent.bottom
-        // bottomMargin: -Screen.safeArea.bottom
     }
     background: Rectangle {
         color: "transparent"
@@ -65,9 +64,12 @@ Page
         contentHeight: parent.height * 0.08
         anchors.bottom: parent.bottom
         currentIndex: swipeView.currentIndex
+
         background: Rectangle {
             color: "transparent"
         }
+
+
         STabButton
         {
             id: btnMain
