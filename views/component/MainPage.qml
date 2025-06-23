@@ -408,6 +408,67 @@ Page
                     text: qsTr("电压")
                 }
             }
+            // mos状态
+            Rectangle
+            {
+                color: "transparent"
+                height: parent.height * 0.16
+                width: srcDict.scaled(100)
+                anchors
+                {
+                    horizontalCenter: parent.horizontalCenter
+                    top: parent.top
+                    topMargin: srcDict.scaled(410)
+                }
+                // 参数名称
+                Column
+                {
+                    spacing: srcDict.scaled(20)
+                    anchors
+                    {
+                        left: parent.left
+                        leftMargin: srcDict.scaled(0)
+                        verticalCenter: parent.verticalCenter
+                    }
+                    Label
+                    {
+                        text: qsTr("充电MOS")
+                        font.pixelSize: 14
+                        color: "white"
+                    }
+                    Label
+                    {
+                        text: qsTr("放电MOS")
+                        font.pixelSize: 14
+                        color: "white"
+                    }
+
+                }
+                Column
+                {
+                    spacing: 20
+                    anchors
+                    {
+                        right: parent.right
+                        rightMargin: srcDict.scaled(0)
+                        verticalCenter: parent.verticalCenter
+                    }
+                    Image
+                    {
+                        height: srcDict.scaled(20)
+                        width: srcDict.scaled(20)
+                        source: srcDict.cMos === undefined ? "../res/guan.svg" : (srcDict.cMos === 2 ? "../res/kai.svg" : "../res/guan.svg")
+                    }
+                    Image
+                    {
+                        height: srcDict.scaled(20)
+                        width: srcDict.scaled(20)
+                        source: srcDict.fMos === undefined ? "../res/guan.svg" : (srcDict.fMos === 1 ? "../res/kai.svg" : "../res/guan.svg")
+                    }
+
+                }
+            }
+
             // 电流
             Rectangle
             {

@@ -29,8 +29,9 @@ Rectangle
         // }
         Label
         {
-            text: "welcom into hbj ultra bms"
+            text: "Welcom into hbj Ultra bms"
             anchors.centerIn: parent
+            font.pixelSize: 28
         }
 
         // Behavior 自动为 opacity 添加渐变
