@@ -544,8 +544,7 @@ QVariantMap BMSProtocol::paseCellVs(quint16 cmd, const QByteArray &data)
     // 组合数据（大端序）
     quint16 raw = (static_cast<quint8>(data[5]) << 8) | static_cast<quint8>(data[6]);
     double value = raw * 0.0010;
-    value = std::round(value * 100.0) / 100.0;
-    // response["cellV"] = QString::number(value / 1000, 'f', 2) + " V";
+    value = std::round(value * 1000.0) / 1000.0;
     response["cellV"] = value;
     return response;
 }
