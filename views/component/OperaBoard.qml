@@ -4,11 +4,31 @@ import QtMultimedia
 Page
 {
     title: qsTr("生产操作面板")
+    property int valueIndex: 0
     background: Rectangle
     {
         color: "transparent"  // 完全透明
     }
+    DataConfirmationDialog
+    {
+        id: confirmDialog
+        anchors.fill: parent
+        onOkBtn:
+        {
+            if(valueIndex === 1)
+            {
+                srcDict.writeToBlue(257, 10000)
+            }
+            else if(valueIndex === 2)
+            {
+                srcDict.writeToBlue(586, inputRec.inputObj.text)
+            }
+        }
+        onNoBtn:
+        {
 
+        }
+    }
     // 主操作面板（初始状态）
     Item
     {
@@ -37,7 +57,11 @@ Page
                 anchors.fill: parent
                 onClicked:
                 {
-                    srcDict.writeToBlue(257, 10000)
+                    // srcDict.writeToBlue(257, 10000)
+                    valueIndex = 1
+                    confirmDialog.titleName = "电流是否要归零？"
+                    confirmDialog.jiantouVisible = false
+                    confirmDialog.showDialog = true
                     rectangle.color = "white"
                 }
                 onReleased:
@@ -120,7 +144,11 @@ Page
                         }
                         else
                         {
-                            srcDict.writeToBlue(586, inputRec.inputObj.text)
+                            valueIndex = 2
+                            confirmDialog.titleName = "是否要改写？"
+                            confirmDialog.jiantouVisible = false
+                            confirmDialog.showDialog = true
+                            // srcDict.writeToBlue(586, inputRec.inputObj.text)
                         }
                     }
                     onReleased:
@@ -280,7 +308,7 @@ Page
                 anchors.top: parent.bottom
                 anchors.topMargin: 20
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("将条形码放入框内")
+                text: qsTr("将码放入框内")
                 color: "white"
                 font.pixelSize: 20
             }

@@ -577,7 +577,7 @@ Page
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: srcDict.scaled(10)
                         color: "white"
-                        font.pixelSize: 20
+                        font.pixelSize: 16
                         text: srcDict.temperature1 === undefined ? "" : (srcDict.temperature1 + "℃")
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
@@ -604,7 +604,7 @@ Page
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: srcDict.scaled(10)
                         color: "white"
-                        font.pixelSize: 20
+                        font.pixelSize: 16
                         text: srcDict.temperature2 === undefined ? "" : (srcDict.temperature2 + "℃")
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
@@ -631,7 +631,7 @@ Page
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: srcDict.scaled(10)
                         color: "white"
-                        font.pixelSize: 20
+                        font.pixelSize: 16
                         text: srcDict.mosTemperature === undefined ? "" : (srcDict.mosTemperature  + "℃")
                         anchors.horizontalCenter: parent.horizontalCenter
                     }
@@ -789,7 +789,7 @@ Page
                         color: "white"
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: imgYc.right
-                        font.pixelSize: 20
+                        font.pixelSize: 15
                         text: srcDict.yaCha === undefined ? "0" : String(srcDict.yaCha)
                     }
                 }

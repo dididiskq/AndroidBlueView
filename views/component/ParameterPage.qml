@@ -17,6 +17,8 @@ import QtQuick.Layouts 1.15
         property var userInput: ""
         property var operaCode: srcDict.operaCode
         property bool isProcessing: false  // 保证独立处理标识
+        property var temDataName: ""
+        property var temDataValue: ""
         LoadingIndicator
         {
             id: loadRect
@@ -75,17 +77,26 @@ import QtQuick.Layouts 1.15
 
                     if(srcDict.setPassFlag)
                     {
+                        temDataName = modelData.name + "(" + modelData.unit + ")"
+                        temDataValue = modelData.value
                         passwordDialog.open()
                     }
                     else
                     {
-                        var item = repeater.itemAt(srcDict.itemIndex)
-                        item.btnText = qsTr("请稍后...")
-                        isProcessing = true
-                        srcDict.writeToBlue(celldata, userInput)
+                        confirmDialog.changeName = modelData.name + "(" + modelData.unit + ")"
+                        confirmDialog.changeold = modelData.value
+                        confirmDialog.changeNew = userInput
+                        confirmDialog.showDialog = true
                     }
                 }
             }
+        }
+        function okBtnSignal()
+        {
+            var item = repeater.itemAt(srcDict.itemIndex)
+            item.btnText = qsTr("请稍后...")
+            isProcessing = true
+            srcDict.writeToBlue(celldata, userInput)
         }
 
         Connections
@@ -149,11 +160,15 @@ import QtQuick.Layouts 1.15
                 if(pwd === "8257")
                 {
                     srcDict.setPassFlag = false
-                    var item = repeater.itemAt(srcDict.itemIndex)
-                    item.btnText = qsTr("请稍后...")
-                    isProcessing = true
-                    srcDict.writeToBlue(celldata, userInput)
+                    // var item = repeater.itemAt(srcDict.itemIndex)
+                    // item.btnText = qsTr("请稍后...")
+                    // isProcessing = true
+                    // srcDict.writeToBlue(celldata, userInput)
                     passwordDialog.close()
+                    confirmDialog.changeName = temDataName
+                    confirmDialog.changeold = temDataValue
+                    confirmDialog.changeNew = userInput
+                    confirmDialog.showDialog = true
                 }
                 else
                 {

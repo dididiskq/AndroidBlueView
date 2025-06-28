@@ -22,6 +22,7 @@ Page
     title: qsTr("电流参数")
     ParameterPage
     {
+        id: paramRect
         anchors
         {
             top: parent.top
@@ -40,5 +41,18 @@ Page
             { name: qsTr("短路保护延时"),  value: srcDict.sct === undefined ? 0 : srcDict.sct, unit: "us" , cellData:543},
             { name: qsTr("采样电阻值"),  value: srcDict.sampleRValue === undefined ? 0 : srcDict.sampleRValue, unit: "mΩ", cellData:526 },
         ]
+    }
+    DataConfirmationDialog
+    {
+        id: confirmDialog
+        anchors.fill: parent
+        onOkBtn:
+        {
+            paramRect.okBtnSignal()
+        }
+        onNoBtn:
+        {
+
+        }
     }
 }

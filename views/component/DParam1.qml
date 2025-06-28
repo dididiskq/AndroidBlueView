@@ -236,4 +236,17 @@ Page
             }
         }
     }
+    DataConfirmationDialog
+    {
+        id: confirmDialog
+        anchors.fill: parent
+        onOkBtn:
+        {
+            paramRect.okBtnSignal()
+        }
+        onNoBtn:
+        {
+
+        }
+    }
 }

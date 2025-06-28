@@ -22,6 +22,7 @@ Page
 
     ParameterPage
     {
+        id: paramRect
         anchors
         {
             top: parent.top
@@ -39,5 +40,18 @@ Page
             { name: qsTr("放电低温保护"),  value: srcDict.utd === undefined ? 0 : srcDict.utd, unit: "℃",cellData: 552 },
             { name: qsTr("放电低温恢复"),  value: srcDict.utdr === undefined ? 0 : srcDict.utdr, unit: "℃",cellData: 553 },
         ]
+    }
+    DataConfirmationDialog
+    {
+        id: confirmDialog
+        anchors.fill: parent
+        onOkBtn:
+        {
+            paramRect.okBtnSignal()
+        }
+        onNoBtn:
+        {
+
+        }
     }
 }

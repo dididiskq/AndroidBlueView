@@ -976,7 +976,7 @@ QVariantMap BMSProtocol::deal_04(const QByteArray &v, int dataLen)
     // 计算电呀值（假设单位为mV，需根据设备协议调整比例）
     double current_V = rawValue / 1000.0;
 
-    response["electYa"] = QString::number(current_V, 'f', 2);
+    response["electYa"] = QString::number(current_V, 'f', 3);
     return response;
 }
 
@@ -1004,7 +1004,7 @@ QVariantMap BMSProtocol::deal_06(const QByteArray &v, int dataLen)
 
     // 处理单位转换（mA -> A），保留符号
     double current_A = rawValue / 1000.0;
-    response["electLiu"] = QString::number(current_A, 'f', 2);
+    response["electLiu"] = QString::number(current_A, 'f', 3);
     return response;
 }
 
@@ -1192,7 +1192,7 @@ QVariantMap BMSProtocol::deal_00(const QByteArray &v, int dataLen)
         return response;
     }
     quint16 temp = (static_cast<quint8>(v[5]) << 8 | static_cast<quint8>(v[6]));
-    response["mosTemp"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 1);
+    response["mosTemp"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 3);
     return response;
 }
 
@@ -1205,7 +1205,7 @@ QVariantMap BMSProtocol::deal_01(const QByteArray &v, int dataLen)
         return response;
     }
     quint16 temp = (static_cast<quint8>(v[5]) << 8) | static_cast<quint8>(v[6]);
-    response["cell_temp1"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 1);
+    response["cell_temp1"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 3);
     return response;
 }
 QVariantMap BMSProtocol::deal_02(const QByteArray &v, int dataLen)
@@ -1216,7 +1216,7 @@ QVariantMap BMSProtocol::deal_02(const QByteArray &v, int dataLen)
         return response;
     }
     quint16 temp = (static_cast<quint8>(v[5]) << 8) | static_cast<quint8>(v[6]);
-    response["cell_temp2"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 1);
+    response["cell_temp2"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 3);
     return response;
 }
 QVariantMap BMSProtocol::deal_03(const QByteArray &v, int dataLen)
@@ -1233,7 +1233,7 @@ QVariantMap BMSProtocol::deal_03(const QByteArray &v, int dataLen)
     }
     else
     {
-        response["cell_temp3"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 1);
+        response["cell_temp3"] = QString::number(static_cast<double> (temp) * 0.1 - 273.15, 'f', 3);
     }
     response["cell_temp3"] = "-- --";
     return response;

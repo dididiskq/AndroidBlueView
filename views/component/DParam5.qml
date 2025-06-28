@@ -16,6 +16,7 @@ Page
     title: qsTr("均衡参数")
     ParameterPage
     {
+        id: paramRect
         anchors
         {
             top: parent.top
@@ -28,5 +29,18 @@ Page
             { name: qsTr("均衡启动阈值"), value: srcDict.bald === undefined ? 0 : srcDict.bald, unit: "mV", cellData:533 },
             { name: qsTr("均衡延时"),  value: srcDict.balt === undefined ? 0 : srcDict.balt, unit: "ms", cellData:534 },
         ]
+    }
+    DataConfirmationDialog
+    {
+        id: confirmDialog
+        anchors.fill: parent
+        onOkBtn:
+        {
+            paramRect.okBtnSignal()
+        }
+        onNoBtn:
+        {
+
+        }
     }
 }

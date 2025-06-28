@@ -38,7 +38,7 @@ Page {
                 console.log("cellListDone")
                 for (var i = 0; i < srcDict.cellNum; i++)
                 {
-                    var voltage = String(cellList[i].toFixed(2)) + "V"; // 结果: "3.14"
+                    var voltage = String(cellList[i].toFixed(3)) + "V"; // 结果: "3.14"
                     batteryModel.setProperty(i, "typeData", voltage)
                 }
             }
@@ -176,7 +176,7 @@ Page {
                     {text: qsTr("最高电压"), source: "", data: srcDict.maxYa === undefined ? "" : String(srcDict.maxYa) + "V"},
                     {text: qsTr("最低电压"), source: "", data: srcDict.minYa === undefined ? "" : String(srcDict.minYa) + "V"},
                     {text: qsTr("循环次数"), source: "", data: srcDict.cycles_number === undefined ? "" : srcDict.cycles_number},
-                    {text: qsTr("功率"), source: "", data: srcDict.electYa === undefined ? "" : String((parseFloat(srcDict.electYa) * parseFloat(srcDict.electLiu)).toFixed(2)) + "W"},
+                    {text: qsTr("功率"), source: "", data: srcDict.electYa === undefined ? "" : String((parseFloat(srcDict.electYa) * parseFloat(srcDict.electLiu)).toFixed(3)) + "W"},
                 ]
             }
 
@@ -243,7 +243,7 @@ Page {
                         Text
                         {
                             text: model.typeData
-                            font.pixelSize: 16
+                            font.pixelSize: 13
                             color: "white"
                             anchors.left: parent.left
                             anchors.leftMargin: srcDict.scaled(15)

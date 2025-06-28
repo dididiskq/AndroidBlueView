@@ -1043,8 +1043,8 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
                     }
                     double tem = std::round(( maxVal - minVal) * 1000.0) / 1000.0;
                     QString temVal = QString::number(tem, 'f', 3);
-                    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("maxYa", maxVal);
-                    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("minYa", minVal);
+                    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("maxYa", QString::number(maxVal, 'f', 3));
+                    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("minYa", QString::number(minVal, 'f', 3));
                     selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("yaCha", temVal);
                     selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("cellVlist", cellVlist);
                     cellVlist.clear();
@@ -1362,8 +1362,8 @@ bool BmsController::onSeceiveCommand(const QVariantMap &op)
                 }
                 double tem = std::round(( maxVal - minVal) * 100.0) / 100.0;
                 QString temVal = QString::number(tem, 'f', 3);
-                selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("maxYa", maxVal);
-                selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("minYa", minVal);
+                selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("maxYa", QString::number(maxVal, 'f', 3));
+                selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("minYa", QString::number(minVal, 'f', 3));
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("yaCha",temVal);
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("cellVlist", cellVlist);
                 cellVlist.clear();

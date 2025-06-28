@@ -19,6 +19,7 @@ Page
 
     ParameterPage
     {
+        id: paramRect
         anchors
         {
             top: parent.top
@@ -32,5 +33,18 @@ Page
             { name: qsTr("过放保护电压"),  value: srcDict.uv === undefined ? 0 : srcDict.uv, unit: "mV", cellData: 535},
             { name: qsTr("过放恢复电压"),  value: srcDict.uvr === undefined ? 0 : srcDict.uvr, unit: "mV", cellData: 536},
         ]
+    }
+    DataConfirmationDialog
+    {
+        id: confirmDialog
+        anchors.fill: parent
+        onOkBtn:
+        {
+            paramRect.okBtnSignal()
+        }
+        onNoBtn:
+        {
+
+        }
     }
 }

@@ -397,22 +397,7 @@ Page
             console.log("操作取消")
         }
     }
-    function getRuo()
-    {
 
-        if(srcDict.functionConfig === undefined)
-        {
-            return false
-        }
-        else if(srcDict.functionConfig === "1")
-        {
-            return true
-        }
-        else
-        {
-            return false
-        }
-    }
     Rectangle
     {
         id: rectangle2
@@ -449,7 +434,7 @@ Page
             {
                 pendingSwitchState = !checked
                 checked = !checked
-
+                flagOpen = pendingSwitchState ? 0 : 1
                 if(srcDict.setPassFlag2)
                 {
                     passwordDialog.open()
@@ -466,8 +451,6 @@ Page
                        srcDict.writeToBlue(systemData, 10000)
                     }
                 }
-
-                flagOpen = pendingSwitchState ? 0 : 1
             }
 
 
@@ -513,6 +496,7 @@ Page
     }
     Component.onCompleted:
     {
+        srcDict.sendToBlue(31)
         // console.log(srcDict.functionConfig, "00000")
     }
 }

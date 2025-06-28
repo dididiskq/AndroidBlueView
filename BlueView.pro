@@ -99,6 +99,7 @@ DISTFILES += \
     views/component/DParam5.qml \
     views/component/DParam6.qml \
     views/component/DRealTime.qml \
+    views/component/DataConfirmationDialog.qml \
     views/component/DevicePage.qml \
     views/component/FirmwareUpdate.qml \
     views/component/InfoGrid.qml \

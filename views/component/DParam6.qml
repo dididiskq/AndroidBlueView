@@ -21,6 +21,7 @@ Page
     title: qsTr("系统参数")
     ParameterPage
     {
+        id: paramRect
         anchors
         {
             top: parent.top
@@ -38,6 +39,19 @@ Page
             { name: qsTr("满充电流"),  value: srcDict.mcLiu === undefined ? 0 : srcDict.mcLiu, unit: "mA", cellData:523 },
             { name: qsTr("零电流显示阈值"),  value: srcDict.lingYuzhi === undefined ? 0 : srcDict.lingYuzhi, unit: "mA", cellData:525 },
         ]
+    }
+    DataConfirmationDialog
+    {
+        id: confirmDialog
+        anchors.fill: parent
+        onOkBtn:
+        {
+            paramRect.okBtnSignal()
+        }
+        onNoBtn:
+        {
+
+        }
     }
 }
 
