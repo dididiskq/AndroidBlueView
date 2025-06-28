@@ -122,6 +122,11 @@ import QtQuick.Layouts 1.15
                         srcDict.sendToBlue(24)
                         chuanTimer.start()
                     }
+                    else
+                    {
+                        srcDict.sendToBlue(-celldata)
+                    }
+
                 }
                 else if(message === "-66")
                 {
