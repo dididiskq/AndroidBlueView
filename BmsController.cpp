@@ -1041,7 +1041,7 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
                             maxVal = value;
                         }
                     }
-                    double tem = std::round(( maxVal - minVal) * 1000.0) / 1000.0;
+                    double tem = maxVal - minVal;
                     QString temVal = QString::number(tem, 'f', 3);
                     selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("maxYa", QString::number(maxVal, 'f', 3));
                     selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("minYa", QString::number(minVal, 'f', 3));
@@ -1360,7 +1360,7 @@ bool BmsController::onSeceiveCommand(const QVariantMap &op)
                         maxVal = value;
                     }
                 }
-                double tem = std::round(( maxVal - minVal) * 100.0) / 100.0;
+                double tem =  maxVal - minVal;
                 QString temVal = QString::number(tem, 'f', 3);
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("maxYa", QString::number(maxVal, 'f', 3));
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("minYa", QString::number(minVal, 'f', 3));
