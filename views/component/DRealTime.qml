@@ -35,9 +35,10 @@ Page {
             }
             else if(message === "cellListDone")
             {
-                console.log("cellListDone")
+                console.log("qml cellListDone")
                 for (var i = 0; i < srcDict.cellNum; i++)
                 {
+                    // console.log("单体电压------------>", cellList[i])
                     var voltage = String(cellList[i].toFixed(3)) + "V"; // 结果: "3.14"
                     batteryModel.setProperty(i, "typeData", voltage)
                 }

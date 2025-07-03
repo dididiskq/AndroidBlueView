@@ -698,7 +698,7 @@ void BmsController::getProtectMsgSlot(const int type)
 {
     if(type == 1)
     {
-        for(int i = 32; i <= 32 + cellNums; i++)
+        for(int i = 32; i < 32 + cellNums; i++)
         {
             viewMessage(i);
         }
@@ -1022,6 +1022,10 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
             }
             else if(funcCode >= 0x0020 && funcCode <= 0x003F) //单体电压
             {
+                if(funcCode == 0x0020)
+                {
+                    cellVlist.clear();
+                }
                 cellVlist.append(map.value("cellV"));
                 if(cellVlist.size() == cellNums)
                 {
@@ -1341,6 +1345,10 @@ bool BmsController::onSeceiveCommand(const QVariantMap &op)
         }
         else if(funcCode >= 0x0020 && funcCode <= 0x003F) //单体电压
         {
+            if(funcCode == 0x0020)
+            {
+                cellVlist.clear();
+            }
             cellVlist.append(map.value("cellV"));
             if(cellVlist.size() == cellNums)
             {
@@ -1367,6 +1375,7 @@ bool BmsController::onSeceiveCommand(const QVariantMap &op)
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("yaCha",temVal);
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("cellVlist", cellVlist);
                 cellVlist.clear();
+                qDebug()<<"c++ cellListDone";
                 emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("cellListDone");
             }
         }
