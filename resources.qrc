@@ -73,5 +73,7 @@
         <file>language/english.qm</file>
         <file>views/res/langbg.svg</file>
         <file>views/component/DataConfirmationDialog.qml</file>
+        <file>language/chinese.ts</file>
+        <file>language/english.ts</file>
     </qresource>
 </RCC>
