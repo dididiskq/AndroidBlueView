@@ -35,10 +35,8 @@ Page {
             }
             else if(message === "cellListDone")
             {
-                console.log("qml cellListDone")
                 for (var i = 0; i < srcDict.cellNum; i++)
                 {
-                    // console.log("单体电压------------>", cellList[i])
                     var voltage = String(cellList[i].toFixed(3)) + "V"; // 结果: "3.14"
                     batteryModel.setProperty(i, "typeData", voltage)
                 }
@@ -162,9 +160,7 @@ Page {
             {
             }
 
-            // InfoGridLang
-            // {
-            // }
+
 
             // 电池信息
             InfoGrid
@@ -184,7 +180,7 @@ Page {
             // 温度信息模块
             InfoGrid
             {
-                title: "温度信息"
+                title: qsTr("温度信息")
                 modelData: [
                     {text: qsTr("MOS温度"), source: "", data: srcDict.mosTemperature === undefined ? "" : (srcDict.mosTemperature + "℃")},
                     {text: qsTr("T1温度"), source: "", data: srcDict.temperature1 === undefined ? "" : (srcDict.temperature1+ "℃")},

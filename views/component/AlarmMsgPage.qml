@@ -65,7 +65,7 @@ Page
         anchors.top: parent.top
         anchors.topMargin: srcDict.scaled(0)
         color: "transparent"
-        // border.color: "white"
+
         radius: 10
         Label
         {
@@ -113,8 +113,6 @@ Page
     Rectangle
     {
         id: mainRect
-        // anchors.bottom: parent.bottom
-        // anchors.bottomMargin: srcDict.scaled(0)
         anchors
         {
             top: parent.top
@@ -122,7 +120,7 @@ Page
         }
 
         height: (parent.height - rect1.height) / 3
-        // border.color: "white"
+
         radius: 10
         color: "transparent"
         width: parent.width
@@ -194,7 +192,7 @@ Page
     Rectangle
     {
         id: rectProtect
-        // border.color: "white"
+
         anchors
         {
             top:mainRect.bottom
@@ -271,7 +269,7 @@ Page
     Rectangle
     {
         id: cellStatus
-        // border.color: "white"
+
         color: "transparent"
         anchors
         {

@@ -35,7 +35,6 @@ Page
         target: context
         function onCodeImageReady(message, type)
         {
-            console.log(message, type, "88888888")
             if(message === "connecting")
             {
                 timer.stop();
@@ -100,12 +99,8 @@ Page
         repeat: true
         onTriggered:
         {
-            // imgCap.capture()
-            // srcDict.sendCodeData(sendFrame)
             output.grabToImage(function(result)
-            {
-                // result.image 就是一个 QImage
-                // HMStmViewContext.onFrameGrabbed(result.image)
+            {  
                 srcDict.sendCodeData(result.image, 1)
             });
         }

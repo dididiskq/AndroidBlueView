@@ -115,6 +115,7 @@ void BmsController::getTimerDataSignalSlot(const int type)
         viewMessage(0);
         viewMessage(1);
         viewMessage(2);
+        viewMessage(3);
         viewMessage(8);
         viewMessage(12);
         viewMessage(14);
@@ -123,6 +124,7 @@ void BmsController::getTimerDataSignalSlot(const int type)
     }
     else if(type == 2)
     {
+        qDebug()<<"主页动态数据：";
         viewMessage(20);
         viewMessage(4);
         viewMessage(6);
@@ -1167,9 +1169,9 @@ bool BmsController::onSendCommand(const QVariantMap &op)
 }
 bool BmsController::onSeceiveCommand(const QVariantMap &op)
 {
-    // qDebug() << "子线程收到通知数据:" << op;
-    QByteArray value = op.value("value").toByteArray();
 
+    QByteArray value = op.value("value").toByteArray();
+    qDebug() << "onSeceiveCommand子线程收到通知数据:" << value.toHex(' ');;
     QVariantMap map = protocal.parse(value);
 
 
@@ -1248,14 +1250,17 @@ bool BmsController::onSeceiveCommand(const QVariantMap &op)
         }
         else if(funcCode == 0x0000)
         {
+            qDebug()<<"mos温度"<<map.value("mosTemp");
             selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("mosTemperature", map.value("mosTemp"));
         }
         else if(funcCode == 0x0001)
         {
+            qDebug()<<"温度1"<<map.value("cell_temp1");
             selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("temperature1", map.value("cell_temp1"));
         }
         else if(funcCode == 0x0002)
         {
+            qDebug()<<"温度2"<<map.value("cell_temp2");
             selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("temperature2", map.value("cell_temp2"));
         }
         else if(funcCode == 0x0003)

@@ -83,7 +83,6 @@ Rectangle
 
     Component.onCompleted:
     {
-        // myLoader.source = "InitView.qml"
     }
     StackView
     {

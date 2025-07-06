@@ -3,9 +3,7 @@
         <file>views/HMStmView.qml</file>
         <file>views/InitView.qml</file>
         <file>views/component/CamerView.qml</file>
-        <file>views/component/DControl.qml</file>
         <file>views/component/DevicePage.qml</file>
-        <file>views/component/DMessage.qml</file>
         <file>views/component/DParam1.qml</file>
         <file>views/component/DParam2.qml</file>
         <file>views/component/DParam3.qml</file>
@@ -22,7 +20,6 @@
         <file>views/component/BmsControl.qml</file>
         <file>views/component/CellMessage.qml</file>
         <file>views/component/InfoGrid.qml</file>
-        <file>views/component/InfoGridLang.qml</file>
         <file>views/component/InfoGridOne.qml</file>
         <file>views/component/OperaBoard.qml</file>
         <file>views/component/ParameterItem.qml</file>

@@ -8,7 +8,7 @@ Item {
     // 显示/隐藏控制
     property bool showDialog: false
     property bool jiantouVisible: true
-    property var titleName: "以下数据发生变更，是否继续写入?"
+    property var titleName: qsTr("以下数据发生变更，是否继续写入?")
     property var changeName: ""
     property var changeold: ""
     property var changeNew: ""
@@ -129,13 +129,12 @@ Item {
                 Button
                 {
                     width: (parent.width - parent.spacing) / 2
-                    text: "取消"
+                    text: qsTr("取消")
                     background: Rectangle {
                         color: "#DDDDDD" // 灰色背景
                         radius: 5
                     }
                     onClicked: {
-                        console.log("操作取消")
                         rootdialog.showDialog = false
                         noBtn()
                     }
@@ -145,13 +144,12 @@ Item {
                 Button
                 {
                     width: (parent.width - parent.spacing) / 2
-                    text: "确定"
+                    text: qsTr("确定")
                     background: Rectangle {
                         color: "#4CAF50" // 绿色背景
                         radius: 5
                     }
                     onClicked: {
-                        console.log("确认操作")
                         rootdialog.showDialog = false
                         okBtn()
                     }

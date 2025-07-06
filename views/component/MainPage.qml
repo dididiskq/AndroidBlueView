@@ -197,7 +197,7 @@ Page
             {
                 if(message === "firstLoadStart")
                 {
-                    loadRect.text = "数据加载中..."
+                    loadRect.text = qsTr("数据加载中...")
                     loadRect.visible = true
                 }
                 else if(message === "firstLoadEnd")

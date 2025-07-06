@@ -23,10 +23,11 @@ Page
             {
                 srcDict.writeToBlue(586, inputRec.inputObj.text)
             }
+            mainPanel.z = 1
         }
         onNoBtn:
         {
-
+            mainPanel.z = 1
         }
     }
     // 主操作面板（初始状态）
@@ -59,6 +60,7 @@ Page
                 {
                     // srcDict.writeToBlue(257, 10000)
                     valueIndex = 1
+                    mainPanel.z = -1
                     confirmDialog.titleName = "电流是否要归零？"
                     confirmDialog.jiantouVisible = false
                     confirmDialog.showDialog = true
@@ -66,7 +68,6 @@ Page
                 }
                 onReleased:
                 {
-                    console.log("放开")
                     releaseTimer1.start()
                 }
                 Timer
@@ -145,7 +146,8 @@ Page
                         else
                         {
                             valueIndex = 2
-                            confirmDialog.titleName = "是否要改写？"
+                            mainPanel.z = -1
+                            confirmDialog.titleName = qsTr("是否要改写？")
                             confirmDialog.jiantouVisible = false
                             confirmDialog.showDialog = true
                             // srcDict.writeToBlue(586, inputRec.inputObj.text)

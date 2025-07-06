@@ -89,7 +89,6 @@ Page
                         devPage.realTimer.start()
                     }
                 }
-                // mainPage.realTimer.stop()
             }
 
         }
@@ -113,8 +112,6 @@ Page
                         mainPage.realTimer.start();
                     }
                 }
-                // mainPage.realTimer.start()
-                // devPage.realTimer.stop()
             }
         }
         STabButton
@@ -128,10 +125,9 @@ Page
                 devPage.reallStackView.pop(null, StackView.Immediate);
                 swipeView.currentIndex = 2
                 devPage.realDrawer.close()
-                // srcDict.sendToBlue(31)
+
                 srcDict.currentPageIndex = 3
-                // devPage.realTimer.stop()
-                // mainPage.realTimer.stop()
+
             }
         }
     }
@@ -141,7 +137,6 @@ Page
     {
         id: swipeView
         currentIndex: 1
-        // currentIndex: tabBar.currentIndex
         width: parent.width
         anchors.top: parent.top
         height: parent.height - tabBar.height
@@ -191,13 +186,13 @@ Page
     {
         id: loadRectMain
         anchors.centerIn: parent
-        width: srcDict.scaled(300)  // 自定义尺寸
+        width: srcDict.scaled(300)
         height: srcDict.scaled(150)
         z: 999
-        bgColor: "#CC303030"  // 自定义背景色
-        textColor: "#00FF00"   // 自定义文字颜色
-        iconColor: "#FFA500"   // 橙色加载图标
-        text: qsTr("...") // 自定义提示内容
+        bgColor: "#CC303030"
+        textColor: "#00FF00"
+        iconColor: "#FFA500"
+        text: qsTr("...")
     }
     Component.onCompleted:
     {

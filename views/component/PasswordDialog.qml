@@ -91,7 +91,7 @@ Popup
                         root.close()
                         root.canceled()
                         passwordField.clear()
-                        message = "请输入管理员密码"
+                        message = qsTr("请输入管理员密码")
                         mainInitView.forceActiveFocus()
                     }
                 }

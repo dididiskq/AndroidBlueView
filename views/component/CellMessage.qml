@@ -63,9 +63,13 @@ Page
                     }
                     else if(type === 1)
                     {
-                        return qsTr("钛酸锂")
+                        return qsTr("三元")
                     }
                     else if(type === 2)
+                    {
+                        return qsTr("钛酸锂")
+                    }
+                    else if(type === 3)
                     {
                         return qsTr("钠电池")
                     }
@@ -217,10 +221,4 @@ Page
         }
         addEvent(realProtect.protectTime, realProtect.protectEvent)
     }
-
-    // Button
-    // {
-    //     text: "Add Event"
-    //     onClicked: addEvent("2023-09-01 12:34:56", "0x00000001")
-    // }
 }

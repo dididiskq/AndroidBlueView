@@ -50,7 +50,6 @@ Page
         message: qsTr("请输入管理员密码")
         onConfirmed: (pwd) =>
         {
-            console.log("输入密码:", pwd)
             if(pwd === "8257")
             {
                 srcDict.temType = 513
@@ -62,7 +61,9 @@ Page
                 passwordDialog1.message = qsTr("密码错误请重新输入")
             }
         }
-        onCanceled: console.log("操作取消")
+        onCanceled:
+        {
+        }
     }
 
     Column
@@ -96,7 +97,6 @@ Page
                 }
                 onReleased:
                 {
-                    console.log("放开")
                     releaseTimer1.start()
                 }
                 Timer
@@ -137,7 +137,6 @@ Page
                 }
                 onReleased:
                 {
-                    console.log("放开")
                     releaseTimer2.start()
                 }
                 Timer
@@ -178,7 +177,6 @@ Page
                 }
                 onReleased:
                 {
-                    console.log("放开")
                     releaseTimer3.start()
                 }
                 Timer
@@ -219,7 +217,6 @@ Page
                 }
                 onReleased:
                 {
-                    console.log("放开")
                     releaseTimer4.start()
                 }
                 Timer

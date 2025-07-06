@@ -34,8 +34,8 @@ Page
     Dialog
     {
         id: exitDialog
-        title: "退出应用"
-        Label { text: "确定要退出吗？" }
+        title: qsTr("退出应用")
+        Label { text: qsTr("确定要退出吗？") }
         anchors.centerIn: parent
         standardButtons: Dialog.Yes | Dialog.No
 
@@ -122,7 +122,6 @@ Page
                 anchors.fill: parent
                 onClicked:
                 {
-                    // myLoader.source = "InitView.qml"
                     srcDict.currentPageIndex = 2
                     stackView1.pop()
                 }
@@ -173,7 +172,8 @@ Page
             }
             else if (message === "2")
             {
-               // myLoader.source = "InitView.qml"
+                srcDict.currentPageIndex = 2
+                realTimer.start()
                 stackView1.pop()
             }
             else if(message === "over")
@@ -280,7 +280,6 @@ Page
                                 icConnecting = true
                                 conectedName = model.text
                                 blueName.text = conectedName + qsTr("-正在连接")
-                                // model.text = model.text + qsTr("-正在连接")
                                 deRect.color = "green"
                                 srcDict.connectBlue(model.addr)
 

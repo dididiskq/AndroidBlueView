@@ -19,17 +19,17 @@ Page
         {
             if(message === "66")
             {
-                loadRect.text = "设置成功"
+                loadRect.text = qsTr("设置成功")
                 loadRect.startLoad(3000)
             }
             else if(message === "-66")
             {
-                loadRect.text = "超时失败"
+                loadRect.text = qsTr("超时失败")
                 loadRect.startLoad(3000)
             }
             else if(message === "-67")
             {
-                loadRect.text = "服务无效"
+                loadRect.text = qsTr("服务无效")
                 loadRect.startLoad(3000)
             }
         }
@@ -90,11 +90,11 @@ Page
             {
                 if(_switch.checked)
                 {
-                    print("打开")
+                    // print("打开")
                 }
                 else
                 {
-                    print("关闭")
+                    // print("关闭")
                 }
             }
         }
@@ -109,11 +109,11 @@ Page
             {
                 if(_switch1.checked)
                 {
-                    print("打开")
+                    // print("打开")
                 }
                 else
                 {
-                    print("关闭")
+                    // print("关闭")
                 }
             }
         }
@@ -157,7 +157,6 @@ Page
                 }
                 onReleased:
                 {
-                    console.log("放开")
                     releaseTimer1.start()
                 }
                 Timer
@@ -214,12 +213,10 @@ Page
                     isSystemOpera = true
                     systemData = 0
                     rebootDev.color = "white"
-                    console.log("按下")
 
                 }
                 onReleased:
                 {
-                    console.log("放开")
                     releaseTimer2.start()
                 }
                 Timer
@@ -278,7 +275,6 @@ Page
                 }
                 onReleased:
                 {
-                    console.log("放开")
                     releaseTimer3.start()
                 }
                 Timer
@@ -371,7 +367,6 @@ Page
         message: qsTr("请输入管理员密码")
         onConfirmed: (pwd) =>
         {
-            console.log("输入密码:", pwd)
             if(pwd === "0909")
             {
                 srcDict.setPassFlag2 = false
@@ -394,7 +389,6 @@ Page
         }
         onCanceled:
         {
-            console.log("操作取消")
         }
     }
 
@@ -497,6 +491,5 @@ Page
     Component.onCompleted:
     {
         srcDict.sendToBlue(31)
-        // console.log(srcDict.functionConfig, "00000")
     }
 }

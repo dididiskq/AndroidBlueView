@@ -76,7 +76,6 @@ Page
         message: qsTr("请输入管理员密码")
         onConfirmed: (pwd) =>
         {
-            console.log("输入密码:", pwd)
             if(pwd === "0909")
             {
                 srcDict.setPassFlag2 = false
@@ -93,12 +92,11 @@ Page
             }
             else
             {
-                passwordDialog.message = "密码错误请重新输入"
+                passwordDialog.message = qsTr("密码错误请重新输入")
             }
         }
         onCanceled:
         {
-            console.log("操作取消")
         }
     }
     Page

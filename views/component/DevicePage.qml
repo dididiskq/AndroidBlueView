@@ -23,28 +23,13 @@ Page
 
             if(count % 2 === 0)
             {
-                console.log("单体电压")
                 srcDict.getProtectMessage(1)
             }
             else
             {
-                console.log("其他数据")
                 srcDict.timerGetData(1)
             }
             count++
-            // srcDict.sendToBlue(20)
-            // srcDict.sendToBlue(4)
-            // srcDict.sendToBlue(6)
-            // srcDict.sendToBlue(0)
-            // srcDict.sendToBlue(1)
-            // srcDict.sendToBlue(2)
-            // srcDict.sendToBlue(8)
-            // srcDict.sendToBlue(14)
-            // srcDict.sendToBlue(26)
-            // srcDict.sendToBlue(27)
-
-
-            // srcDict.getProtectMessage(1)
 
             // 调整间隔和重复模式
             interval = 4000

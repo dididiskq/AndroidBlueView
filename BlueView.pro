@@ -90,8 +90,6 @@ DISTFILES += \
     views/component/BmsControl.qml \
     views/component/CamerView.qml \
     views/component/CellMessage.qml \
-    views/component/DControl.qml \
-    views/component/DMessage.qml \
     views/component/DParam1.qml \
     views/component/DParam2.qml \
     views/component/DParam3.qml \
@@ -103,7 +101,6 @@ DISTFILES += \
     views/component/DevicePage.qml \
     views/component/FirmwareUpdate.qml \
     views/component/InfoGrid.qml \
-    views/component/InfoGridLang.qml \
     views/component/InfoGridOne.qml \
     views/component/LoadingIndicator.qml \
     views/component/MainPage.qml \

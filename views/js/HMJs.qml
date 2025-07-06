@@ -6,20 +6,19 @@ import QtQml 2.2
 QtObject
 {
     property bool isShowTool: true
-    property string conectedBlueName: "请先连接设备"
+    property string conectedBlueName: qsTr("请先连接设备")
 
-    property real designWidth: 390  // 基准屏幕宽度
-    property real designHeight: 844 // 基准屏幕高度
+    property real designWidth: 390
+    property real designHeight: 844
 
-    // 计算缩放比例（取宽高比例的最小值，保持元素比例不失真）
     property int winWidth: fields["winWidth"]
     property int winHeight: fields["winHeight"]
     readonly property real scaleRatio: Math.min(winWidth / designWidth, winHeight / designHeight)
 
 
     property variant isShowVoiceImg: fields["isShow"]
-    property variant blueDataReal: fields["blueData"] //搜寻蓝牙列表
-    property var codeData: fields["codeData"]  //扫码连接蓝牙名称
+    property variant blueDataReal: fields["blueData"]
+    property var codeData: fields["codeData"]
 
     property var electYa: fields["electYa"] //总电压
     property var electLiu: fields["electLiu"] //总电流

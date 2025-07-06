@@ -7,7 +7,7 @@ Row
     property string paramName: ""   // 参数名称（如“充电隔热保护”）
     property real paramValue: 0     // 参数值（如60）
     property string paramUnit: "℃"  // 参数单位（如℃）
-    property var btnText: "设置"  // 按钮文本
+    property var btnText: qsTr("设置")  // 按钮文本
     property alias realValueEditor: valueEditor
     property alias resetTimer: resetTimer
 
@@ -72,29 +72,7 @@ Row
             color: "white"
         }
 
-        // 设置按钮
-        // Button
-        // {
-        //     id: btnReal
-        //     visible: false
-        //     text: btnText
-        //     width: srcDict.scaled(95)
-        //     height: srcDict.scaled(30)
 
-        //     background: Rectangle
-        //     {
-        //         color: "#0078D4"        // 蓝色按钮
-        //         radius: 4
-        //     }
-        //     contentItem: Text
-        //     {
-        //         text: parent.text
-        //         color: "white"
-        //         horizontalAlignment: Text.AlignHCenter
-        //         verticalAlignment: Text.AlignVCenter
-        //     }
-        //     onClicked: mainRow.clicked() // 触发点击信号
-        // }
         Rectangle
         {
             id: btnReal
