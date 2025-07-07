@@ -408,7 +408,7 @@ Page
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: 30
-            width: srcDict.scaled(117)
+            // width: srcDict.scaled(117)
             height: srcDict.scaled(55)
             color: "white"
             font.pixelSize: 25
@@ -420,8 +420,11 @@ Page
         Switch
         {
             id: control
-            x: srcDict.scaled(310)
-            y: srcDict.scaled(31)
+            // x: srcDict.scaled(310)
+            // y: srcDict.scaled(31)
+            anchors.verticalCenter: rectangle2.verticalCenter
+            anchors.right: rectangle2.right
+            anchors.rightMargin: srcDict.scaled(30)
             text: qsTr("")
             checked: srcDict.functionConfig === 1
             onClicked:

@@ -30,6 +30,169 @@
     </message>
 </context>
 <context>
+    <name>BMSProtocol</name>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1067"/>
+        <source>放电高温标志</source>
+        <translation>放电高温标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1074"/>
+        <source>放电低温标志</source>
+        <translation>放电低温标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1080"/>
+        <source>充电高温标志</source>
+        <translation>充电高温标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1086"/>
+        <source>充电低温标志</source>
+        <translation>充电低温标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1092"/>
+        <source>低压禁充标志</source>
+        <translation>低压禁充标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1098"/>
+        <source>断线标志</source>
+        <translation>断线标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1104"/>
+        <source>短路标志</source>
+        <translation>短路标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1110"/>
+        <source>充电过流标志</source>
+        <translation>充电过流标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1116"/>
+        <source>放电过流2标志</source>
+        <translation>放电过流2标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1122"/>
+        <source>放电过流1标志</source>
+        <translation>放电过流1标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1128"/>
+        <source>欠压标志</source>
+        <translation>欠压标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1134"/>
+        <source>过压标志</source>
+        <translation>过压标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1258"/>
+        <source>超高压报警</source>
+        <translation>超高压报警</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1264"/>
+        <source>超低压报警</source>
+        <translation>超低压报警</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1270"/>
+        <source>防拆卸报警</source>
+        <translation>防拆卸报警</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1276"/>
+        <source>电压采集断线报警</source>
+        <translation>电压采集断线报警</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1282"/>
+        <source>温度采集断线报警</source>
+        <translation>温度采集断线报警</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1288"/>
+        <source>AFE通讯失效报警</source>
+        <translation>AFE通讯失效报警</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1294"/>
+        <source>电池组压差大报警</source>
+        <translation>电池组压差大报警</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1333"/>
+        <source>正版固件标志</source>
+        <translation>正版固件标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1340"/>
+        <source>允许放电标志</source>
+        <translation>允许放电标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1346"/>
+        <source>AFE配置失败标志</source>
+        <translation>AFE配置失败标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1352"/>
+        <source>充电标志</source>
+        <translation>充电标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1358"/>
+        <source>放电标志</source>
+        <translation>放电标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1364"/>
+        <source>允许容量更新标志</source>
+        <translation>允许容量更新标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1371"/>
+        <source>满充电标志</source>
+        <translation>满充电标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1377"/>
+        <source>强制关闭充电标志</source>
+        <translation>强制关闭充电标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1383"/>
+        <source>强制开启充电标志</source>
+        <translation>强制开启充电标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1389"/>
+        <source>强制关闭放电标志</source>
+        <translation>强制关闭放电标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1395"/>
+        <source>强制开启放电标志</source>
+        <translation>强制开启放电标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1401"/>
+        <source>电流校准标志</source>
+        <translation>电流校准标志</translation>
+    </message>
+    <message>
+        <location filename="../BMSProtocol.cpp" line="1407"/>
+        <source>零电流未校准标志</source>
+        <translation>零电流未校准标志</translation>
+    </message>
+</context>
+<context>
     <name>BatteryArc</name>
     <message>
         <location filename="../views/component/BatteryArc.qml" line="15"/>

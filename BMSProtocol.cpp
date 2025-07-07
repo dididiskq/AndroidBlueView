@@ -1064,74 +1064,74 @@ QVariantMap BMSProtocol::deal_0C(const QByteArray &v, int dataLen)
     int alarmCount = 0;
     if(b11)
     {
-        res = "放电高温标志";
+        res = tr("放电高温标志");
         errMsgArray.push_back(res);
         alarmCount++;
 
     }
     if(b10)
     {
-        res = "放电低温标志";
+        res = tr("放电低温标志");
         errMsgArray.push_back(res);
 alarmCount++;
     }
     if(b9)
     {
-        res = "充电高温标志";
+        res = tr("充电高温标志");
         errMsgArray.push_back(res);
 alarmCount++;
     }
     if(b8)
     {
-        res = "充电低温标志";
+        res = tr("充电低温标志");
         errMsgArray.push_back(res);
 alarmCount++;
     }
     if(b7)
     {
-        res = "低压禁充标志";
+        res = tr("低压禁充标志");
         errMsgArray.push_back(res);
 alarmCount++;
     }
     if(b6)
     {
-        res = "断线标志";
+        res = tr("断线标志");
         errMsgArray.push_back(res);
 alarmCount++;
     }
     if(b5)
     {
-        res = "短路标志";
+        res = tr("短路标志");
         errMsgArray.push_back(res);
 alarmCount++;
     }
     if(b4)
     {
-        res = "充电过流标志";
+        res = tr("充电过流标志");
         errMsgArray.push_back(res);
 alarmCount++;
     }
     if(b3)
     {
-        res = "放电过流2标志";
+        res = tr("放电过流2标志");
         errMsgArray.push_back(res);
 alarmCount++;
     }
     if(b2)
     {
-        res = "放电过流1标志";
+        res = tr("放电过流1标志");
         errMsgArray.push_back(res);
 alarmCount++;
     }
     if(b1)
     {
-        res = "欠压标志";
+        res = tr("欠压标志");
         errMsgArray.push_back(res);
 alarmCount++;
     }
     if(b0)
     {
-        res = "过压标志";
+        res = tr("过压标志");
         errMsgArray.push_back(res);
 alarmCount++;
     }
@@ -1255,43 +1255,43 @@ QVariantMap BMSProtocol::deal_0E(const QByteArray &v, int dataLen)
     int alarmCount = 0;
     if(status & 0x0001)
     {
-        res = "超高压报警";
+        res = tr("超高压报警");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(status & 0x0002)
     {
-        res = "超低压报警";
+        res = tr("超低压报警");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(status & 0x0004)
     {
-        res = "防拆卸报警";
+        res = tr("防拆卸报警");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(status & 0x0008)
     {
-        res = "电压采集断线报警";
+        res = tr("电压采集断线报警");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(status & 0x0010)
     {
-        res = "温度采集断线报警";
+        res = tr("温度采集断线报警");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(status & 0x0020)
     {
-        res = "AFE通讯失效报警";
+        res = tr("AFE通讯失效报警");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(status & 0x0040)
     {
-        res = "电池组压差大报警";
+        res = tr("电池组压差大报警");
         errMsgArray.push_back(res);
         alarmCount++;
     }
@@ -1330,81 +1330,81 @@ QVariantMap BMSProtocol::deal_0F(const QByteArray &v, int dataLen)
     int alarmCount = 0;
     if(b15)
     {
-        res = "正版固件标志";
+        res = tr("正版固件标志");
         errMsgArray.push_back(res);
         alarmCount++;
 
     }
     if(b14)
     {
-        res = "允许放电标志";
+        res = tr("允许放电标志");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(b13)
     {
-        res = "AFE配置失败标志";
+        res = tr("AFE配置失败标志");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(b12)
     {
-        res = "充电标志";
+        res = tr("充电标志");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(b11)
     {
-        res = "放电标志";
+        res = tr("放电标志");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(b10)
     {
-        res = "允许容量更新标志";
+        res = tr("允许容量更新标志");
         errMsgArray.push_back(res);
         alarmCount++;
     }
 
     if(b8)
     {
-        res = "满充电标志";
+        res = tr("满充电标志");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(b5)
     {
-        res = "强制关闭充电标志";
+        res = tr("强制关闭充电标志");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(b4)
     {
-        res = "强制开启充电标志";
+        res = tr("强制开启充电标志");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(b3)
     {
-        res = "强制关闭放电标志";
+        res = tr("强制关闭放电标志");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(b2)
     {
-        res = "强制开启放电标志";
+        res = tr("强制开启放电标志");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(!b1)
     {
-        res = "电流校准标志";
+        res = tr("电流校准标志");
         errMsgArray.push_back(res);
         alarmCount++;
     }
     if(!b0)
     {
-        res = "零电流未校准标志";
+        res = tr("零电流未校准标志");
         errMsgArray.push_back(res);
         alarmCount++;
     }
