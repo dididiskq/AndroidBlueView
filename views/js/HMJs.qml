@@ -88,7 +88,7 @@ QtObject
     property var manYshi: fields["manYshi"]
     property var sleepDelay: fields["SleepDelay"]
     property var shutDownDelay: fields["ShutDownDelay"]
-    property var sampleRValue: fields["SampleRValue"]
+    property string sampleRValue: fields["SampleRValue"]
     property var lingYuzhi: fields["lingYuzhi"]
 
 

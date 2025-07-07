@@ -1171,7 +1171,7 @@ bool BmsController::onSeceiveCommand(const QVariantMap &op)
 {
 
     QByteArray value = op.value("value").toByteArray();
-    qDebug() << "onSeceiveCommand子线程收到通知数据:" << value.toHex(' ');;
+    // qDebug() << "onSeceiveCommand子线程收到通知数据:" << value.toHex(' ');;
     QVariantMap map = protocal.parse(value);
 
 

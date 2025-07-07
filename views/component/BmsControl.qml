@@ -408,14 +408,12 @@ Page
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: 30
-            // width: srcDict.scaled(117)
-            height: srcDict.scaled(55)
+            width: srcDict.scaled(117)
+            // height: srcDict.scaled(55)
             color: "white"
             font.pixelSize: 25
             text: qsTr("弱电开关")
         }
-
-
 
         Switch
         {

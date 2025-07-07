@@ -51,7 +51,7 @@ bool CHMViewCommand::initViewVariable()
 {
     HMUtils::log() <<"initViewVariable:" << QGuiApplication::applicationDirPath() <<HMLog::endl;
     QString absPath = "../";
-
+    selfView.context("HMStmView")->setFieldValue("SampleRValue", "0");
     selfView.context("HMStmView")->setFieldValue("version", selfObj->version);
     selfView.context("HMStmView")->setFieldValue("soh", 0);
     selfView.context("HMStmView")->setFieldValue("soc", 0);

@@ -930,7 +930,7 @@ QVariantMap BMSProtocol::paseFloatAnd2(const QByteArray &buf, int dataLen)
     memcpy(&floatValue, &rawValue, sizeof(float));  // 安全转换
 
     // 保留3位小数
-    QString formattedValue = QString::number(static_cast<double>(floatValue), 'f', 2);
+    QString formattedValue = QString::number(static_cast<double>(floatValue), 'f', 3);
     if (funcCode == 0x20E)
     {
         response["SampleRValue"] = formattedValue;
