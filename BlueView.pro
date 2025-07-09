@@ -49,7 +49,6 @@ DESTDIR     = ../
 SOURCES += \
     BMSProtocol.cpp \
     BmsController.cpp \
-    CameraCapture.cpp \
     hmcommand.cpp \
     hmlog.cpp \
     hmmodule.cpp \
@@ -66,7 +65,6 @@ SOURCES += \
 HEADERS += \
     BMSProtocol.h \
     BmsController.h \
-    CameraCapture.h \
     hmcommand.h \
     hmlog.h \
     hmmodule.h \

@@ -51,10 +51,10 @@ class BMSProtocol : QObject
 public:
     explicit BMSProtocol(QObject *parent = nullptr);
 
-    // 生成协议字节流（参数需包含操作类型和寄存器信息）
+
     QByteArray byte(const QVariant &v);
 
-    // 解析协议数据（返回包含解析结果的QVariantMap）
+
     QVariantMap parse(const QByteArray& buf);
     QVariantMap parse(const QByteArray& buf, int& size, int& result);
 
@@ -116,16 +116,16 @@ private:
     // CRC16校验计算
     static quint16 calculateCRC(const QByteArray &data);
 
-    // 寄存器地址到参数名的映射
+
     QString registerToParam(quint16 address) const;
 
-    // 数据类型转换工具
+
     QVariant parseRegisterData(quint16 address, const QByteArray &data) const;
 
-    //解析命令映射表
+
     QHash<quint16, std::function<QVariantMap(const QByteArray&, int)>> commands;
 
-    //组装命令映射表
+
     QHash<quint16, std::function<QByteArray(const QVariantMap&)>> writeByteCommands;
 };
 

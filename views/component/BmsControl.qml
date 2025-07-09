@@ -90,11 +90,10 @@ Page
             {
                 if(_switch.checked)
                 {
-                    // print("打开")
+
                 }
                 else
                 {
-                    // print("关闭")
                 }
             }
         }

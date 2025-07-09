@@ -100,16 +100,6 @@ public:
      * 判断原子操作标志位状态
      * @return
      */
-//    bool isSyncFlag();
-//    /**
-//     * @brief processSendOperatioins
-//     */
-//    virtual bool processSendOperatioins(CHMThread *threader);
-//    /**
-//     * @brief processRevOperatioins
-//     */
-//    virtual bool processRevOperatioins(CHMThread *threader);
-
 
     virtual void setSyncOpertionOverTime();
 

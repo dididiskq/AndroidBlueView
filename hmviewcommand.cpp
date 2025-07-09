@@ -223,7 +223,7 @@ bool CHMViewCommand::onSendCodeData(const QVariantMap &op)
     {
         if(type == 1)
         {
-            // emit parseCodeSlot(image);
+
             QString cleaned = info.trimmed();
 
             // 定义 MAC 地址正则表达式（兼容大小写和不同分隔符）
@@ -257,7 +257,7 @@ bool CHMViewCommand::onSendCodeData(const QVariantMap &op)
     }
 
 
-    // emit parseCodeSlot(image);
+
     return true;
 }
 

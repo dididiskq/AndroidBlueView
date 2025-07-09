@@ -58,7 +58,6 @@ signals:
     void connectBlueSlot(const QString addr);
     void writeBlueSlot(const QVariantMap &op);
     void protectMsgSignal(const int type);
-    void parseCodeSlot(const QImage& img);
     void cameraOpera(const int type);
     void getTimerDataSignal(const int type);
     void closeAppSignal();

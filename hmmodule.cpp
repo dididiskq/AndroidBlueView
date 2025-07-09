@@ -21,7 +21,6 @@ CHMModule::CHMModule(QObject *parent)
 
     selfBmsCommand = new BmsController(this, "Ble");
     selfRegister.setRegister("Ble", selfBmsCommand);
-    m_camera = new CameraCapture(this);
     initConnectSlots();
 }
 
@@ -43,14 +42,11 @@ CHMModule::~CHMModule()
 
 void CHMModule::initConnectSlots()
 {
-    connect(m_camera, &CameraCapture::frameBase64Ready, selfViewCommand, &CHMViewCommand::render_image);
-    connect(selfViewCommand, &CHMViewCommand::cameraOpera, m_camera, &CameraCapture::cameraOperaSlot);
     connect(selfViewCommand, &CHMViewCommand::startBle, selfBmsCommand, &BmsController::startSearch);
     connect(selfViewCommand, &CHMViewCommand::sendBlueSlot, selfBmsCommand, &BmsController::viewMessage);
     connect(selfViewCommand, &CHMViewCommand::writeBlueSlot, selfBmsCommand, &BmsController::viewWriteMessage);
     connect(selfViewCommand, &CHMViewCommand::connectBlueSlot, selfBmsCommand, &BmsController::connectBlue);
     connect(selfViewCommand, &CHMViewCommand::protectMsgSignal, selfBmsCommand, &BmsController::getProtectMsgSlot);
-    connect(selfViewCommand, &CHMViewCommand::parseCodeSlot, this, &CHMModule::parseCode);
     connect(selfViewCommand, &CHMViewCommand::closeAppSignal, this, &CHMModule::closeAppSlot);
     connect(selfViewCommand, &CHMViewCommand::getTimerDataSignal, selfBmsCommand, &BmsController::getTimerDataSignalSlot);
 
@@ -103,53 +99,6 @@ void CHMModule::test(QVariantMap &parameters, QVariant &result)
 void CHMModule::playVoices(const QString path)
 {
 
-}
-
-void CHMModule::parseCode(const QImage&  img)
-{
-    // QFuture<void> future = QtConcurrent::run([=]() {
-        //QR Code二维码
-        decoder.setDecoder(QZXing::DecoderFormat_QR_CODE);
-
-        decoder.setSourceFilterType(QZXing::SourceFilter_ImageNormal);
-        decoder.setTryHarderBehaviour(QZXing::TryHarderBehaviour_ThoroughScanning |
-                                      QZXing::TryHarderBehaviour_Rotate);
-        QString info = decoder.decodeImage(img);
-        qDebug()<<"二维码识别结果:"<<info;
-        if(info == "")
-        {
-
-        }
-        else
-        {
-            QString cleaned = info.trimmed();
-
-            // 定义 MAC 地址正则表达式（兼容大小写和不同分隔符）
-            QRegularExpression regex(
-                "^"                          // 字符串开始
-                "([0-9A-Fa-f]{2}"           // 第一个十六进制字节
-                "([:-])){5}"                // 分隔符重复5次（冒号或短横线）
-                "[0-9A-Fa-f]{2}"            // 最后一个字节
-                "$"                         // 字符串结束
-                );
-            regex.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
-
-            // 执行正则匹配
-            QRegularExpressionMatch match = regex.match(cleaned);
-
-            // 验证结果有效性
-            bool res = match.hasMatch() &&
-                   cleaned.size() == 17 &&  // 标准长度校验（6字节×2 + 5分隔符）
-                   !cleaned.contains("  ");  // 排除连续分隔符的情况
-            if(res)
-            {
-                emit selfViewCommand->selfView.context("HMStmView")->codeImageReady("connecting", 1);
-                // selfViewCommand->selfView.context("HMStmView")->setFieldValue("codeData", info);
-                selfBmsCommand->isScanConn = true;
-                selfBmsCommand->connectBlue(info);
-            }
-        }
-    // });
 }
 
 void CHMModule::closeAppSlot()
