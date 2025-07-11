@@ -58,12 +58,14 @@ signals:
     void connectBlueSlot(const QString addr);
     void writeBlueSlot(const QVariantMap &op);
     void protectMsgSignal(const int type);
+    void parseCodeSlot(const QImage& img);
     void cameraOpera(const int type);
     void getTimerDataSignal(const int type);
     void closeAppSignal();
 public:
     CHMModule *selfObj;
-    CHMView selfView;                                             // 界面对象
+    CHMView selfView;
+    QZXing decoder;
     typedef bool (CHMViewCommand::*func)(const QVariantMap &op);  // 定义数据类型，
     QMap<QString, CHMViewCommand::func> selfCommands;
     bool imageReady = false;

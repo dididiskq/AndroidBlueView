@@ -9,10 +9,10 @@ CHMModule::CHMModule(QObject *parent)
     : CHMModuleBasics(parent)
 {
     /*
-        版本:1.00.001.20250707
+        版本:1.00.001.20250711
         @author:skq
     */
-    version = "1.00.001.20250707";
+    version = "1.00.001.20250711";
     HMUtils::log() << QString("界面程序版本： %1").arg(version) <<HMLog::endl;
 
 
@@ -21,6 +21,7 @@ CHMModule::CHMModule(QObject *parent)
 
     selfBmsCommand = new BmsController(this, "Ble");
     selfRegister.setRegister("Ble", selfBmsCommand);
+
     initConnectSlots();
 }
 
@@ -47,6 +48,7 @@ void CHMModule::initConnectSlots()
     connect(selfViewCommand, &CHMViewCommand::writeBlueSlot, selfBmsCommand, &BmsController::viewWriteMessage);
     connect(selfViewCommand, &CHMViewCommand::connectBlueSlot, selfBmsCommand, &BmsController::connectBlue);
     connect(selfViewCommand, &CHMViewCommand::protectMsgSignal, selfBmsCommand, &BmsController::getProtectMsgSlot);
+    connect(selfViewCommand, &CHMViewCommand::parseCodeSlot, this, &CHMModule::parseCode);
     connect(selfViewCommand, &CHMViewCommand::closeAppSignal, this, &CHMModule::closeAppSlot);
     connect(selfViewCommand, &CHMViewCommand::getTimerDataSignal, selfBmsCommand, &BmsController::getTimerDataSignalSlot);
 
@@ -97,6 +99,11 @@ void CHMModule::test(QVariantMap &parameters, QVariant &result)
 }
 
 void CHMModule::playVoices(const QString path)
+{
+
+}
+
+void CHMModule::parseCode(const QImage&  img)
 {
 
 }

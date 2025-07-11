@@ -58,34 +58,34 @@ public:
     QVariantMap parse(const QByteArray& buf);
     QVariantMap parse(const QByteArray& buf, int& size, int& result);
 
-    //读命令回调函数
-    QVariantMap deal_00(const QByteArray& v, int dataLen); //MOS温度
-    QVariantMap deal_01(const QByteArray& v, int dataLen); //T1温度
-    QVariantMap deal_02(const QByteArray& v, int dataLen); //t2温度
-    QVariantMap deal_03(const QByteArray& v, int dataLen); //t3温度
-    QVariantMap deal_04(const QByteArray& v, int dataLen); //总电压
-    QVariantMap deal_06(const QByteArray& v, int dataLen); //总电流
-    QVariantMap deal_08(const QByteArray& v, int dataLen); //剩余容量
-    QVariantMap deal_0A(const QByteArray& v, int dataLen); //平衡状态
-    QVariantMap deal_0C(const QByteArray& v, int dataLen); //AFE状态
-    QVariantMap deal_0E(const QByteArray& v, int dataLen); //报警状态
-    QVariantMap deal_0F(const QByteArray& v, int dataLen); //电池状态
-    QVariantMap deal_10(const QByteArray& v, int dataLen); //二次电压
-    QVariantMap deal_11(const QByteArray& v, int dataLen); //二次电流
-    QVariantMap deal_12(const QByteArray& v, int dataLen); //二次温度
-    QVariantMap deal_13(const QByteArray& v, int dataLen); //固件版本
-    QVariantMap deal_14(const QByteArray& v, int dataLen); //健康、电量
-    QVariantMap deal_15(const QByteArray& v, int dataLen); // RTC的年月
-    QVariantMap deal_16(const QByteArray& v, int dataLen); // RTC的天时
-    QVariantMap deal_17(const QByteArray& v, int dataLen); // RTC的分秒
-    QVariantMap deal_18(const QByteArray& v, int dataLen); // 串数、类型
-    QVariantMap deal_19(const QByteArray& v, int dataLen); // 前端、客户代号
-    QVariantMap deal_1A(const QByteArray& v, int dataLen); // 循环次数
-    QVariantMap deal_1B(const QByteArray& v, int dataLen); // 满充容量
-    QVariantMap deal_1C(const QByteArray& v, int dataLen); //设计容量
-    QVariantMap deal_1D(const QByteArray& v, int dataLen); //最大未充电间隔时间
-    QVariantMap deal_1E(const QByteArray& v, int dataLen); //最近未充电间隔时间
-    QVariantMap deal_1F(const QByteArray& v, int dataLen); //功能开关配置寄存器
+
+    QVariantMap deal_00(const QByteArray& v, int dataLen);
+    QVariantMap deal_01(const QByteArray& v, int dataLen);
+    QVariantMap deal_02(const QByteArray& v, int dataLen);
+    QVariantMap deal_03(const QByteArray& v, int dataLen);
+    QVariantMap deal_04(const QByteArray& v, int dataLen);
+    QVariantMap deal_06(const QByteArray& v, int dataLen);
+    QVariantMap deal_08(const QByteArray& v, int dataLen);
+    QVariantMap deal_0A(const QByteArray& v, int dataLen);
+    QVariantMap deal_0C(const QByteArray& v, int dataLen);
+    QVariantMap deal_0E(const QByteArray& v, int dataLen);
+    QVariantMap deal_0F(const QByteArray& v, int dataLen);
+    QVariantMap deal_10(const QByteArray& v, int dataLen);
+    QVariantMap deal_11(const QByteArray& v, int dataLen);
+    QVariantMap deal_12(const QByteArray& v, int dataLen);
+    QVariantMap deal_13(const QByteArray& v, int dataLen);
+    QVariantMap deal_14(const QByteArray& v, int dataLen);
+    QVariantMap deal_15(const QByteArray& v, int dataLen);
+    QVariantMap deal_16(const QByteArray& v, int dataLen);
+    QVariantMap deal_17(const QByteArray& v, int dataLen);
+    QVariantMap deal_18(const QByteArray& v, int dataLen);
+    QVariantMap deal_19(const QByteArray& v, int dataLen);
+    QVariantMap deal_1A(const QByteArray& v, int dataLen);
+    QVariantMap deal_1B(const QByteArray& v, int dataLen);
+    QVariantMap deal_1C(const QByteArray& v, int dataLen);
+    QVariantMap deal_1D(const QByteArray& v, int dataLen);
+    QVariantMap deal_1E(const QByteArray& v, int dataLen);
+    QVariantMap deal_1F(const QByteArray& v, int dataLen);
     QVariantMap deal_206(const QByteArray& v, int dataLen);
     QVariantMap paseCellVs(quint16 cmd, const QByteArray &data);
     QVariantMap paseString(const QByteArray& buf, int dataLen);
@@ -93,11 +93,11 @@ public:
     QVariantMap paseInt16And1(const QByteArray& buf, int dataLen);
     QVariantMap paseUint32And2(const QByteArray& buf, int dataLen);
     QVariantMap paseFloatAnd2(const QByteArray& buf, int dataLen);
-    //写命令回调函数
+
     QVariantMap procCommand(int dataLen, quint16 cmd, const QByteArray &data);
 
 
-    //写组转回调
+
     QByteArray byte_200(const QVariantMap& data);
     QByteArray byte_string(const QVariantMap& data);
     QByteArray byte_int16and1(const QVariantMap& data);
@@ -113,7 +113,7 @@ public:
 
 
 private:
-    // CRC16校验计算
+
     static quint16 calculateCRC(const QByteArray &data);
 
 

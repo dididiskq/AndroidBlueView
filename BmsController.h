@@ -159,7 +159,7 @@ private:
     CHMModule *selfObj;
     BMSProtocol protocal;
 
-    QBluetoothDeviceDiscoveryAgent *Discovery;//扫描蓝牙(经典蓝牙和BLE蓝牙)类
+    QBluetoothDeviceDiscoveryAgent *Discovery;
 
     QStandardItemModel *item;
 
@@ -167,10 +167,10 @@ private:
 
     QVector<QBluetoothDeviceInfo> deviceList;
 
-    QLowEnergyCharacteristic  mCharacteristic; //记录当前选定的特性值
-    QLowEnergyCharacteristic m_Characteristic[3];//存放选中服务的特性值 0-write 1-read 2-notify
+    QLowEnergyCharacteristic  mCharacteristic;
+    QLowEnergyCharacteristic m_Characteristic[3];
 
-    QLowEnergyController * mController = nullptr; //对蓝牙低能耗设备的访问
+    QLowEnergyController * mController = nullptr;
 
     QVector<QLowEnergyService *> serviceList;
     QLowEnergyService *currentService;
@@ -182,8 +182,8 @@ private:
     QTimer sendTimer;
     QTimer connectTimer;
 
-    QQueue<QByteArray> writeQueue;  // 写入请求队列
-    bool isWriting = false;         // 当前是否正在写入
+    QQueue<QByteArray> writeQueue;
+    bool isWriting = false;
 
     const QBluetoothUuid SERVICE_UUID = QBluetoothUuid(QUuid("00002760-08C2-11E1-9073-0E8AC72E1001"));
     const QBluetoothUuid WRITE_UUID   = QBluetoothUuid(QUuid("00002760-08C2-11E1-9073-0E8AC72E0001"));
@@ -196,7 +196,7 @@ private:
 
     bool isConnected = false;
     QVariantList cellVlist;
-    QVariantMap protectMap;//保护事件、时间
+    QVariantMap protectMap;
     QList<int> initCmdList{24, 0, 1, 2,3,4,6,
                            8, 10, 12,14 ,15,16,
                            17,18,19,20,21,22,

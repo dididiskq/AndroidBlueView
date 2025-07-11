@@ -8,7 +8,8 @@
 #include "hmregister.h"
 #include "hmmodulebasics.h"
 #include"BmsController.h"
-#include <QZXing.h>
+
+
 // class CHMMqttCommand;
 class CHMViewCommand;
 class BmsController;
@@ -22,12 +23,13 @@ public:
     void doProcessOp(const QVariantMap &op);
     bool start();
     void stop();
+    //    void textDeome();  // 调试一些测试信息
     void initConnectSlots();
 public slots:
     void test(QVariantMap& parameters, QVariant &result);
 
     void playVoices(const QString path);
-
+    void parseCode(const QImage&  img);
     void closeAppSlot();
 
 public:
@@ -36,7 +38,8 @@ public:
     CHMViewCommand *selfViewCommand;    // 界面文件
     BmsController *selfBmsCommand;
     CHMRegister selfRegister;           // 注册器
-    QZXing decoder;
+
+    // QZXing decoder;
 
 };
 

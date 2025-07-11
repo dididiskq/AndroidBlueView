@@ -213,6 +213,25 @@ void BmsController::initViewData()
     selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("maxYa", 0);
     selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("minYa", 0);
     selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fcc", 0);
+
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("secondLiu", "");
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("secondTemperature", map.value("secondary_temperature"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("subVer", map.value("subVer"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("rtcY", map.value("rtc_year"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("rtcM", map.value("rtc_month"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("rtcD", map.value("rtc_day"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("rtcH", map.value("rtc_hour"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("rtcM1", map.value("rtc_minute"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("rtcS", map.value("rtc_second"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("afeNum", map.value("afeNum"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("cusNum", map.value("cusNum"));
+
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("dc", map.value("dc"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("maxNoElect", map.value("maxNoElect"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("majNoElect", map.value("majNoElect"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("functionConfig", map.value("functionConfig"));
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("protectMap", protectMap);
+    // selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue(viewValue, map.value(viewValue));
 }
 void BmsController::connectSec(const QString newAddr)
 {
@@ -306,8 +325,57 @@ void BmsController::connectBlue(const QString addr)
     mController->connectToDevice();
     qDebug() << ">>> 正在连接新设备：" << addr;
 }
+/*
+void BmsController::connectBlue(const QString addr)
+{
+
+    // 如果当前控制器存在且未断开，先断开旧连接
+    if (mController && mController->state() != QLowEnergyController::UnconnectedState)
+    {
+        // mController->disconnectFromDevice();
+        clearAllResourcesForNextConnect();
+        isConnected = false;
+
+        connect(&connectTimer, &QTimer::timeout, this, [this, addr]() {
+            connectSec(addr);
+        });
+
+        connectTimer.start(300); // 启动定时器并传递参数
+        return; // 等待断开完成
+    }
 
 
+    for(const auto& dev: deviceList)
+    {
+        QString currAddr = dev.address().toString();
+        if(currAddr == addr)
+        {
+            currentDevice = dev;
+            break;
+        }
+    }
+    mController = QLowEnergyController::createCentral(currentDevice,this);
+
+    connect(mController, &QLowEnergyController::serviceDiscovered,this, &BmsController::serviceDiscovered);//扫描目标BLE服务,获取一次触发一次
+    connect(mController, &QLowEnergyController::discoveryFinished,this, &BmsController::serviceScanDone);//扫描完成之后会触发此信号
+
+    connect(mController, &QLowEnergyController::errorOccurred,this, [this](QLowEnergyController::Error error) {
+        Q_UNUSED(error);
+        qDebug()<<"Cannot connect to remote device.";
+        emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("errorCon");
+    });//连接出错
+    connect(mController, &QLowEnergyController::connected, this, [this]() {
+        qDebug()<< "Controller connected. Search services...";
+        mController->discoverServices();
+        emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("1");
+    });//连接成功
+    connect(mController, &QLowEnergyController::disconnected, this, []() {
+        qDebug()<<"LowEnergy controller disconnected";
+
+    });//断开连接
+    mController->connectToDevice();//建立连接
+}
+*/
 //写数据函数
 void BmsController::viewWriteMessage(const QVariantMap &op)
 {
@@ -602,7 +670,12 @@ void BmsController::SendMsg(const QByteArray& array)
 void BmsController::sendMsgByQueue()
 {
 
+    // QLowEnergyService::WriteMode mode = QLowEnergyService::WriteWithResponse;
 
+    // if (m_Characteristic[0].properties() & QLowEnergyCharacteristic::WriteNoResponse)
+    // {
+    //     mode = QLowEnergyService::WriteWithoutResponse;
+    // }
     if (!commandQueue.isEmpty())
     {
         QByteArray array = commandQueue.dequeue();

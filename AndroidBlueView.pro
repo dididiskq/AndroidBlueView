@@ -16,21 +16,22 @@ TRANSLATIONS += \
 
 
 
-# QZXing 配置
-android {
-    # 根据构建类型选择库
-    CONFIG(debug, debug|release) {
+# QZXing
+android{
+    # ANDROID_DEPLOYMENT_DEPENDENCIES = no
+
+    CONFIG(debug, debug|release){
         ANDROID_EXTRA_LIBS += $$PWD/QZXing/lib/arm64-v8a/libQZXingd.so
         LIBS += -L$$PWD/QZXing/lib/arm64-v8a -lQZXingd
-    } else {
+    }else{
         ANDROID_EXTRA_LIBS += $$PWD/QZXing/lib/arm64-v8a/libQZXing.so
         LIBS += -L$$PWD/QZXing/lib/arm64-v8a -lQZXing
     }
 }
 
-# 指定Android资源目录
+#  Android
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
-# ANDROID_APP_NAME = "Ultra bms"  # 这个才是应用显示名称
+
 INCLUDEPATH += $$PWD/QZXing/include
 DEPENDPATH += $$PWD/QZXing/include
 
@@ -38,14 +39,14 @@ CONFIG += qzxing_qml
 CONFIG += qzxing_multimedia
 
 
-# 输出目录
+
 OBJECTS_DIR = ./build/$$TARGET/obj
 MOC_DIR     = ./build/$$TARGET/moc
 RCC_DIR     = ./build/$$TARGET/rcc
 UI_DIR      = ./build/$$TARGET/ui
 DESTDIR     = ../
 
-# 源文件和头文件
+
 SOURCES += \
     BMSProtocol.cpp \
     BmsController.cpp \

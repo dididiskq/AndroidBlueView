@@ -3,7 +3,7 @@
 #include "hmutils.h"
 #include<QImage>
 #include<QVideoFrame>
-#include <QZXing.h>
+// #include <QZXing.h>
 #include<QPainter>
 #include<QOpenGLContext>
 #include<QOffscreenSurface>
@@ -132,43 +132,5 @@ void HMViewContext::processFrame(const QVideoFrame &frame)
 void HMViewContext::onFrameGrabbed(const QImage &img)
 {
     if (img.isNull()) return;
-    QZXing decoder;
-    //QR Code二维码
-    decoder.setDecoder(QZXing::DecoderFormat_QR_CODE);
 
-    decoder.setSourceFilterType(QZXing::SourceFilter_ImageNormal);
-    decoder.setTryHarderBehaviour(QZXing::TryHarderBehaviour_ThoroughScanning |
-                                  QZXing::TryHarderBehaviour_Rotate);
-    QString info = decoder.decodeImage(img);
-    if(info == "")
-    {
-
-    }
-    else
-    {
-        QString cleaned = info.trimmed();
-
-        // 定义 MAC 地址正则表达式（兼容大小写和不同分隔符）
-        QRegularExpression regex(
-            "^"                          // 字符串开始
-            "([0-9A-Fa-f]{2}"           // 第一个十六进制字节
-            "([:-])){5}"                // 分隔符重复5次（冒号或短横线）
-            "[0-9A-Fa-f]{2}"            // 最后一个字节
-            "$"                         // 字符串结束
-            );
-        regex.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
-
-        // 执行正则匹配
-        QRegularExpressionMatch match = regex.match(cleaned);
-
-        // 验证结果有效性
-        bool res = match.hasMatch() &&
-                   cleaned.size() == 17 &&  // 标准长度校验（6字节×2 + 5分隔符）
-                   !cleaned.contains("  ");  // 排除连续分隔符的情况
-        if(res)
-        {
-            emit codeImageReady(info, 1);
-        }
-
-    }
 }

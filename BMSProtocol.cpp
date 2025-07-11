@@ -1,5 +1,12 @@
 #include "bmsprotocol.h"
 
+// 寄存器地址到参数名的映射表（示例部分）
+static QMap<quint16, QString> registerMap = {
+    {0x0000, "MOS温度1"},
+    {0x0001, "电池温度1"},
+    {0x0014, "SOC_SOH"},
+    // 添加其他寄存器映射...
+};
 
 BMSProtocol::BMSProtocol(QObject *parent) : QObject(parent)
 {
@@ -200,7 +207,12 @@ QByteArray BMSProtocol::byte(const QVariant &v)
             temp = byte_uint32and2(params);
         }
         frame.append(temp);
-
+        // quint16 regCount = params.value("regCount").toUInt();
+        // QByteArray data = params.value("data").toByteArray();
+        // frame.append(static_cast<char>((regCount >> 8) & 0xFF));
+        // frame.append(static_cast<char>(regCount & 0xFF));
+        // frame.append(static_cast<char>(data.size()));
+        // frame.append(data);
     }
 
     // 计算CRC并附加
@@ -977,7 +989,14 @@ QVariantMap BMSProtocol::deal_06(const QByteArray &v, int dataLen)
         response["error"] = "Invalid data length";
         return response;
     }
+    // // 提取数据部分的4字节（大端序）
+    // quint32 rawValue = (static_cast<quint8>(v[5]) << 24) |  // 00
+    //                    (static_cast<quint8>(v[6]) << 16) |  // 01
+    //                    (static_cast<quint8>(v[7]) << 8)  |  // 37
+    //                    static_cast<quint8>(v[8]);          // 20
 
+    // // 计算电流值（假设单位为mA，需根据设备协议调整比例）
+    // double current_A = rawValue / 1000.0;  // 转换为安培
     // 正确提取有符号32位整数（大端序）
     qint32 rawValue;
     const char* dataPtr = v.constData() + 5;  // 数据起始位置
@@ -1473,7 +1492,10 @@ QVariantMap BMSProtocol::deal_13(const QByteArray &v, int dataLen)
     return response;
 }
 
+// 0x0011 - 二次电流（单位：10mA，有符号）
 
+
+// 0x0015 - RTC年份和月份（年份=值+2022）
 QVariantMap BMSProtocol::deal_15(const QByteArray &v, int dataLen)
 {
     QVariantMap response;

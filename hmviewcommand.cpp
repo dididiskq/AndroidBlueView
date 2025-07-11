@@ -4,7 +4,7 @@
 #include <QJsonDocument>
 #include "hmutils.h"
 #include "hmviewcommand.h"
-// #include <qrencode.h>
+#include <qrencode.h>
 #include <QUrl>
 #include <QScreen>
 
@@ -18,6 +18,9 @@ CHMViewCommand::CHMViewCommand(QObject *parent, const QString &name)
     this->selfView.setName(selfName);
 
     QObject::connect(&this->selfView, SIGNAL(updateCommand(QVariantMap&, QVariant&)), selfObj, SLOT(test(QVariantMap&, QVariant&)));
+    decoder.setSourceFilterType(QZXing::SourceFilter_ImageNormal);
+    decoder.setTryHarderBehaviour(QZXing::TryHarderBehaviour_ThoroughScanning |
+                                  QZXing::TryHarderBehaviour_Rotate);
 }
 
 CHMViewCommand::~CHMViewCommand()
@@ -207,12 +210,12 @@ bool CHMViewCommand::onSendCodeData(const QVariantMap &op)
         return true;
     }
 
-    QZXing decoder;
-    decoder.setDecoder(QZXing::DecoderFormat_QR_CODE);
+    // QZXing decoder;
+    // decoder.setDecoder(QZXing::DecoderFormat_QR_CODE);
 
-    decoder.setSourceFilterType(QZXing::SourceFilter_ImageNormal);
-    decoder.setTryHarderBehaviour(QZXing::TryHarderBehaviour_ThoroughScanning |
-                                  QZXing::TryHarderBehaviour_Rotate);
+    // decoder.setSourceFilterType(QZXing::SourceFilter_ImageNormal);
+    // decoder.setTryHarderBehaviour(QZXing::TryHarderBehaviour_ThoroughScanning |
+    //                               QZXing::TryHarderBehaviour_Rotate);
     QString info = decoder.decodeImage(image);
     // qDebug()<<"扫描结果："<<info;
     if(info == "")
@@ -223,7 +226,7 @@ bool CHMViewCommand::onSendCodeData(const QVariantMap &op)
     {
         if(type == 1)
         {
-
+            // emit parseCodeSlot(image);
             QString cleaned = info.trimmed();
 
             // 定义 MAC 地址正则表达式（兼容大小写和不同分隔符）
@@ -257,7 +260,7 @@ bool CHMViewCommand::onSendCodeData(const QVariantMap &op)
     }
 
 
-
+    // emit parseCodeSlot(image);
     return true;
 }
 
