@@ -37,7 +37,7 @@ Page {
             {
                 for (var i = 0; i < srcDict.cellNum; i++)
                 {
-                    var voltage = String(cellList[i].toFixed(3)) + "V"; // 结果: "3.14"
+                    var voltage = String(cellList[i].toFixed(3)); // 结果: "3.141"
                     batteryModel.setProperty(i, "typeData", voltage)
                 }
             }
@@ -167,13 +167,13 @@ Page {
             {
                 title: qsTr("电池信息")
                 modelData: [
-                    {text: qsTr("总电压"), source: "", data: srcDict.electYa === undefined ? "" : String(srcDict.electYa) + "V"},
-                    {text: qsTr("总电流"), source: "", data: srcDict.electLiu === undefined ? "" : String(srcDict.electLiu) + "A"},
-                    {text: qsTr("压差"), source: "", data: srcDict.yaCha === undefined ? "" : String(srcDict.yaCha) + "V"},
-                    {text: qsTr("最高电压"), source: "", data: srcDict.maxYa === undefined ? "" : String(srcDict.maxYa) + "V"},
-                    {text: qsTr("最低电压"), source: "", data: srcDict.minYa === undefined ? "" : String(srcDict.minYa) + "V"},
-                    {text: qsTr("循环次数"), source: "", data: srcDict.cycles_number === undefined ? "" : srcDict.cycles_number},
-                    {text: qsTr("功率"), source: "", data: srcDict.electYa === undefined ? "" : String((parseFloat(srcDict.electYa) * parseFloat(srcDict.electLiu)).toFixed(3)) + "W"},
+                    {text: qsTr("总电压"), source: "", data: srcDict.electYa === undefined ? "" : String(srcDict.electYa) + "V", color: "white"},
+                    {text: qsTr("总电流"), source: "", data: srcDict.electLiu === undefined ? "" : String(srcDict.electLiu) + "A", color: "white"},
+                    {text: qsTr("压差"), source: "", data: srcDict.yaCha === undefined ? "" : String(srcDict.yaCha) + "V", color: "white"},
+                    {text: qsTr("最高电压"), source: "", data: srcDict.maxYa === undefined ? "" : String(srcDict.maxYa) + "V", color: "yellow"},
+                    {text: qsTr("最低电压"), source: "", data: srcDict.minYa === undefined ? "" : String(srcDict.minYa) + "V", color: "green"},
+                    {text: qsTr("循环次数"), source: "", data: srcDict.cycles_number === undefined ? "" : srcDict.cycles_number, color: "white"},
+                    {text: qsTr("功率"), source: "", data: srcDict.electYa === undefined ? "" : String((parseFloat(srcDict.electYa) * parseFloat(srcDict.electLiu)).toFixed(3)) + "W", color: "white"},
                 ]
             }
 
@@ -182,10 +182,10 @@ Page {
             {
                 title: qsTr("温度信息")
                 modelData: [
-                    {text: qsTr("MOS温度"), source: "", data: srcDict.mosTemperature === undefined ? "" : (srcDict.mosTemperature + "℃")},
-                    {text: qsTr("T1温度"), source: "", data: srcDict.temperature1 === undefined ? "" : (srcDict.temperature1+ "℃")},
-                    {text: qsTr("T2温度"), source: "", data: srcDict.temperature2 === undefined ? "" : (srcDict.temperature2+ "℃")},
-                    {text: qsTr("T3温度"), source: "", data: srcDict.temperature3 === undefined ? "" : (srcDict.temperature3)}
+                    {text: qsTr("MOS温度"), source: "", data: srcDict.mosTemperature === undefined ? "" : (srcDict.mosTemperature + "℃"), color: "white"},
+                    {text: qsTr("T1温度"), source: "", data: srcDict.temperature1 === undefined ? "" : (srcDict.temperature1+ "℃"), color: "white"},
+                    {text: qsTr("T2温度"), source: "", data: srcDict.temperature2 === undefined ? "" : (srcDict.temperature2+ "℃"), color: "white"},
+                    {text: qsTr("T3温度"), source: "", data: srcDict.temperature3 === undefined ? "" : (srcDict.temperature3), color: "white"}
                 ]
             }
 
@@ -239,9 +239,9 @@ Page {
                         }
                         Text
                         {
-                            text: model.typeData
+                            text: model.typeData  + "V"
                             font.pixelSize: 13
-                            color: "white"
+                            color: model.typeData === srcDict.minYa ? "green" : (model.typeData === srcDict.maxYa ? "yellow" : "white")
                             anchors.left: parent.left
                             anchors.leftMargin: srcDict.scaled(15)
                             anchors.bottom: parent.bottom

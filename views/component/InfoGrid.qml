@@ -65,7 +65,7 @@ Column
                         pixelSize: 18
                         bold: true
                     }
-                    color: "white"
+                    color: modelData.color
                     anchors.centerIn: parent
                 }
 
