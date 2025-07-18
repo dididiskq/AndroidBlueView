@@ -32,162 +32,162 @@
 <context>
     <name>BMSProtocol</name>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1067"/>
+        <location filename="../BMSProtocol.cpp" line="1066"/>
         <source>放电高温标志</source>
         <translation>放电高温标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1074"/>
+        <location filename="../BMSProtocol.cpp" line="1073"/>
         <source>放电低温标志</source>
         <translation>放电低温标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1080"/>
+        <location filename="../BMSProtocol.cpp" line="1079"/>
         <source>充电高温标志</source>
         <translation>充电高温标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1086"/>
+        <location filename="../BMSProtocol.cpp" line="1085"/>
         <source>充电低温标志</source>
         <translation>充电低温标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1092"/>
+        <location filename="../BMSProtocol.cpp" line="1091"/>
         <source>低压禁充标志</source>
         <translation>低压禁充标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1098"/>
+        <location filename="../BMSProtocol.cpp" line="1097"/>
         <source>断线标志</source>
         <translation>断线标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1104"/>
+        <location filename="../BMSProtocol.cpp" line="1103"/>
         <source>短路标志</source>
         <translation>短路标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1110"/>
+        <location filename="../BMSProtocol.cpp" line="1109"/>
         <source>充电过流标志</source>
         <translation>充电过流标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1116"/>
+        <location filename="../BMSProtocol.cpp" line="1115"/>
         <source>放电过流2标志</source>
         <translation>放电过流2标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1122"/>
+        <location filename="../BMSProtocol.cpp" line="1121"/>
         <source>放电过流1标志</source>
         <translation>放电过流1标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1128"/>
+        <location filename="../BMSProtocol.cpp" line="1127"/>
         <source>欠压标志</source>
         <translation>欠压标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1134"/>
+        <location filename="../BMSProtocol.cpp" line="1133"/>
         <source>过压标志</source>
         <translation>过压标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1258"/>
+        <location filename="../BMSProtocol.cpp" line="1257"/>
         <source>超高压报警</source>
         <translation>超高压报警</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1264"/>
+        <location filename="../BMSProtocol.cpp" line="1263"/>
         <source>超低压报警</source>
         <translation>超低压报警</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1270"/>
+        <location filename="../BMSProtocol.cpp" line="1269"/>
         <source>防拆卸报警</source>
         <translation>防拆卸报警</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1276"/>
+        <location filename="../BMSProtocol.cpp" line="1275"/>
         <source>电压采集断线报警</source>
         <translation>电压采集断线报警</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1282"/>
+        <location filename="../BMSProtocol.cpp" line="1281"/>
         <source>温度采集断线报警</source>
         <translation>温度采集断线报警</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1288"/>
+        <location filename="../BMSProtocol.cpp" line="1287"/>
         <source>AFE通讯失效报警</source>
         <translation>AFE通讯失效报警</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1294"/>
+        <location filename="../BMSProtocol.cpp" line="1293"/>
         <source>电池组压差大报警</source>
         <translation>电池组压差大报警</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1333"/>
+        <location filename="../BMSProtocol.cpp" line="1332"/>
         <source>正版固件标志</source>
         <translation>正版固件标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1340"/>
+        <location filename="../BMSProtocol.cpp" line="1339"/>
         <source>允许放电标志</source>
         <translation>允许放电标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1346"/>
+        <location filename="../BMSProtocol.cpp" line="1345"/>
         <source>AFE配置失败标志</source>
         <translation>AFE配置失败标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1352"/>
+        <location filename="../BMSProtocol.cpp" line="1351"/>
         <source>充电标志</source>
         <translation>充电标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1358"/>
+        <location filename="../BMSProtocol.cpp" line="1357"/>
         <source>放电标志</source>
         <translation>放电标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1364"/>
+        <location filename="../BMSProtocol.cpp" line="1363"/>
         <source>允许容量更新标志</source>
         <translation>允许容量更新标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1371"/>
+        <location filename="../BMSProtocol.cpp" line="1370"/>
         <source>满充电标志</source>
         <translation>满充电标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1377"/>
+        <location filename="../BMSProtocol.cpp" line="1376"/>
         <source>强制关闭充电标志</source>
         <translation>强制关闭充电标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1383"/>
+        <location filename="../BMSProtocol.cpp" line="1382"/>
         <source>强制开启充电标志</source>
         <translation>强制开启充电标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1389"/>
+        <location filename="../BMSProtocol.cpp" line="1388"/>
         <source>强制关闭放电标志</source>
         <translation>强制关闭放电标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1395"/>
+        <location filename="../BMSProtocol.cpp" line="1394"/>
         <source>强制开启放电标志</source>
         <translation>强制开启放电标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1401"/>
+        <location filename="../BMSProtocol.cpp" line="1400"/>
         <source>电流校准标志</source>
         <translation>电流校准标志</translation>
     </message>
     <message>
-        <location filename="../BMSProtocol.cpp" line="1407"/>
+        <location filename="../BMSProtocol.cpp" line="1406"/>
         <source>零电流未校准标志</source>
         <translation>零电流未校准标志</translation>
     </message>
@@ -304,42 +304,42 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../views/component/BmsControl.qml" line="147"/>
+        <location filename="../views/component/BmsControl.qml" line="146"/>
         <source>系统关机</source>
         <translation>系统关机</translation>
     </message>
     <message>
-        <location filename="../views/component/BmsControl.qml" line="206"/>
+        <location filename="../views/component/BmsControl.qml" line="205"/>
         <source>重启系统</source>
         <translation>重启系统</translation>
     </message>
     <message>
-        <location filename="../views/component/BmsControl.qml" line="265"/>
+        <location filename="../views/component/BmsControl.qml" line="264"/>
         <source>恢复出厂</source>
         <translation>恢复出厂</translation>
     </message>
     <message>
-        <location filename="../views/component/BmsControl.qml" line="324"/>
+        <location filename="../views/component/BmsControl.qml" line="323"/>
         <source>切换为英文</source>
         <translation>切换为英文</translation>
     </message>
     <message>
-        <location filename="../views/component/BmsControl.qml" line="366"/>
+        <location filename="../views/component/BmsControl.qml" line="365"/>
         <source>安全验证</source>
         <translation>安全验证</translation>
     </message>
     <message>
-        <location filename="../views/component/BmsControl.qml" line="367"/>
+        <location filename="../views/component/BmsControl.qml" line="366"/>
         <source>请输入管理员密码</source>
         <translation>请输入管理员密码</translation>
     </message>
     <message>
-        <location filename="../views/component/BmsControl.qml" line="387"/>
+        <location filename="../views/component/BmsControl.qml" line="386"/>
         <source>密码错误请重新输入</source>
         <translation>密码错误，请重新输入</translation>
     </message>
     <message>
-        <location filename="../views/component/BmsControl.qml" line="415"/>
+        <location filename="../views/component/BmsControl.qml" line="414"/>
         <source>弱电开关</source>
         <translation>弱电开关</translation>
     </message>
@@ -496,40 +496,33 @@
 <context>
     <name>DParam</name>
     <message>
-        <location filename="../views/component/DParam.qml" line="5"/>
         <source>参数</source>
         <translatorcomment>Settings</translatorcomment>
-        <translation>参数</translation>
+        <translation type="vanished">参数</translation>
     </message>
     <message>
-        <location filename="../views/component/DParam.qml" line="28"/>
         <source>快速设置</source>
-        <translation>快速设置</translation>
+        <translation type="vanished">快速设置</translation>
     </message>
     <message>
-        <location filename="../views/component/DParam.qml" line="44"/>
         <source>电压参数</source>
-        <translation>电压参数</translation>
+        <translation type="vanished">电压参数</translation>
     </message>
     <message>
-        <location filename="../views/component/DParam.qml" line="60"/>
         <source>温度参数</source>
-        <translation>温度参数</translation>
+        <translation type="vanished">温度参数</translation>
     </message>
     <message>
-        <location filename="../views/component/DParam.qml" line="76"/>
         <source>电流参数</source>
-        <translation>电流参数</translation>
+        <translation type="vanished">电流参数</translation>
     </message>
     <message>
-        <location filename="../views/component/DParam.qml" line="92"/>
         <source>均衡参数</source>
-        <translation>均衡参数</translation>
+        <translation type="vanished">均衡参数</translation>
     </message>
     <message>
-        <location filename="../views/component/DParam.qml" line="108"/>
         <source>系统参数</source>
-        <translation>系统参数</translation>
+        <translation type="vanished">系统参数</translation>
     </message>
 </context>
 <context>
@@ -604,8 +597,8 @@
     </message>
     <message>
         <location filename="../views/component/DParam2.qml" line="32"/>
-        <source>过充回复电压</source>
-        <translation>过充回复电压</translation>
+        <source>过充恢复电压</source>
+        <translation>过充恢复电压</translation>
     </message>
     <message>
         <location filename="../views/component/DParam2.qml" line="33"/>

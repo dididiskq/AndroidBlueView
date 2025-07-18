@@ -1,11 +1,10 @@
 #include "bmsprotocol.h"
 
-// 寄存器地址到参数名的映射表（示例部分）
+
 static QMap<quint16, QString> registerMap = {
     {0x0000, "MOS温度1"},
     {0x0001, "电池温度1"},
     {0x0014, "SOC_SOH"},
-    // 添加其他寄存器映射...
 };
 
 BMSProtocol::BMSProtocol(QObject *parent) : QObject(parent)

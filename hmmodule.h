@@ -1,8 +1,5 @@
 ﻿#pragma once
 #include <QObject>
-// #include "HMUtils/device/hmmqttclient.h"
-
-
 #include "hmviewcommand.h"
 #include "QVariantMap"
 #include "hmregister.h"
@@ -10,10 +7,9 @@
 #include"BmsController.h"
 
 
-// class CHMMqttCommand;
+
 class CHMViewCommand;
 class BmsController;
-// The CHMModule class
 class CHMModule: public CHMModuleBasics
 {
     Q_OBJECT
@@ -23,7 +19,6 @@ public:
     void doProcessOp(const QVariantMap &op);
     bool start();
     void stop();
-    //    void textDeome();  // 调试一些测试信息
     void initConnectSlots();
 public slots:
     void test(QVariantMap& parameters, QVariant &result);
@@ -38,8 +33,6 @@ public:
     CHMViewCommand *selfViewCommand;    // 界面文件
     BmsController *selfBmsCommand;
     CHMRegister selfRegister;           // 注册器
-
-    // QZXing decoder;
 
 };
 

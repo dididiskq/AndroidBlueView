@@ -1,7 +1,5 @@
 #ifndef BMSPROTOCOL_H
 #define BMSPROTOCOL_H
-
-// #include "hmprotocol.h"
 #include<QObject>
 #include <QByteArray>
 #include <QtEndian>

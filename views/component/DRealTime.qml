@@ -171,7 +171,7 @@ Page {
                     {text: qsTr("总电流"), source: "", data: srcDict.electLiu === undefined ? "" : String(srcDict.electLiu) + "A", color: "white"},
                     {text: qsTr("压差"), source: "", data: srcDict.yaCha === undefined ? "" : String(srcDict.yaCha) + "V", color: "white"},
                     {text: qsTr("最高电压"), source: "", data: srcDict.maxYa === undefined ? "" : String(srcDict.maxYa) + "V", color: "yellow"},
-                    {text: qsTr("最低电压"), source: "", data: srcDict.minYa === undefined ? "" : String(srcDict.minYa) + "V", color: "green"},
+                    {text: qsTr("最低电压"), source: "", data: srcDict.minYa === undefined ? "" : String(srcDict.minYa) + "V", color: "#00FF00"},
                     {text: qsTr("循环次数"), source: "", data: srcDict.cycles_number === undefined ? "" : srcDict.cycles_number, color: "white"},
                     {text: qsTr("功率"), source: "", data: srcDict.electYa === undefined ? "" : String((parseFloat(srcDict.electYa) * parseFloat(srcDict.electLiu)).toFixed(3)) + "W", color: "white"},
                 ]
@@ -241,7 +241,7 @@ Page {
                         {
                             text: model.typeData  + "V"
                             font.pixelSize: 13
-                            color: model.typeData === srcDict.minYa ? "green" : (model.typeData === srcDict.maxYa ? "yellow" : "white")
+                            color: model.typeData === srcDict.minYa ? "#00FF00" : (model.typeData === srcDict.maxYa ? "yellow" : "white")
                             anchors.left: parent.left
                             anchors.leftMargin: srcDict.scaled(15)
                             anchors.bottom: parent.bottom
