@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 15.0.1, 2025-07-18T16:00:45. -->
+<!-- Written by QtCreator 15.0.1, 2025-07-20T12:10:07. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -277,6 +277,15 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.AndroidDeployConfiguration2</value>
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.DeployConfigurationCount">1</value>
+   <valuemap type="QVariantMap" key="ProjectExplorer.Target.PluginSettings">
+    <valuelist type="QVariantList" key="AndroidDeviceAbis">
+     <value type="QString">arm64-v8a</value>
+     <value type="QString">armeabi-v7a</value>
+     <value type="QString">armeabi</value>
+    </valuelist>
+    <value type="QString" key="AndroidDeviceSerialNumber">8UJ4C19B25003357</value>
+    <value type="int" key="AndroidVersion.ApiLevel">31</value>
+   </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.0">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
     <value type="bool" key="Analyzer.QmlProfiler.Settings.UseGlobalSettings">true</value>
@@ -297,7 +306,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">AndroidBlueView</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.AndroidRunConfiguration:</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/pro/qt6Pro/AndroidBlueView/AndroidBlueView.pro</value>
-    <value type="bool" key="ProjectExplorer.RunConfiguration.Customized">false</value>
+    <value type="bool" key="ProjectExplorer.RunConfiguration.Customized">true</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
    </valuemap>

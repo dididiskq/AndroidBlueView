@@ -206,6 +206,15 @@ Page
                 }
             }
         }
+        Timer
+        {
+            id: loaderTimeout
+            interval: 8000
+            onTriggered:
+            {
+                loadRect.visible = false
+            }
+        }
 
         LoadingIndicator
         {
