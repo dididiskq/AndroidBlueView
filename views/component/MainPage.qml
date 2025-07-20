@@ -199,10 +199,12 @@ Page
                 {
                     loadRect.text = qsTr("数据加载中...")
                     loadRect.visible = true
+                    loaderTimeout.start()
                 }
                 else if(message === "firstLoadEnd")
                 {
                     loadRect.visible = false
+                    loaderTimeout.stop()
                 }
             }
         }
