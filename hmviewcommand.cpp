@@ -248,9 +248,19 @@ bool CHMViewCommand::onSendCodeData(const QVariantMap &op)
                        !cleaned.contains("  ");  // 排除连续分隔符的情况
             if(res)
             {
-                emit selfObj->selfViewCommand->selfView.context("HMStmView")->codeImageReady("connecting", 1);
-                selfObj->selfBmsCommand->isScanConn = true;
-                emit connectBlueSlot(info);
+                if(selfObj->selfBmsCommand->scanBlueList.contains(cleaned))
+                {
+                    emit selfObj->selfViewCommand->selfView.context("HMStmView")->codeImageReady("connecting", 1);
+                    selfObj->selfBmsCommand->isScanConn = true;
+                    emit connectBlueSlot(info);
+                }
+                else
+                {
+                    if(!selfObj->selfBmsCommand->isSearching)
+                    {
+                        emit startBle();
+                    }
+                }
             }
         }
         else if(type == 2)

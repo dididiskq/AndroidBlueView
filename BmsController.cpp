@@ -59,6 +59,7 @@ BmsController::~BmsController()
 void BmsController::startSearch()
 {
     Discovery->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
+    isSearching = true;
 }
 
 void BmsController::searchCharacteristic()
@@ -163,6 +164,7 @@ void BmsController::clearAllResourcesForNextConnect()
     qDeleteAll(serviceList);
     serviceList.clear();
     currentService = nullptr;
+    scanBlueList.clear();
 
     // 5) 如果有旧的 controller，就先断开它
     if (mController) {
@@ -759,6 +761,7 @@ void BmsController::findFinish()
 {
     //Search Over
     qDebug()<<"Search Over";
+    isSearching = false;
     emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("over");
 }
 
@@ -774,6 +777,7 @@ void BmsController::addBlueToothDevicesToList(QBluetoothDeviceInfo Info)
         //渲染到界面
         selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("blueData", map);
         deviceList.append(Info);
+        scanBlueList.insert(Info.address().toString());
     }
 }
 //服务被找到

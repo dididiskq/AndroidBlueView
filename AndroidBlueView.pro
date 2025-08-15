@@ -30,6 +30,7 @@ android{
 }
 
 #  Android
+ANDROID_TARGET_SDK_VERSION = 35
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 INCLUDEPATH += $$PWD/QZXing/include

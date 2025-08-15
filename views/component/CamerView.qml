@@ -29,7 +29,15 @@ Page
         anchors.centerIn: parent
         text: qsTr("连接中请稍后...")
     }
-
+    Timer
+    {
+        id: timerHiden
+        interval: 5000
+        onTriggered:
+        {
+            labConn.text = qsTr("未找到指定设备，请重试")
+        }
+    }
     Connections
     {
         target: context
@@ -40,6 +48,7 @@ Page
                 timer.stop();
                 camera.stop()
                 labConn.visible = true
+                // timerHiden.start()
             }
             else
             {
