@@ -7,6 +7,16 @@
 #include <QJniEnvironment>
 #include <QtCore/qnativeinterface.h>
 using namespace QNativeInterface;
+static QString pickLangBySystem()
+{
+    const QLocale sys = QLocale::system();
+    // 你的 qm 命名是 "english.qm" / "chinese.qm"
+    if (sys.language() == QLocale::Chinese)      return QStringLiteral("chinese");
+    // 细分简繁（如果你准备了不同 qm）
+    // if (sys.language() == QLocale::Chinese && sys.script() == QLocale::SimplifiedChineseScript) return "zh_CN";
+    // if (sys.language() == QLocale::Chinese && sys.script() == QLocale::TraditionalChineseScript) return "zh_TW";
+    return QStringLiteral("english");
+}
 void setImmersiveMode()
 {
     //
@@ -82,21 +92,23 @@ int main(int argc, char *argv[])
     QGuiApplication a(argc, argv);  // 主线程
     setImmersiveMode();
     QObject::connect(&a, &QCoreApplication::aboutToQuit, []() {
-        jobject activity = QAndroidApplication::context();
-        QJniObject javaActivity(activity);
+        // 获取上下文并转换为QJniObject
+        QJniObject context = QAndroidApplication::context();
 
-        if (javaActivity.isValid()) {
+        if (context.isValid()) {
             // 使用系统动画方式退出
-            javaActivity.callMethod<void>("finishAndRemoveTask");
-
-            // 清理引用
-            QJniEnvironment env;
-            env->DeleteLocalRef(activity);
+            context.callMethod<void>("finishAndRemoveTask");
         }
     });
 
    // CHMModule module;
+    QLocale::setDefault(QLocale::system());
 
+    QTranslator tr;
+    const QString lang = pickLangBySystem();
+    if (tr.load(":/language/" + lang + ".qm")) {
+        a.installTranslator(&tr);
+    }
     std::unique_ptr<CHMModule> module(new CHMModule());
     if(!module->start())
     {

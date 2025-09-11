@@ -1,4 +1,8 @@
 #include "BmsController.h"
+#include <QPermissions>      // ✅ 注意：不是 QBluetoothPermission 这个头
+#include <QBluetoothDeviceDiscoveryAgent>
+
+
 
 BmsController::BmsController(QObject *parent, const QString &name)
     : CHMCommand{parent}
@@ -56,10 +60,37 @@ BmsController::~BmsController()
     }
 }
 
-void BmsController::startSearch()
+// 建议把真正开扫的动作拆出来
+void BmsController::actuallyStartBleScan()
 {
+    if (!Discovery) Discovery = new QBluetoothDeviceDiscoveryAgent(this);
     Discovery->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
     isSearching = true;
+}
+
+void BmsController::startSearch()
+{
+#if defined(Q_OS_ANDROID)
+    // 1) 蓝牙权限（Access = 扫描 + 连接）
+    QBluetoothPermission btPerm;
+    btPerm.setCommunicationModes(QBluetoothPermission::Access);
+
+    auto st = qApp->checkPermission(btPerm);
+    if (st == Qt::PermissionStatus::Undetermined) {
+        qApp->requestPermission(btPerm, this, [this](const QPermission &p){
+            if (p.status() == Qt::PermissionStatus::Granted)
+                actuallyStartBleScan();
+            else
+                qDebug() << "用户拒绝了蓝牙权限";
+        });
+        return; // 等回调
+    } else if (st == Qt::PermissionStatus::Denied) {
+        qDebug() << "蓝牙权限被拒绝";
+        return;
+    }
+#endif
+    // 权限 OK
+    actuallyStartBleScan();
 }
 
 void BmsController::searchCharacteristic()

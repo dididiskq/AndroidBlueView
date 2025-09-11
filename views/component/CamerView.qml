@@ -94,10 +94,15 @@ Page
         id: output
         anchors.fill: parent
     }
+    function startCamera() {
+        camera.active = true   // ✅ Qt 6.9 正确的启用方式
+    }
     Component.onCompleted:
     {
         srcDict.startSearch()
-        cap.camera.start()
+        // cap.camera.start()
+        // camera.active = true
+        HMStmViewContext.requestCameraThenStart(this)
         srcDict.currentPageIndex = 4
     }
     Timer

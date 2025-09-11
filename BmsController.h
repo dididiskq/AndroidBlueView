@@ -152,6 +152,7 @@ public slots:
     void clearAllResourcesForNextConnect();
     void connectSec(const QString newAddr);
     void initViewData();
+    void actuallyStartBleScan();
 public:
     bool isScanConn = false;
     QSet<QString> scanBlueList;

@@ -75,5 +75,6 @@
         <file>views/component/DataConfirmationDialog.qml</file>
         <file>language/chinese.ts</file>
         <file>language/english.ts</file>
+        <file>QZXing/lib/arm64-v8a/libQZXing.so</file>
     </qresource>
 </RCC>

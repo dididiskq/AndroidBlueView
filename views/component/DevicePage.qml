@@ -66,7 +66,14 @@ Page
                 }
                 else
                 {
-                    drawer.open()
+                    if(drawer.opened)
+                    {
+                        drawer.close()
+                    }
+                    else
+                    {
+                        drawer.open()
+                    }
                 }
                 window.forceActiveFocus()
             }
@@ -109,12 +116,14 @@ Page
         width: window.width * 0.7
         height: window.height * 0.8
         y: headTool.height
-        dim: false // 关闭默认的暗色遮罩
+        dim: true // 关闭默认的暗色遮罩
         edge: Qt.LeftEdge
+        interactive: false
+        modal: true
         // 添加半透明背景
         background: Rectangle
         {
-            color: "#80000000" // 半透明黑色
+            color: "transparent" // 半透明黑色
             Rectangle
             { // 侧边栏内容背景
                 width: parent.width

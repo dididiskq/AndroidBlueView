@@ -57,6 +57,7 @@ Rectangle
         onOpacityChanged: {
                     if (opacity === 0) {
                         splash.visible = false
+                        // HMStmViewContext.switchLanguage("english")
                     }
                 }
     }

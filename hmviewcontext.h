@@ -6,6 +6,7 @@
 #include <QKeyEvent>
 #include <QCoreApplication>
 #include<QVideoSink>
+#include <QPermissions>
 class HMViewContext : public QObject
 {
     Q_OBJECT
@@ -38,6 +39,27 @@ public:
 
     Q_PROPERTY(QVideoSink *videoSink WRITE setVideoSink);
     void setVideoSink(QVideoSink* sink);
+
+
+    Q_INVOKABLE void requestCameraThenStart(QObject* receiver)
+    {
+        QCameraPermission cam;
+        auto s = qApp->checkPermission(cam);
+        if (s == Qt::PermissionStatus::Granted) {
+            QMetaObject::invokeMethod(receiver, "startCamera");
+            return;
+        }
+        if (s == Qt::PermissionStatus::Undetermined) {
+            qApp->requestPermission(cam, receiver, [receiver](const QPermission &p){
+                if (p.status() == Qt::PermissionStatus::Granted)
+                    QMetaObject::invokeMethod(receiver, "startCamera");
+                else
+                    qDebug() << "Camera permission denied";
+            });
+            return;
+        }
+        qDebug() << "Camera permission denied";
+    }
 signals:
     void fieldsChanged();
     void viewInvoke(const QString &method, const QVariant &parameters, QVariant &result);

@@ -40,11 +40,11 @@ Page
 
         footer: DialogButtonBox {
                 Button {
-                    text: "同意协议"
+                    text: qsTr("同意协议")
                     DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
                 }
                 Button {
-                    text: "拒绝退出"
+                    text: qsTr("拒绝退出")
                     DialogButtonBox.buttonRole: DialogButtonBox.RejectRole
                 }
             }
