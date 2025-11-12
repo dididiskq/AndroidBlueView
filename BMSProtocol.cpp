@@ -894,12 +894,14 @@ QVariantMap BMSProtocol::paseUint32And2(const QByteArray &buf, int dataLen)
     }
     else if(funcCode == 0x402)
     {
-        response["FCC"] = timeStr;
+        float fcc_Ah = a / 1000.0f;
+        response["FCC"] = fcc_Ah;
         response["viewValue"] = "FCC";
     }
     else if(funcCode == 0x404)
     {
-        response["DC"] = timeStr;
+        float dc_Ah = a / 1000.0f;
+        response["DC"] = dc_Ah;
         response["viewValue"] = "DC";
     }
     return response;

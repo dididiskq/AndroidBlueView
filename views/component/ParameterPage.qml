@@ -102,6 +102,10 @@ ColumnLayout
             var item = repeater.itemAt(srcDict.itemIndex)
             if(message === "66")
             {
+                if(celldata === 1026)
+                {
+                    return
+                }
                 if(srcDict.temType === 513)
                 {
                     srcDict.temType = 0
@@ -109,6 +113,7 @@ ColumnLayout
                     loadRect.startLoad(3000)
                     return
                 }
+
                 item.btnText = qsTr("设置成功")
                 item.resetTimer.start()
 
@@ -120,6 +125,11 @@ ColumnLayout
                 else
                 {
                     srcDict.sendToBlue(-celldata)
+                }
+                if(celldata === 1028)
+                {
+                    srcDict.writeToBlue(1026, userInput)
+                    celldata = 1026
                 }
 
             }

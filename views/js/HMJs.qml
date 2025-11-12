@@ -52,8 +52,8 @@ QtObject
     property var afeNum: fields["afeNum"] //模拟前端代号
     property var cusNum: fields["cusNum"] //客户代号
     property var cycles_number: fields["cycles_number"] //循环次数
-    property var fcc: fields["fcc"] //满充容量
-    property var dc: fields["dc"] //设计容量
+    property var fcc: fields["FCC"] //满充容量
+    property var dc: fields["DC"] //设计容量
     property var maxNoElect: fields["maxNoElect"] //最大的未充电间隔时间
     property var majNoElect: fields["majNoElect"] //最近的未充电间隔时间
     property var functionConfig: fields["functionConfig"] //功能开关配置寄存器
@@ -180,5 +180,10 @@ QtObject
         var data = {}
         data["type"] = type
         putOp("get.timerData", data)
+    }
+    function initBle()
+    {
+        var data = {}
+        putOp("init.ble", data)
     }
 }

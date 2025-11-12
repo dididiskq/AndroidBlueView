@@ -267,6 +267,38 @@ Page
                     source: "../res/mineComeIn.svg"
                 }
             }
+            Rectangle
+            {
+                height: srcDict.scaled(60)
+                width: srcDict.scaled(380)
+                color: "transparent"
+                Layout.alignment: Qt.AlignHCenter // 关键代码
+                radius: 10
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        stackViewMine.push("Ysxy.qml")
+                    }
+                }
+
+                Label
+                {
+                    text: qsTr("协议与政策")
+                    font.pixelSize: 30
+                    anchors.centerIn: parent
+                    color: "white"
+                }
+                Image
+                {
+                    anchors.right: parent.right
+                    anchors.rightMargin: srcDict.scaled(20)
+                    height: parent.height
+                    width: srcDict.scaled(60)
+                    source: "../res/mineComeIn.svg"
+                }
+            }
         }
     }
 }

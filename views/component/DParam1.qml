@@ -12,7 +12,7 @@ Page
     Component.onCompleted:
     {
         //获取本页面数据
-        srcDict.sendToBlue(27)
+        srcDict.sendToBlue(-1028)
         temTimer.start()
     }
     Timer
@@ -38,7 +38,7 @@ Page
         width: parent.width
         paramList: [
             { name: qsTr("电池实际串数"), value: srcDict.cellNum === undefined ? 0 : srcDict.cellNum, unit: qsTr("串") , cellData: 512},
-            { name: qsTr("电池物理容量"), value: srcDict.fcc === undefined ? 0 : srcDict.fcc/100, unit: "AH" , cellData: 1026}
+            { name: qsTr("电池物理容量"), value: srcDict.dc === undefined ? 0 : srcDict.dc, unit: "AH" , cellData: 1028}//srcDict.fcc/100
         ]
     }
     PasswordDialog

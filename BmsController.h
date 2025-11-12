@@ -120,6 +120,8 @@ signals:
     void writeOperationCompleted(bool success, const QString &error);
     void updateCommand(QVariantMap&, QVariant&);
 public slots:
+    void initBle();
+
     void onWriteTimeout();
 
     void viewMessage(const int type);
@@ -203,7 +205,7 @@ private:
     QList<int> initCmdList{24, 0, 1, 2,3,4,6,
                            8, 10, 12,14 ,15,16,
                            17,18,19,20,21,22,
-                           23,26,27,28,
+                           23,26,27,1028,
                            29,30,31};
     int alarmCount = 0;
 private:

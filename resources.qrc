@@ -76,5 +76,6 @@
         <file>language/chinese.ts</file>
         <file>language/english.ts</file>
         <file>QZXing/lib/arm64-v8a/libQZXing.so</file>
+        <file>views/component/Ysxy.qml</file>
     </qresource>
 </RCC>

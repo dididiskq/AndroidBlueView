@@ -9,15 +9,7 @@ BmsController::BmsController(QObject *parent, const QString &name)
 {
     selfObj = (CHMModule *)parent;
     selfName = name;
-    Discovery = new QBluetoothDeviceDiscoveryAgent;
-    Discovery->setLowEnergyDiscoveryTimeout(3000);//设置搜索时间为30000us
-    QObject::connect(Discovery, SIGNAL(finished()), this, SLOT(findFinish()));
-    QObject::connect(Discovery, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)), this, SLOT(addBlueToothDevicesToList(QBluetoothDeviceInfo)));
-    QObject::connect(Discovery, &QBluetoothDeviceDiscoveryAgent::errorOccurred,
-            this, [this](QBluetoothDeviceDiscoveryAgent::Error error) {
-                qDebug() << "蓝牙发现错误：" << error;
-        emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("blueclose");
-            });
+    //initBle
     sendTimer.setInterval(110);
     QObject::connect(&sendTimer, &QTimer::timeout, this, &BmsController::sendMsgByQueue);
 
@@ -26,6 +18,18 @@ BmsController::BmsController(QObject *parent, const QString &name)
     QObject::connect(&m_writeTimeoutTimer, &QTimer::timeout, this, &BmsController::onWriteTimeout);
     QObject::connect(this, SIGNAL(updateCommand(QVariantMap&, QVariant&)), selfObj, SLOT(test(QVariantMap&, QVariant&)));
     initCommands();
+}
+void BmsController::initBle()
+{
+    Discovery = new QBluetoothDeviceDiscoveryAgent;
+    Discovery->setLowEnergyDiscoveryTimeout(3000);//设置搜索时间为30000us
+    QObject::connect(Discovery, SIGNAL(finished()), this, SLOT(findFinish()));
+    QObject::connect(Discovery, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)), this, SLOT(addBlueToothDevicesToList(QBluetoothDeviceInfo)));
+    QObject::connect(Discovery, &QBluetoothDeviceDiscoveryAgent::errorOccurred,
+                     this, [this](QBluetoothDeviceDiscoveryAgent::Error error) {
+                         qDebug() << "蓝牙发现错误：" << error;
+                         emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("blueclose");
+                     });
 }
 void BmsController::onWriteTimeout()
 {
@@ -152,7 +156,7 @@ void BmsController::getTimerDataSignalSlot(const int type)
         viewMessage(12);
         viewMessage(14);
         viewMessage(26);
-        viewMessage(27);
+        viewMessage(1028);
     }
     else if(type == 2)
     {
@@ -171,7 +175,7 @@ void BmsController::getTimerDataSignalSlot(const int type)
         viewMessage(14);
         viewMessage(15);
         viewMessage(26);
-        viewMessage(27);
+        viewMessage(1028);
     }
 }
 void BmsController::clearAllResourcesForNextConnect()

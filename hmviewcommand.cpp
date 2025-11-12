@@ -84,6 +84,7 @@ void CHMViewCommand::initCommands()
     selfCommands["get.protectMsg"] = &CHMViewCommand::onGetProtectMsg;
     selfCommands["close.app"] = &CHMViewCommand::onCloseApp;
     selfCommands["get.timerData"] = &CHMViewCommand::onTimerData;
+    selfCommands["init.ble"] = &CHMViewCommand::onInitBle;
 }
 
 bool CHMViewCommand::isCommand(const QString &command)
@@ -297,5 +298,11 @@ bool CHMViewCommand::onTimerData(const QVariantMap &op)
 {
     int type = op.value("type", -1).toInt();
     emit getTimerDataSignal(type);
+    return true;
+}
+
+bool CHMViewCommand::onInitBle(const QVariantMap &op)
+{
+    emit initBleSignal();
     return true;
 }

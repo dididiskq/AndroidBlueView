@@ -334,7 +334,7 @@ Page
                 Label
                 {
                     // text: String(srcDict.fcc === undefined ? "0" : srcDict.fcc)+ "AH"
-                    text: String(srcDict.fcc !== undefined ? (srcDict.fcc / 100).toFixed(2) : "0.00") + "AH"
+                    text: String(srcDict.dc !== undefined ? srcDict.dc : "0.00") + "AH"
                     color: "white"
                     font.pixelSize: 12
                     font.bold: true
@@ -344,7 +344,7 @@ Page
                 }
             }
 
-            //剩余容量
+            //总功率
             Rectangle
             {
                 // border.color: "red"
@@ -359,7 +359,7 @@ Page
                 Label
                 {
                     id: lab2
-                    text: qsTr("剩余容量")
+                    text: qsTr("总功率")
                     color: "white"
                     font.pixelSize: 12
                     font.bold: true
@@ -370,8 +370,8 @@ Page
                     color: "white"
                     font.pixelSize: 12
                     font.bold: true
-                    // text: String(srcDict.remaining_capacity === undefined ? "0" : srcDict.remaining_capacity) + "AH"
-                    text: String(srcDict.remaining_capacity !== undefined ? (srcDict.remaining_capacity / 1000).toFixed(2) : "0.00") + "AH"
+                    // text: String(srcDict.remaining_capacity !== undefined ? (srcDict.remaining_capacity / 1000).toFixed(2) : "0.00") + "AH"
+                    text: srcDict.electYa === undefined ? "0.00W" : String((parseFloat(srcDict.electYa) * parseFloat(srcDict.electLiu)).toFixed(3)) + "W"
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: lab2.right
                     anchors.leftMargin: srcDict.scaled(10)
@@ -381,10 +381,8 @@ Page
             Rectangle
             {
                 color: "transparent"
-
                 height: parent.height * 0.16
                 width: height + srcDict.scaled(10)
-
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.leftMargin: srcDict.scaled(20)

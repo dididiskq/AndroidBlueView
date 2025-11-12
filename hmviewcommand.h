@@ -39,6 +39,7 @@ public:
     bool onGetProtectMsg(const QVariantMap &op);
     bool onCloseApp(const QVariantMap &op);
     bool onTimerData(const QVariantMap &op);
+    bool onInitBle(const QVariantMap &op);
 
     void playAudio(const QString &filePath);
 public:
@@ -52,6 +53,7 @@ public slots:
     //    QString imageToBase64( QImage image);
 
 signals:
+    void initBleSignal();
     void playVoice(const QString path);
     void startBle();
     void sendBlueSlot(const int type);

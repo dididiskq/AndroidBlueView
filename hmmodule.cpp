@@ -9,12 +9,11 @@ CHMModule::CHMModule(QObject *parent)
     : CHMModuleBasics(parent)
 {
     /*
-        版本:1.00.001.20250910
+        版本:1.00.001.20251025
         @author:skq
     */
-    version = "1.00.001.20250910";
+    version = "1.00.001.20251026";
     HMUtils::log() << QString("界面程序版本： %1").arg(version) <<HMLog::endl;
-
 
     selfViewCommand = new CHMViewCommand(this, "View");  // 界面对象
     selfRegister.setRegister("View", selfViewCommand);
@@ -51,6 +50,7 @@ void CHMModule::initConnectSlots()
     connect(selfViewCommand, &CHMViewCommand::parseCodeSlot, this, &CHMModule::parseCode);
     connect(selfViewCommand, &CHMViewCommand::closeAppSignal, this, &CHMModule::closeAppSlot);
     connect(selfViewCommand, &CHMViewCommand::getTimerDataSignal, selfBmsCommand, &BmsController::getTimerDataSignalSlot);
+    connect(selfViewCommand, &CHMViewCommand::initBleSignal, selfBmsCommand, &BmsController::initBle);
 
 }
 // 重写父类的方法

@@ -22,6 +22,7 @@ Page
         srcDict.sendToBlue(-586)
         srcDict.sendToBlue(-598)
         srcDict.sendToBlue(-1024)
+        srcDict.sendToBlue(-1026)
         srcDict.sendToBlue(-1032)
         srcDict.sendToBlue(27)
         srcDict.sendToBlue(28)
@@ -115,11 +116,11 @@ Page
                     Text { text: qsTr("设计循环次数"); font.bold: true; color: "white"  }
                     Text { text: srcDict.sjCirCount === undefined ? "" : srcDict.sjCirCount; color: "white"  }
 
-                    Text { text: qsTr("满充容量"); font.bold: true; color: "white"  }
-                    Text { text: srcDict.fcc === undefined ? "" : srcDict.fcc; color: "white"  }
+                    Text { text: qsTr("參考容值"); font.bold: true; color: "white"  }
+                    Text { text: srcDict.fcc === undefined ? "" :String(srcDict.fcc); color: "white"  }
 
                     Text { text: qsTr("设计容量"); font.bold: true; color: "white"  }
-                    Text { text: srcDict.dc === undefined ? "" : srcDict.dc; color: "white"  }
+                    Text { text: srcDict.dc === undefined ? "" : String(srcDict.dc ); color: "white"  }
 
                     Text { text: qsTr("最大未充电间隔时间"); font.bold: true; color: "white"  }
                     Text { text: srcDict.maxNoElect === undefined ? "" : srcDict.maxNoElect ; color: "white" }
@@ -135,67 +136,130 @@ Page
 
 
             // ================ 保护事件表格 =================
-            ColumnLayout
+            // ColumnLayout
+            // {
+            //     Layout.fillWidth: true
+            //     spacing: 10
+
+            //     // —— 表头 ——
+            //     RowLayout {
+            //         Layout.leftMargin: 20
+            //         Layout.rightMargin: 20
+            //         spacing: 0
+
+            //         Text {
+            //             text: qsTr("保护时间")
+            //             font.bold: true
+            //             color: "white"
+            //             Layout.preferredWidth: srcDict.scaled(200)
+            //             horizontalAlignment: Text.AlignLeft
+            //         }
+            //         Text {
+            //             text: qsTr("保护事件")
+            //             font.bold: true
+            //             color: "white"
+            //             Layout.fillWidth: true
+            //             horizontalAlignment: Text.AlignLeft
+            //         }
+            //     }
+
+            //     // —— 用 Column + Repeater 来替代 ListView ——
+            //     Column
+            //     {
+            //         id: eventContainer
+            //         width: parent.width
+            //         spacing: 2
+
+            //         Repeater
+            //         {
+            //             model: eventModel
+
+            //             RowLayout {
+            //                 width: eventContainer.width
+            //                 height: srcDict.scaled(30)   // 每行高度
+            //                 spacing: 0
+
+            //                 Text
+            //                 {
+            //                     text: model.eventTime
+            //                     Layout.preferredWidth: srcDict.scaled(200)
+            //                     leftPadding: 20
+            //                     color: "white"
+            //                     verticalAlignment: Text.AlignVCenter
+            //                 }
+            //                 Text
+            //                 {
+            //                     text: model.eventCode
+            //                     Layout.fillWidth: true
+            //                     color: "white"
+            //                     verticalAlignment: Text.AlignVCenter
+            //                 }
+            //                 Rectangle
+            //                 {
+            //                     height: 1
+            //                     color: "#eee"
+            //                     Layout.fillWidth: true
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+            GridLayout
             {
-                Layout.fillWidth: true
-                spacing: 10
+                columns: 2
+                columnSpacing: 0
+                rowSpacing: 0
+                width: parent.width
 
-                // —— 表头 ——
-                RowLayout {
-                    Layout.leftMargin: 20
-                    Layout.rightMargin: 20
-                    spacing: 0
-
-                    Text {
-                        text: qsTr("保护时间")
-                        font.bold: true
-                        color: "white"
-                        Layout.preferredWidth: srcDict.scaled(200)
-                        horizontalAlignment: Text.AlignLeft
-                    }
-                    Text {
-                        text: qsTr("保护事件")
-                        font.bold: true
-                        color: "white"
-                        Layout.fillWidth: true
-                        horizontalAlignment: Text.AlignLeft
-                    }
+                // 表头
+                Text {
+                    text: qsTr("保护时间")
+                    font.bold: true
+                    color: "white"
+                    Layout.preferredWidth: srcDict.scaled(200)
+                    leftPadding: 20
+                    Layout.row: 0
+                    Layout.column: 0
+                }
+                Text {
+                    text: qsTr("保护事件")
+                    font.bold: true
+                    color: "white"
+                    Layout.fillWidth: true
+                    Layout.row: 0
+                    Layout.column: 1
                 }
 
-                // —— 用 Column + Repeater 来替代 ListView ——
-                Column
+                // 数据行
+                Repeater
                 {
-                    id: eventContainer
-                    width: parent.width
-                    spacing: 2
+                    model: eventModel
 
-                    Repeater
-                    {
-                        model: eventModel
+                    Column {
+                        Layout.columnSpan: 2
+                        Layout.fillWidth: true
 
                         RowLayout {
-                            width: eventContainer.width
-                            height: srcDict.scaled(30)   // 每行高度
-                            spacing: 0
+                            width: parent.width
+                            height: srcDict.scaled(30)
 
                             Text {
                                 text: model.eventTime
                                 Layout.preferredWidth: srcDict.scaled(200)
                                 leftPadding: 20
                                 color: "white"
-                                verticalAlignment: Text.AlignVCenter
                             }
                             Text {
                                 text: model.eventCode
                                 Layout.fillWidth: true
                                 color: "white"
-                                verticalAlignment: Text.AlignVCenter
                             }
-                            Rectangle {
-                                height: 1
-                                color: "#eee"
-                                Layout.fillWidth: true
-                            }
+                        }
+
+                        Rectangle {
+                            width: parent.width
+                            height: 1
+                            color: "#444"
                         }
                     }
                 }

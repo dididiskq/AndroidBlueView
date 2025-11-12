@@ -1,103 +1,22 @@
-﻿import QtQuick
+import QtQuick
 import QtQuick.Controls
 import "./component"
 import "./js" as HMFunc
 import QtQuick.Window
 import Qt.labs.settings 1.1
-// 主窗口
-
-Rectangle
+Page
 {
-    visible: true
-
-    property variant context: HMStmViewContext
-    property variant fields:  HMStmViewContext.fields
-
-    property int currIndex: 1
-
-    width: srcDict.winWidth
-    height: srcDict.winHeight
-
+    id: mainPageInit
     property bool isMainVisible: false  // 用户同意后才设为true
-    Rectangle
-    {
-        id: splash
-        anchors.fill: parent
-        color: "white"  // 或你的启动图背景色
-        z: 9999
-
-        // Image {
-        //     anchors.centerIn: parent
-        //     source: "qrc:/android/res/drawable/splash_image.png"
-        // }
-        Label
-        {
-            text: "Welcom into hbj Ultra bms"
-            anchors.centerIn: parent
-            font.pixelSize: 28
-        }
-
-        // Behavior 自动为 opacity 添加渐变
-        Behavior on opacity
-        {
-            NumberAnimation
-            {
-                duration: 500    // 渐变时长 500ms
-                easing.type: Easing.InOutQuad
-            }
-        }
-
-        // 自动隐藏 splash 画面
-        Timer {
-            interval: 1100  // 启动持续时间
-            running: isMainVisible
-            repeat: false
-            onTriggered:
-            {
-                splash.opacity = 0.0
-            }
-        }
-        onOpacityChanged: {
-                    if (opacity === 0) {
-                        splash.visible = false
-                        // HMStmViewContext.switchLanguage("english")
-                    }
-                }
+    anchors {
+        left: parent.left
+        right: parent.right
+        top: parent.top
+        bottom: parent.bottom
     }
-
-
-    function putOp(command,params)
-    {
-        if(params)
-        {
-            HMStmViewContext.invoke(command, params);
-        }
+    background: Rectangle {
+        color: "transparent"
     }
-    HMFunc.HMJs
-    {
-        id: srcDict
-    }
-
-    Loader
-    {
-        focus: true
-        id:myLoader
-        anchors.fill: parent
-    }
-
-    Component.onCompleted:
-    {
-    }
-    // StackView
-    // {
-    //     id: stackView
-    //     anchors.fill: parent
-
-    // }
-    // Component {
-    //     id: initViewComponent
-    //     InitView { id: mainInitView }
-    // }
     Settings {
         id: appSettings
         property bool privacyAccepted: false
@@ -168,8 +87,6 @@ Rectangle
             isMainVisible = true
             appSettings.privacyAccepted = true;
             srcDict.initBle()
-            myLoader.source = "InitView.qml"
-            // stackView.initialItem = initViewComponent.createObject(stackView)
         }
 
         onRejected: {
@@ -248,10 +165,186 @@ Rectangle
     电话：18610370562
     联系邮箱：hbjbms2025@163.com
     ")
-}
+    Image
+    {
+        id: allBg
+        width: srcDict.winWidth
+        height: srcDict.winHeight
+        source: "./res/langbg.svg"//104.svg
+    }
+    Keys.onBackPressed: {
+        if(devPage.reallStackView.depth > 1)
+        {
+           devPage.reallStackView.pop()
+        }
+        else if(minePage.reallStackView.depth > 1)
+        {
+            minePage.reallStackView.pop()
+        }
+        else
+        {
+            exitDialog.open()
+        }
+    }
+    Dialog
+    {
+        id: exitDialog
+        title: qsTr("退出应用")
+        Label { text: qsTr("确定要退出吗？") }
+        anchors.centerIn: parent
+        standardButtons: Dialog.Yes | Dialog.No
 
-/*##^##
-Designer {
-    D{i:0;formeditorZoom:1.25;height:1080;width:1920}
+        onAccepted:
+        {
+            srcDict.closeApp()
+        }
+        onRejected:
+        {
+            mainPageInit.forceActiveFocus();
+        }
+    }
+
+    TabBar
+    {
+        id: tabBar
+        visible: srcDict.isShowTool
+        z: 1
+        width: parent.width
+        contentHeight: parent.height * 0.105
+        anchors.bottom: parent.bottom
+        currentIndex: swipeView.currentIndex
+
+        background: Rectangle {
+            color: "transparent"
+        }
+
+
+        STabButton
+        {
+            id: btnMain
+            buttonText: qsTr("设置")
+            sour.source: "../res/setting.svg"
+            sourP.source: "../res/settingP.svg"
+            onClicked:
+            {
+                minePage.reallStackView.pop(null, StackView.Immediate);
+                swipeView.currentIndex = 0
+                devPage.realDrawer.close()
+                srcDict.currentPageIndex = 1
+                if(srcDict.isConnected)
+                {
+                    if (!devPage.realTimer.running)
+                    {
+                        devPage.realTimer.start()
+                    }
+                }
+            }
+
+        }
+        STabButton
+        {
+            id: btnDevice
+            buttonText: qsTr("实时")
+            sour.source: "../res/main.svg"
+            sourP.source: "../res/mainP.svg"
+            onClicked:
+            {
+                devPage.reallStackView.pop(null, StackView.Immediate);
+                minePage.reallStackView.pop(null, StackView.Immediate);
+                swipeView.currentIndex = 1
+                devPage.realDrawer.close()
+                srcDict.currentPageIndex = 2
+                if(srcDict.isConnected)
+                {
+                    if (!mainPage.realTimer.running)
+                    {
+                        mainPage.realTimer.start();
+                    }
+                }
+            }
+        }
+        STabButton
+        {
+            id: btnMine
+            buttonText: qsTr("我的")
+            sour.source: "../res/mine.svg"
+            sourP.source: "../res/mineP.svg"
+            onClicked:
+            {
+                devPage.reallStackView.pop(null, StackView.Immediate);
+                swipeView.currentIndex = 2
+                devPage.realDrawer.close()
+
+                srcDict.currentPageIndex = 3
+
+            }
+        }
+    }
+
+
+    SwipeView
+    {
+        id: swipeView
+        currentIndex: 1
+        width: parent.width
+        anchors.top: parent.top
+        height: parent.height - tabBar.height
+        interactive: false
+        DevicePage
+        {
+            id: devPage
+        }
+        MainPage
+        {
+            id: mainPage
+            onHidenTabbar: (type) =>
+            {
+                console.log("收到信号参数:", type)
+                if(type === 1)
+                {
+                    tabBar.visible = false
+                }
+                else if(type === 0)
+                {
+                    tabBar.visible = true
+                }
+            }
+        }
+
+        MinePage
+        {
+            id: minePage
+        }
+
+    }
+    Connections
+    {
+        target: context
+        function onMySignal(message)
+        {
+            if(message === "disconnected")
+            {
+                loadRectMain.text = srcDict.conectedBlueName + qsTr("已断开")
+                loadRectMain.startLoad(3000)
+                srcDict.conectedBlueName = qsTr("请先连接设备")
+            }
+        }
+    }
+
+    LoadingIndicator
+    {
+        id: loadRectMain
+        anchors.centerIn: parent
+        width: srcDict.scaled(300)
+        height: srcDict.scaled(150)
+        z: 999
+        bgColor: "#CC303030"
+        textColor: "#00FF00"
+        iconColor: "#FFA500"
+        text: qsTr("...")
+    }
+    Component.onCompleted:
+    {
+        forceActiveFocus();
+    }
 }
-##^##*/
