@@ -467,12 +467,28 @@ Page
                         height: srcDict.scaled(20)
                         width: srcDict.scaled(20)
                         source: srcDict.cMos === undefined ? "../res/guan.svg" : (srcDict.cMos === 2 ? "../res/kai.svg" : "../res/guan.svg")
+                        MouseArea
+                        {
+                            anchors.fill: parent
+                            onClicked:
+                            {
+
+                            }
+                        }
                     }
                     Image
                     {
                         height: srcDict.scaled(20)
                         width: srcDict.scaled(20)
                         source: srcDict.fMos === undefined ? "../res/guan.svg" : (srcDict.fMos === 1 ? "../res/kai.svg" : "../res/guan.svg")
+                        MouseArea
+                        {
+                            anchors.fill: parent
+                            onClicked:
+                            {
+
+                            }
+                        }
                     }
 
                 }

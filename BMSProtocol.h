@@ -106,6 +106,8 @@ public:
     QByteArray byte_0002(const QVariantMap& data);
     QByteArray byte_0003(const QVariantMap& data);
     QByteArray byte_0004(const QVariantMap& data);
+    QByteArray byte_0006(const QVariantMap& data);
+    QByteArray byte_0007(const QVariantMap& data);
     QByteArray byte_0101(const QVariantMap& data);
 
 

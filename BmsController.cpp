@@ -230,6 +230,10 @@ void BmsController::initViewData()
     selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("soc", 0);
     selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("alarmCount", 0);
     selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("statusMsgList", QVariant());
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fCloseC", 0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fOpenC", 0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fCloseF", 0);
+    selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fOpenF", 0);
     selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("electYa", "");
     selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("electLiu", "");
     selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("cMos", 0);
@@ -998,6 +1002,10 @@ void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacterist
                 alarmCount += map.value("alarmCount").toInt();
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("alarmCount", alarmCount);
                 selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("statusMsgList", map.value("pack_status").toList());
+                selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fCloseC", map.value("fCloseC").toInt());
+                selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fOpenC", map.value("fOpenC").toInt());
+                selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fCloseF", map.value("fCloseF").toInt());
+                selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fOpenF", map.value("fOpenF").toInt());
                 alarmCount = 0;
             }
             else if(funcCode == 0x0010)
@@ -1331,6 +1339,10 @@ bool BmsController::onSeceiveCommand(const QVariantMap &op)
             alarmCount += map.value("alarmCount").toInt();
             selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("alarmCount", alarmCount);
             selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("statusMsgList", map.value("pack_status").toList());
+            selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fCloseC", map.value("fCloseC").toInt());
+            selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fOpenC", map.value("fOpenC").toInt());
+            selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fCloseF", map.value("fCloseF").toInt());
+            selfObj->selfViewCommand->selfView.context("HMStmView")->setFieldValue("fOpenF", map.value("fOpenF").toInt());
             alarmCount = 0;
         }
         else if(funcCode == 0x0010)

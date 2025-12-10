@@ -103,6 +103,11 @@ QtObject
     property var motd: fields["MOTD"]
     property var motdr: fields["MOTDR"]
 
+    property var fCloseC: fields["fCloseC"]
+    property var fOpenC: fields["fOpenC"]
+    property var fCloseF: fields["fCloseF"]
+    property var fOpenF: fields["fOpenF"]
+
 
     property var bt: fields["bt"]
     property var mnfDate: fields["mnfDate"]

@@ -18,9 +18,9 @@ CHMViewCommand::CHMViewCommand(QObject *parent, const QString &name)
     this->selfView.setName(selfName);
 
     QObject::connect(&this->selfView, SIGNAL(updateCommand(QVariantMap&, QVariant&)), selfObj, SLOT(test(QVariantMap&, QVariant&)));
-    decoder.setSourceFilterType(QZXing::SourceFilter_ImageNormal);
-    decoder.setTryHarderBehaviour(QZXing::TryHarderBehaviour_ThoroughScanning |
-                                  QZXing::TryHarderBehaviour_Rotate);
+    // decoder.setSourceFilterType(QZXing::SourceFilter_ImageNormal);
+    // decoder.setTryHarderBehaviour(QZXing::TryHarderBehaviour_ThoroughScanning |
+    //                               QZXing::TryHarderBehaviour_Rotate);
 }
 
 CHMViewCommand::~CHMViewCommand()
@@ -211,14 +211,15 @@ bool CHMViewCommand::onSendCodeData(const QVariantMap &op)
         return true;
     }
 
-    // QZXing decoder;
-    // decoder.setDecoder(QZXing::DecoderFormat_QR_CODE);
+    QZXing decoder;
+    decoder.setDecoder(QZXing::DecoderFormat_QR_CODE);
 
-    // decoder.setSourceFilterType(QZXing::SourceFilter_ImageNormal);
-    // decoder.setTryHarderBehaviour(QZXing::TryHarderBehaviour_ThoroughScanning |
-    //                               QZXing::TryHarderBehaviour_Rotate);
+    decoder.setSourceFilterType(QZXing::SourceFilter_ImageNormal);
+    decoder.setTryHarderBehaviour(QZXing::TryHarderBehaviour_ThoroughScanning |
+                                  QZXing::TryHarderBehaviour_Rotate);
     QString info = decoder.decodeImage(image);
-    // qDebug()<<"扫描结果："<<info;
+
+    // QString info = "";
     if(info == "")
     {
 

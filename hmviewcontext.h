@@ -5,7 +5,7 @@
 #include <QVariantMap>
 #include <QKeyEvent>
 #include <QCoreApplication>
-#include<QVideoSink>
+// #include<QVideoSink>
 #include <QPermissions>
 class HMViewContext : public QObject
 {
@@ -37,8 +37,8 @@ public:
     Q_INVOKABLE void setRfid(const QString & m);
     Q_INVOKABLE void switchLanguage(const QString &language);
 
-    Q_PROPERTY(QVideoSink *videoSink WRITE setVideoSink);
-    void setVideoSink(QVideoSink* sink);
+    // Q_PROPERTY(QVideoSink *videoSink WRITE setVideoSink);
+    // void setVideoSink(QVideoSink* sink);
 
 
     Q_INVOKABLE void requestCameraThenStart(QObject* receiver)
@@ -71,11 +71,11 @@ signals:
     void languageChangeRequested(const QString &language);
 
 public slots:
-    void processFrame(const QVideoFrame &frame);
+    // void processFrame(const QVideoFrame &frame);
      void onFrameGrabbed(const QImage &img);  // 只声明
 private:
 
-QVideoSink* m_videoSink  = nullptr;
+// QVideoSink* m_videoSink  = nullptr;
     QVariantMap selfFields;
     QString base64Image = "";
     QString rfid = "";

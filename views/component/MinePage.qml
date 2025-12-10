@@ -244,6 +244,7 @@ Page
                     anchors.fill: parent
                     onClicked:
                     {
+                        srcDict.sendToBlue(15)
                         // currIndex = 2
                         stackViewMine.push("BmsControl.qml")
                         // passwordDialog.open()

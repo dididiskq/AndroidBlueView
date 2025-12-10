@@ -1,7 +1,10 @@
 import QtQuick
 import QtQuick.Controls
-import "./component"
-import "./js" as HMFunc
+// import "./component"
+// import "./js" as HMFunc
+import "qrc:/views/component"
+import "qrc:/views/js" as HMFunc
+
 import QtQuick.Window
 
 Page

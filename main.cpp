@@ -1,6 +1,5 @@
 ﻿#include <QGuiApplication>
 #include "hmmodule.h"
-// #include <QZXing.h>
 #include<QImage>
 #include <QQuickWindow>
 #include <QJniObject>
@@ -10,11 +9,11 @@ using namespace QNativeInterface;
 static QString pickLangBySystem()
 {
     const QLocale sys = QLocale::system();
-    // 你的 qm 命名是 "english.qm" / "chinese.qm"
-    if (sys.language() == QLocale::Chinese)      return QStringLiteral("chinese");
-    // 细分简繁（如果你准备了不同 qm）
-    // if (sys.language() == QLocale::Chinese && sys.script() == QLocale::SimplifiedChineseScript) return "zh_CN";
-    // if (sys.language() == QLocale::Chinese && sys.script() == QLocale::TraditionalChineseScript) return "zh_TW";
+    //  qm 命名是 "english.qm" / "chinese.qm"
+    if (sys.language() == QLocale::Chinese)
+    {
+        return QStringLiteral("chinese");
+    }
     return QStringLiteral("english");
 }
 void setImmersiveMode()

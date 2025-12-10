@@ -49,8 +49,8 @@ Page
     Rectangle
     {
         id: rectangle
-        visible: false
-        anchors.top: parent.top
+        visible: true
+        anchors.top: rectangle2.bottom
         anchors.topMargin: srcDict.scaled(10)
         width: parent.width
         height: srcDict.scaled(150)
@@ -79,6 +79,30 @@ Page
             font.pixelSize: 20
             text: qsTr("强制放电控制")
         }
+        function getCMos()
+        {
+            if(srcDict.fCloseC === 1)
+            {
+                return false
+            }
+            if(srcDict.fOpenC === 1)
+            {
+                return true
+            }
+            return false
+        }
+        function getFMos()
+        {
+            if(srcDict.fCloseF === 1)
+            {
+                return false
+            }
+            if(srcDict.fOpenF === 1)
+            {
+                return true
+            }
+            return false
+        }
 
         Switch
         {
@@ -86,14 +110,66 @@ Page
             x: srcDict.scaled(8)
             y: srcDict.scaled(71)
             text: qsTr("")
-            onCheckedChanged:
+            checked: getCMos()
+            onClicked:
             {
+                isSystemOpera = true
                 if(_switch.checked)
                 {
-
+                    systemData = 7
                 }
                 else
                 {
+                    systemData = 6
+                }
+
+                if(srcDict.setPassFlag2)
+                {
+                    passwordDialog.open()
+                }
+                else
+                {
+                    srcDict.writeToBlue(systemData, 10000)
+                }
+
+            }
+
+            indicator: Rectangle
+            {
+                implicitWidth: srcDict.scaled(48)
+                implicitHeight: srcDict.scaled(26)
+                x: _switch.leftPadding
+                y: parent.height / 2 - height / 2
+
+                radius: 13
+                color: _switch.checked ? "green" : "#ffffff"
+                border.color: _switch.checked ? "green" : "#cccccc"
+
+                //小圆点
+                Rectangle
+                {
+                    id : smallRect_
+                    width: srcDict.scaled(26)
+                    height: srcDict.scaled(26)
+                    radius: 13
+                    color: _switch.down ? "#cccccc" : "#ffffff"
+                    border.color: _switch.checked ? (_switch.down ? "#17a81a" : "#21be2b") : "#999999"
+
+                  //改变小圆点的位置
+                    NumberAnimation on x
+                    {
+                        to: smallRect_.width
+                        running: _switch.checked ? true : false
+                        duration: 200
+                    }
+
+                  //改变小圆点的位置
+                    NumberAnimation on x
+                    {
+                        to: 0
+                        running: _switch.checked ? false : true
+                        duration: 200
+                    }
                 }
             }
         }
@@ -103,16 +179,66 @@ Page
             id: _switch1
             x: srcDict.scaled(248)
             y: srcDict.scaled(71)
+            checked: getFMos()
             text: qsTr("")
-            onCheckedChanged:
+            onClicked:
             {
+                isSystemOpera = true
                 if(_switch1.checked)
                 {
-                    // print("打开")
+                    systemData = 4
                 }
                 else
                 {
-                    // print("关闭")
+                    systemData = 3
+                }
+
+                if(srcDict.setPassFlag2)
+                {
+                    passwordDialog.open()
+                }
+                else
+                {
+                    srcDict.writeToBlue(systemData, 10000)
+                }
+
+            }
+            indicator: Rectangle
+            {
+                implicitWidth: srcDict.scaled(48)
+                implicitHeight: srcDict.scaled(26)
+                x: _switch1.leftPadding
+                y: parent.height / 2 - height / 2
+
+                radius: 13
+                color: _switch1.checked ? "green" : "#ffffff"
+                border.color: _switch1.checked ? "green" : "#cccccc"
+
+                //小圆点
+                Rectangle
+                {
+                    id : smallRect_1
+                    width: srcDict.scaled(26)
+                    height: srcDict.scaled(26)
+                    radius: 13
+                    color: _switch1.down ? "#cccccc" : "#ffffff"
+                    border.color: _switch1.checked ? (_switch1.down ? "#17a81a" : "#21be2b") : "#999999"
+
+                  //改变小圆点的位置
+                    NumberAnimation on x
+                    {
+                        to: smallRect_1.width
+                        running: _switch1.checked ? true : false
+                        duration: 200
+                    }
+
+                  //改变小圆点的位置
+                    NumberAnimation on x
+                    {
+                        to: 0
+                        running: _switch1.checked ? false : true
+                        duration: 200
+                    }
                 }
             }
         }

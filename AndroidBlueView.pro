@@ -1,5 +1,7 @@
 
-QT += gui qml quick core bluetooth multimedia svg
+QT += gui qml quick core bluetooth svg multimedia
+
+#
 greaterThan(QT_MAJOR_VERSION, 5): QT += core5compat
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,8 +20,6 @@ TRANSLATIONS += \
 
 # QZXing
 android{
-    # ANDROID_DEPLOYMENT_DEPENDENCIES = no
-
     CONFIG(debug, debug|release){
         ANDROID_EXTRA_LIBS += $$PWD/QZXing/lib/arm64-v8a/libQZXingd.so
         LIBS += -L$$PWD/QZXing/lib/arm64-v8a -lQZXingd
@@ -35,9 +35,6 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 INCLUDEPATH += $$PWD/QZXing/include
 DEPENDPATH += $$PWD/QZXing/include
-
-CONFIG += qzxing_qml
-CONFIG += qzxing_multimedia
 
 
 
@@ -84,6 +81,7 @@ HEADERS += \
 DISTFILES += \
     views/HMStmView.qml \
     views/InitView.qml \
+    views/InitialWindow.qml \
     views/component/AlarmMsgPage.qml \
     views/component/BatteryArc.qml \
     views/component/BlueList.qml \

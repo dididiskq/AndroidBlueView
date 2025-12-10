@@ -119,6 +119,7 @@ void CHMView::init()
 {
 }
 
+
 bool CHMView::initViews()
 {
     int count = 1;
@@ -149,6 +150,7 @@ bool CHMView::initViews()
 v->setFlags(v->flags() | Qt::Window | Qt::FramelessWindowHint | Qt::MaximizeUsingFullscreenGeometryHint);
         v->setColor(Qt::transparent);
         v->show();
+
     }
 
     return true;

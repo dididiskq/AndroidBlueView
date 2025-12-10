@@ -18,7 +18,7 @@ public:
     QQuickView* view(const QString &objectName = QString());
     HMViewContext *context(const QString &viewName);
     bool initContext(HMViewContext *context);
-    bool initViews();                   // 初始化界面
+    bool initViews();
     bool closeView();
 
 public slots:

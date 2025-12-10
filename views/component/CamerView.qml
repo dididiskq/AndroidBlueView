@@ -12,20 +12,17 @@ Page
     height: srcDict.winHeight
     signal returnPage()
 
-    onCodeDataChanged:
-    {
-        if(codeData === undefined || codeData === "")
-        {
-            return;
-        }
-        // timer.stop()
-        // returnPage()
-        // srcDict.connectBlue(codeData)
-    }
+    // onCodeDataChanged:
+    // {
+    //     if(codeData === undefined || codeData === "")
+    //     {
+    //         return;
+    //     }
+    // }
     Label
     {
         id: labConn
-        visible: false
+        visible: true
         anchors.centerIn: parent
         text: qsTr("连接中请稍后...")
     }
@@ -60,7 +57,6 @@ Page
                 timer.stop();
                 camera.stop()
                 loadRect.visible = true
-                // timerHiden.start()
             }
             else
             {
@@ -93,8 +89,6 @@ Page
         camera: Camera
         {
             id: camera
-
-            // cameraFormat: Qt.size(640, 480)
         }
 
 
@@ -113,8 +107,6 @@ Page
     Component.onCompleted:
     {
         srcDict.startSearch()
-        // cap.camera.start()
-        // camera.active = true
         HMStmViewContext.requestCameraThenStart(this)
         srcDict.currentPageIndex = 4
     }
@@ -127,7 +119,7 @@ Page
         onTriggered:
         {
             output.grabToImage(function(result)
-            {  
+            {
                 srcDict.sendCodeData(result.image, 1)
             });
         }

@@ -6,7 +6,7 @@
 #include"hmmodule.h"
 #include "hmcommand.h"
 #include <QZXing.h>
-#include<QVideoFrame>
+// #include<QVideoFrame>
 class CHMModule;
 class CHMViewCommand: public CHMCommand
 {
@@ -67,7 +67,6 @@ signals:
 public:
     CHMModule *selfObj;
     CHMView selfView;
-    QZXing decoder;
     typedef bool (CHMViewCommand::*func)(const QVariantMap &op);  // 定义数据类型，
     QMap<QString, CHMViewCommand::func> selfCommands;
     bool imageReady = false;

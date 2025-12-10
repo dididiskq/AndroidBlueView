@@ -2,7 +2,7 @@
 #include <QDebug>
 #include "hmutils.h"
 #include<QImage>
-#include<QVideoFrame>
+// #include<QVideoFrame>
 // #include <QZXing.h>
 #include<QPainter>
 #include<QOpenGLContext>
@@ -114,21 +114,21 @@ void HMViewContext::switchLanguage(const QString &language)
     emit languageChangeRequested(language);
 }
 
-void HMViewContext::setVideoSink(QVideoSink *sink)
-{
-    if (m_videoSink != sink) {
-        m_videoSink = sink;
-        connect(m_videoSink, &QVideoSink::videoFrameChanged,
-                this, &HMViewContext::processFrame, Qt::QueuedConnection);
-    }
-}
+// void HMViewContext::setVideoSink(QVideoSink *sink)
+// {
+    // if (m_videoSink != sink) {
+    //     m_videoSink = sink;
+    //     connect(m_videoSink, &QVideoSink::videoFrameChanged,
+    //             this, &HMViewContext::processFrame, Qt::QueuedConnection);
+    // }
+// }
 
 
-void HMViewContext::processFrame(const QVideoFrame &frame)
-{
+// void HMViewContext::processFrame(const QVideoFrame &frame)
+// {
 
 
-}
+// }
 void HMViewContext::onFrameGrabbed(const QImage &img)
 {
     if (img.isNull()) return;

@@ -1,128 +1,98 @@
-﻿import QtQuick
+import QtQuick
 import QtQuick.Controls
-import "./component"
-import "./js" as HMFunc
 import QtQuick.Window
 import Qt.labs.settings 1.1
-// 主窗口
+// import "./js" as HMFunc
+// import "./component"
+import "qrc:/views/component"
+import "qrc:/views/js" as HMFunc
 
-Rectangle
-{
+// ✨ 初始窗口：只显示隐私协议，绝对不加载 HMStmView.qml
+Rectangle {
+    id: root
+    width: Screen.width
+    height: Screen.height
     visible: true
 
-    property variant context: HMStmViewContext
-    property variant fields:  HMStmViewContext.fields
+    property bool isMainVisible: false
+    property alias privacyAccepted: appSettings.privacyAccepted
 
-    property int currIndex: 1
-
-    width: srcDict.winWidth
-    height: srcDict.winHeight
-
-    property bool isMainVisible: false  // 用户同意后才设为true
-    Rectangle
-    {
-        id: splash
-        anchors.fill: parent
-        color: "white"  // 或你的启动图背景色
-        z: 9999
-
-        // Image {
-        //     anchors.centerIn: parent
-        //     source: "qrc:/android/res/drawable/splash_image.png"
-        // }
-        Label
-        {
-            text: "Welcom into hbj Ultra bms"
-            anchors.centerIn: parent
-            font.pixelSize: 28
-        }
-
-        // Behavior 自动为 opacity 添加渐变
-        Behavior on opacity
-        {
-            NumberAnimation
-            {
-                duration: 500    // 渐变时长 500ms
-                easing.type: Easing.InOutQuad
-            }
-        }
-
-        // 自动隐藏 splash 画面
-        Timer {
-            interval: 1100  // 启动持续时间
-            running: isMainVisible
-            repeat: false
-            onTriggered:
-            {
-                splash.opacity = 0.0
-            }
-        }
-        onOpacityChanged: {
-                    if (opacity === 0) {
-                        splash.visible = false
-                        // HMStmViewContext.switchLanguage("english")
-                    }
-                }
-    }
-
-
-    function putOp(command,params)
-    {
-        if(params)
-        {
-            HMStmViewContext.invoke(command, params);
-        }
-    }
-    HMFunc.HMJs
-    {
-        id: srcDict
-    }
-
-    Loader
-    {
-        focus: true
-        id:myLoader
-        anchors.fill: parent
-    }
-
-    Component.onCompleted:
-    {
-        // myLoader.source = "InitView.qml"
-    }
-
-    /* */
     Settings {
         id: appSettings
         property bool privacyAccepted: false
     }
-    // 隐私协议弹窗
+
+    HMFunc.HMJs {
+        id: srcDict
+    }
+
+    Loader {
+        id: mainLoader
+        anchors.fill: parent
+
+        onLoaded: {
+            if (item) {
+                item.context = HMStmViewContext     // 注入上下文
+                item.srcDict = srcDict              // 注入 js 对象
+            }
+        }
+
+    }
+
+    //--------------------------------------------
+    // Splash (可选)
+    //--------------------------------------------
+    Rectangle {
+        id: splash
+        anchors.fill: parent
+        z: 999
+        color: "white"
+
+        Label {
+            anchors.centerIn: parent
+            text: "Welcom into hbj Ultra bms"
+            font.pixelSize: 26
+        }
+
+        Behavior on opacity {
+            NumberAnimation { duration: 500 }
+        }
+
+        Timer {
+            interval: 800
+            running: privacyAccepted
+            onTriggered: splash.opacity = 0
+        }
+
+        onOpacityChanged: if (opacity === 0) splash.visible = false
+    }
+
+    //--------------------------------------------
+    //  隐私协议弹窗（核心）
+    //--------------------------------------------
     Dialog
     {
         id: privacyDialog
         parent: Overlay.overlay
+        visible: !appSettings.privacyAccepted
         modal: true
+        title: "用户隐私协议"
         dim: true
         closePolicy: Popup.CloseOnEscape
         width: parent.width * 0.75
         height: parent.height * 0.5
         anchors.centerIn: parent
-        // standardButtons: Dialog.Ok | Dialog.Cancel
-        title: qsTr("用户隐私协议")
-        // visible: !appSettings.privacyAccepted
-        visible: true
-
-
 
         footer: DialogButtonBox {
-                Button {
-                    text: qsTr("同意协议")
-                    DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
-                }
-                Button {
-                    text: qsTr("拒绝退出")
-                    DialogButtonBox.buttonRole: DialogButtonBox.RejectRole
-                }
+            Button {
+                text: "同意协议"
+                DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
             }
+            Button {
+                text: "拒绝退出"
+                DialogButtonBox.buttonRole: DialogButtonBox.RejectRole
+            }
+        }
         contentItem: Item {
             width: parent.width
             height: parent.height
@@ -158,18 +128,23 @@ Rectangle
         }
 
         onAccepted: {
-            isMainVisible = true
-            appSettings.privacyAccepted = true;
+            appSettings.privacyAccepted = true
             srcDict.initBle()
-            myLoader.source = "InitView.qml"
+
+            // 🌟用户同意 → 加载真正的主界面
+            mainLoader.source = "qrc:/views/HMStmView.qml"
+
+            splash.opacity = 0
         }
 
         onRejected: {
             srcDict.closeApp()
         }
-        onOpened: forceActiveFocus()
     }
 
+    //--------------------------------------------
+    // 协议内容
+    //--------------------------------------------
     property string privacyContent: qsTr("
     尊敬的用户：
 
@@ -237,8 +212,5 @@ Rectangle
     如果您对本隐私政策有任何疑问、意见或建议，欢迎通过以下方式与我们联系：
     联系地址：广东省深圳市龙华区大浪街道华宁路38号港深创新园G栋603-605
     电话：18610370562
-    联系邮箱：hbjbms2025@163.com
-    ")
-
+    联系邮箱：hbjbms2025@163.com")
 }
-
