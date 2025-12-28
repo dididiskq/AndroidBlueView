@@ -81,11 +81,11 @@ Page
         }
         function getCMos()
         {
-            if(srcDict.fCloseC === 1)
+            if(srcDict.fCloseC !== 0)
             {
                 return false
             }
-            if(srcDict.fOpenC === 1)
+            if(srcDict.fOpenC !== 0)
             {
                 return true
             }
@@ -93,11 +93,11 @@ Page
         }
         function getFMos()
         {
-            if(srcDict.fCloseF === 1)
+            if(srcDict.fCloseF !== 0)
             {
                 return false
             }
-            if(srcDict.fOpenF === 1)
+            if(srcDict.fOpenF !== 0)
             {
                 return true
             }
@@ -110,17 +110,17 @@ Page
             x: srcDict.scaled(8)
             y: srcDict.scaled(71)
             text: qsTr("")
-            checked: getCMos()
+            checked: rectangle.getCMos()
             onClicked:
             {
                 isSystemOpera = true
                 if(_switch.checked)
                 {
-                    systemData = 7
+                    systemData = 6
                 }
                 else
                 {
-                    systemData = 6
+                    systemData = 7
                 }
 
                 if(srcDict.setPassFlag2)
@@ -179,18 +179,18 @@ Page
             id: _switch1
             x: srcDict.scaled(248)
             y: srcDict.scaled(71)
-            checked: getFMos()
+            checked: rectangle.getFMos()
             text: qsTr("")
             onClicked:
             {
                 isSystemOpera = true
                 if(_switch1.checked)
                 {
-                    systemData = 4
+                    systemData = 3
                 }
                 else
                 {
-                    systemData = 3
+                    systemData = 4
                 }
 
                 if(srcDict.setPassFlag2)

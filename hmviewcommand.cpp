@@ -12,7 +12,7 @@ CHMViewCommand::CHMViewCommand(QObject *parent, const QString &name)
     : CHMCommand(parent)
 
 {
-    selfObj = (CHMModule *)parent;
+    selfObj = (CHMModule*)parent;
     selfName = name;
     initCommands();
     this->selfView.setName(selfName);
@@ -44,7 +44,7 @@ bool CHMViewCommand::initView()
     //    HMUtils::log() << "initViews()" <<HMLog::endl;
     if (!selfView.initViews())
     {
-        HMUtils::log() << "初始化界面失败" <<HMLog::endl;
+        HMUtils::log() << "初始化界面失败" << HMLog::endl;
         return false;
     }
     return true;
@@ -52,7 +52,7 @@ bool CHMViewCommand::initView()
 
 bool CHMViewCommand::initViewVariable()
 {
-    HMUtils::log() <<"initViewVariable:" << QGuiApplication::applicationDirPath() <<HMLog::endl;
+    HMUtils::log() << "initViewVariable:" << QGuiApplication::applicationDirPath() << HMLog::endl;
     QString absPath = "../";
     selfView.context("HMStmView")->setFieldValue("SampleRValue", "0");
     selfView.context("HMStmView")->setFieldValue("version", selfObj->version);
@@ -62,7 +62,7 @@ bool CHMViewCommand::initViewVariable()
     int height = QGuiApplication::primaryScreen()->geometry().height();
     selfView.context("HMStmView")->setFieldValue("winWidth", width);
     selfView.context("HMStmView")->setFieldValue("winHeight", height);
-    qDebug()<<height<<width;
+    qDebug() << height << width;
     //    selfView.context("HMStmView")->setFieldValue("codeUrl", "D:/svn_chanpin/tai_zhou/pro/HMStorageView/views/image/QRCode.png");
     return true;
 }
@@ -113,23 +113,23 @@ void CHMViewCommand::processOp(const QVariantMap &op)
     }
     catch (const std::exception& e)
     {
-        qDebug()<<command + e.what();
+        qDebug() << command + e.what();
     }
     catch (...)
     {
-        qDebug()<<command + "未知异常";
+        qDebug() << command + "未知异常";
     }
 }
 
 void CHMViewCommand::sendOp(const QVariantMap &op)
 {
     Q_UNUSED(op);
-    HMUtils::log()<<"void CHMViewCommand::sendOp(const QVariantMap &op)"<<HMLog::endl;
+    HMUtils::log() << "void CHMViewCommand::sendOp(const QVariantMap &op)" << HMLog::endl;
 }
 
 void CHMViewCommand::clearBuf()
 {
-    HMUtils::log()<<"clearBuf" << HMLog::endl;
+    HMUtils::log() << "clearBuf" << HMLog::endl;
 }
 
 void CHMViewCommand::onHeartbeatTimer()
@@ -218,7 +218,40 @@ bool CHMViewCommand::onSendCodeData(const QVariantMap &op)
     decoder.setTryHarderBehaviour(QZXing::TryHarderBehaviour_ThoroughScanning |
                                   QZXing::TryHarderBehaviour_Rotate);
     QString info = decoder.decodeImage(image);
-
+#if defined(Q_OS_IOS)
+    //iOS
+    QStringList parts = info.split('|');
+    if (parts.size() >= 2)
+    {
+        info = parts[1].trimmed(); // UUID
+    }
+    else
+    {
+        info = ""; // 格式错误，返回空
+    }
+#elif defined(Q_OS_ANDROID)
+    // Android
+    QStringList parts = info.split('|');
+    if (!parts.isEmpty())
+    {
+        info = parts[0].trimmed(); // MAC
+    }
+    else
+    {
+        info = "";
+    }
+#else
+    // 其他平台处理
+    QStringList parts = info.split('|');
+    if (!parts.isEmpty())
+    {
+        info = parts[0].trimmed(); // MAC
+    }
+    else
+    {
+        info = "";
+    }
+#endif
     // QString info = "";
     if(info == "")
     {
@@ -238,7 +271,7 @@ bool CHMViewCommand::onSendCodeData(const QVariantMap &op)
                 "([:-])){5}"                // 分隔符重复5次（冒号或短横线）
                 "[0-9A-Fa-f]{2}"            // 最后一个字节
                 "$"                         // 字符串结束
-                );
+            );
             regex.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
 
             // 执行正则匹配

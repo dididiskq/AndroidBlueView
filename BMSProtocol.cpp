@@ -1004,8 +1004,7 @@ QVariantMap BMSProtocol::deal_14(const QByteArray &data, int dataLen)
     // 解析 data 并处理...
     quint8 SOH = static_cast<quint8>(data[5]);
     quint8 SOC = static_cast<quint8>(data[6]);
-    // QString msg1 = QString("%1%").arg(SOH );
-    // QString msg2 = QString("%1%").arg(SOC );
+
     response["SOH"] = SOH;
     response["SOC"] = SOC;
     return response;
@@ -1467,6 +1466,7 @@ QVariantMap BMSProtocol::deal_0F(const QByteArray &v, int dataLen)
     }
     response["pack_status"] = errMsgArray;
     response["alarmCount"] = alarmCount;
+    qDebug()<<response;
     return response;
 }
 

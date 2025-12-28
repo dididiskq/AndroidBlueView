@@ -132,6 +132,7 @@ Page
                 devPage.realDrawer.close()
 
                 srcDict.currentPageIndex = 3
+                srcDict.sendToBlue(15)
 
             }
         }

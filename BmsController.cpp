@@ -449,7 +449,6 @@ void BmsController::viewWriteMessage(const QVariantMap &op)
         sendTimer.stop();
         processNextWriteRequest();
     }
-
 }
 void BmsController::processNextWriteRequest()
 {
@@ -460,7 +459,7 @@ void BmsController::processNextWriteRequest()
     }
     isWriting = true;
     QByteArray array = writeQueue.dequeue();
-    // qDebug()<<"发送写报文：" << byteArrayToHexStr(array);
+    qDebug()<<"发送写报文：" << byteArrayToHexStr(array);
 
     sendTimer.stop();
     if (currentService && m_Characteristic[0].isValid())
@@ -731,7 +730,7 @@ void BmsController::sendMsgByQueue()
         // qDebug() << "updateCommand:" << mp;
         emit updateCommand(mp, result);
         // QByteArray array = commandQueue.dequeue();
-        // // qDebug()<<"发送报文：" << byteArrayToHexStr(array);
+        qDebug()<<"发送读报文：" << byteArrayToHexStr(array);
         // currentService->writeCharacteristic(m_Characteristic[0], array, mode);
     }
     else
@@ -1225,7 +1224,7 @@ bool BmsController::onSeceiveCommand(const QVariantMap &op)
 {
 
     QByteArray value = op.value("value").toByteArray();
-    // qDebug() << "onSeceiveCommand子线程收到通知数据:" << value.toHex(' ');;
+    qDebug() << "onSeceiveCommand子线程收到通知数据:" << value.toHex(' ');;
     QVariantMap map = protocal.parse(value);
 
 
