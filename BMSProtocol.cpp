@@ -104,8 +104,10 @@ BMSProtocol::BMSProtocol(QObject *parent) : QObject(parent)
     writeByteCommands[0x0002] = [this](const QVariantMap& data) { return byte_0002(data); };
     writeByteCommands[0x0003] = [this](const QVariantMap& data) { return byte_0003(data); };
     writeByteCommands[0x0004] = [this](const QVariantMap& data) { return byte_0004(data); };
+	writeByteCommands[0x0005] = [this](const QVariantMap& data) { return byte_0005(data); };
     writeByteCommands[0x0006] = [this](const QVariantMap& data) { return byte_0006(data); };
     writeByteCommands[0x0007] = [this](const QVariantMap& data) { return byte_0007(data); };
+	writeByteCommands[0x0008] = [this](const QVariantMap& data) { return byte_0008(data); };
     writeByteCommands[0x0101] = [this](const QVariantMap& data) { return byte_0101(data); };
     writeByteCommands[0x200] = [this](const QVariantMap& data) { return byte_200(data); };
     writeByteCommands[0x201] = [this](const QVariantMap& data) { return byte_200(data); };
@@ -523,6 +525,23 @@ QByteArray BMSProtocol::byte_0004(const QVariantMap &data)
     return array;
 }
 
+QByteArray BMSProtocol::byte_0005(const QVariantMap &data)
+{
+    QByteArray array;
+    quint16 regCount = 1;
+    array.append(static_cast<char>((regCount >> 8) & 0xFF));
+    array.append(static_cast<char>(regCount & 0xFF));
+
+    // 构造标志位字段
+    quint16 flags = 0;
+    
+    // 将 flags 转换为大端字节序（网络字节序）
+    quint16 bigEndianFlags = qToBigEndian(flags);
+
+    // 将两个字节写入数组
+    array.append(static_cast<char>(0));
+    return array;
+}
 QByteArray BMSProtocol::byte_0006(const QVariantMap &data)
 {
     QByteArray array;
@@ -566,6 +585,24 @@ QByteArray BMSProtocol::byte_0007(const QVariantMap &data)
     // array.append(static_cast<char>((bigEndianFlags >> 8) & 0xFF));
     // array.append(static_cast<char>(bigEndianFlags & 0xFF));
 
+    return array;
+}
+
+QByteArray BMSProtocol::byte_0008(const QVariantMap &data)
+{
+    QByteArray array;
+    quint16 regCount = 1;
+    array.append(static_cast<char>((regCount >> 8) & 0xFF));
+    array.append(static_cast<char>(regCount & 0xFF));
+
+    // 构造标志位字段
+    quint16 flags = 0;
+    
+    // 将 flags 转换为大端字节序（网络字节序）
+    quint16 bigEndianFlags = qToBigEndian(flags);
+
+    // 将两个字节写入数组
+    array.append(static_cast<char>(0));
     return array;
 }
 QByteArray BMSProtocol::byte_0101(const QVariantMap &data)

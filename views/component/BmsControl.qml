@@ -19,6 +19,10 @@ Page
         {
             if(message === "66")
             {
+                if(systemData === 5 || systemData === 8)
+                {
+                    srcDict.sendToBlue(15)
+                }
                 loadRect.text = qsTr("设置成功")
                 loadRect.startLoad(3000)
             }
@@ -102,6 +106,115 @@ Page
                 return true
             }
             return false
+        }
+        Rectangle
+        {
+            id: cancelRect//强制充电取消按钮
+            anchors.left: _switch.right
+            anchors.leftMargin: srcDict.scaled(20)
+            y: _switch.y + (_switch.height / 2) - (height / 2)
+            width: srcDict.scaled(30)
+            height: srcDict.scaled(30)
+            color: "white"
+            radius: width / 2
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    cancelRect.color = "green"
+                    isSystemOpera = true
+                    systemData = 8
+                    srcDict.writeToBlue(systemData, 10000)
+                }
+                onReleased:
+                {
+                    cancelTimer1.start()
+                }
+            }
+            Timer
+            {
+                id: cancelTimer1
+                interval: 150
+                repeat: false
+                onTriggered:
+                {
+                    cancelRect.color = "white"
+                }
+            }
+        }
+        Label
+        {
+            y:switchLabe2.y
+            anchors.horizontalCenter: cancelRect.horizontalCenter
+            color: "white"
+            font.pixelSize: 15
+            text: qsTr("取消")
+        }
+        Rectangle
+        {
+            id: cancelRect2//强制放电取消按钮
+            anchors.left: _switch1.right
+            anchors.leftMargin: srcDict.scaled(20)
+            y: _switch.y + (_switch1.height / 2) - (height / 2)
+            width: srcDict.scaled(30)
+            height: srcDict.scaled(30)
+            color: "white"
+            radius: width / 2
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    cancelRect2.color = "green"
+                    isSystemOpera = true
+                    systemData = 5
+                    srcDict.writeToBlue(systemData, 10000)
+
+                }
+                onReleased:
+                {
+                    cancelTimer.start()
+                }
+            }
+            Timer
+            {
+                id: cancelTimer
+                interval: 150
+                repeat: false
+                onTriggered:
+                {
+                    cancelRect2.color = "white"
+                }
+            }
+        }
+        Label
+        {
+            y:switchLabe2.y
+            anchors.horizontalCenter: cancelRect2.horizontalCenter
+            color: "white"
+            font.pixelSize: 15
+            text: qsTr("取消")
+        }
+        Label
+        {
+            id: switchLabel
+            text: qsTr("关   开")
+            color: "white"
+            font.pixelSize: 15
+            anchors.top: _switch.bottom // 将Label的顶部锚定到Switch的底部
+            anchors.topMargin: srcDict.scaled(5)
+            anchors.horizontalCenter: _switch.horizontalCenter // 水平居中对齐
+        }
+        Label
+        {
+            id: switchLabe2
+            text: qsTr("关   开")
+            color: "white"
+            font.pixelSize: 15
+            anchors.top: _switch1.bottom // 将Label的顶部锚定到Switch的底部
+            anchors.topMargin: srcDict.scaled(5)
+            anchors.horizontalCenter: _switch1.horizontalCenter // 水平居中对齐
         }
 
         Switch
