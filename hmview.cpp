@@ -6,6 +6,7 @@
 #include "hmview.h"
 #include "hmlog.h"
 #include "hmutils.h"
+
 CHMView::CHMView(QObject *parent) : QObject(parent)
 {
     init();
@@ -129,9 +130,10 @@ bool CHMView::initViews()
         QString group = QString("HMView.%1").arg(i);
         QString name = "HMStmView";
         QString source = "qrc:/views/HMStmView.qml";
-
-
         QString qrc = source;
+
+
+
         QQuickView *v = view(name);
         HMViewContext *c = context(name);
         Q_ASSERT(v != NULL);

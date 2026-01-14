@@ -40,6 +40,10 @@ public:
     bool onCloseApp(const QVariantMap &op);
     bool onTimerData(const QVariantMap &op);
     bool onInitBle(const QVariantMap &op);
+    bool onReadTable1(const QVariantMap &op);
+    bool onReadTable2(const QVariantMap &op);
+    bool onReadTable3(const QVariantMap &op);
+    bool onScanCodeBle(const QVariantMap &op);
 
     void playAudio(const QString &filePath);
 public:
@@ -64,6 +68,8 @@ signals:
     void cameraOpera(const int type);
     void getTimerDataSignal(const int type);
     void closeAppSignal();
+private:
+    QZXing decoder;
 public:
     CHMModule *selfObj;
     CHMView selfView;
@@ -74,7 +80,8 @@ public:
     int currentIndex;
 
     int frameCount = 0;
-
+    QString scanName = "";
+    bool scaning = true;
 
 
 };

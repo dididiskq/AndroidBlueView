@@ -12,7 +12,7 @@ CHMModule::CHMModule(QObject *parent)
         版本:1.00.001.20251025
         @author:skq
     */
-    version = "1.00.001.20251026";
+    version = "1.00.001.20260114";
     HMUtils::log() << QString("界面程序版本： %1").arg(version) <<HMLog::endl;
 
     selfViewCommand = new CHMViewCommand(this, "View");  // 界面对象

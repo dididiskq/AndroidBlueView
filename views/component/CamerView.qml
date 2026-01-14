@@ -1,7 +1,9 @@
+
 import QtQuick
 import QtMultimedia
 import QtQuick.Controls
 import QtQml.WorkerScript
+
 Page
 {
     property alias capReal: cap
@@ -12,13 +14,7 @@ Page
     height: srcDict.winHeight
     signal returnPage()
 
-    // onCodeDataChanged:
-    // {
-    //     if(codeData === undefined || codeData === "")
-    //     {
-    //         return;
-    //     }
-    // }
+
     Label
     {
         id: labConn
@@ -57,6 +53,11 @@ Page
                 timer.stop();
                 camera.stop()
                 loadRect.visible = true
+                timerScan.start()
+            }
+            else if(message === "gogogo")
+            {
+                timerScan.stop()
             }
             else
             {
@@ -68,7 +69,17 @@ Page
             }
         }
     }
-
+    Timer
+    {
+        id: timerScan
+        interval: 700
+        running: false
+        repeat: true
+        onTriggered:
+        {
+            srcDict.scanBleDevices()
+        }
+    }
 
     Button
     {
@@ -89,8 +100,8 @@ Page
         camera: Camera
         {
             id: camera
+            focusMode: Camera.FocusContinuousAuto
         }
-
 
         videoOutput: output
 
@@ -113,11 +124,12 @@ Page
     Timer
     {
         id: timer
-        interval: 500
+        interval: 250
         running: cap.camera.active // 摄像头激活时启动
         repeat: true
         onTriggered:
         {
+
             output.grabToImage(function(result)
             {
                 srcDict.sendCodeData(result.image, 1)

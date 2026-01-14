@@ -16,16 +16,28 @@ TRANSLATIONS += \
     ./language/english.ts \
     ./language/chinese.ts
 
-
+DEFINES += qzxing_qml
 
 # QZXing
-android{
+android
+{
     CONFIG(debug, debug|release){
         ANDROID_EXTRA_LIBS += $$PWD/QZXing/lib/arm64-v8a/libQZXingd.so
         LIBS += -L$$PWD/QZXing/lib/arm64-v8a -lQZXingd
     }else{
         ANDROID_EXTRA_LIBS += $$PWD/QZXing/lib/arm64-v8a/libQZXing.so
         LIBS += -L$$PWD/QZXing/lib/arm64-v8a -lQZXing
+    }
+
+    CONFIG(debug, debug|release){
+        # Debug
+        ANDROID_EXTRA_LIBS += $$PWD/ZXing/lib/arm64-v8a/libZXingD.so
+        LIBS += -L$$PWD/ZXing/lib/arm64-v8a -lZXingD
+
+    }else{
+        # Release BUILD_SHARED_LIBS:BOOL=ON
+        ANDROID_EXTRA_LIBS += $$PWD/ZXing/lib/arm64-v8a/libZXing.so
+        LIBS += -L$$PWD/ZXing/lib/arm64-v8a -lZXing
     }
 }
 
@@ -87,6 +99,7 @@ DISTFILES += \
     views/component/BlueList.qml \
     views/component/BmsControl.qml \
     views/component/CamerView.qml \
+    views/component/CameraImg.qml \
     views/component/CellMessage.qml \
     views/component/DParam1.qml \
     views/component/DParam2.qml \

@@ -91,7 +91,7 @@ Page
                 anchors.fill: parent
                 onClicked:
                 {
-
+                    srcDict.firstData(2)
                 }
             }
         }

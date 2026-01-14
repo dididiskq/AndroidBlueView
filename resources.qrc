@@ -78,5 +78,7 @@
         <file>QZXing/lib/arm64-v8a/libQZXing.so</file>
         <file>views/component/Ysxy.qml</file>
         <file>views/InitialWindow.qml</file>
+        <file>ZXing/lib/arm64-v8a/libZXing.so</file>
+        <file>ZXing/lib/arm64-v8a/libZXingD.so</file>
     </qresource>
 </RCC>

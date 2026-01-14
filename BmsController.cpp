@@ -352,7 +352,7 @@ void BmsController::connectBlue(const QString addr)
 
     QObject::connect(mController, &QLowEnergyController::connected, this,
             [this]() {
-                qDebug() << "Controller connected. Search services...";
+                qDebug() << "设备已连接. Search services...";
                 mController->discoverServices();
                 emit selfObj->selfViewCommand->selfView.context("HMStmView")->mySignal("1");
             });
@@ -367,7 +367,7 @@ void BmsController::connectBlue(const QString addr)
 
     // 4. 发起连接
     mController->connectToDevice();
-    qDebug() << ">>> 正在连接新设备：" << addr;
+    qDebug() << ">>> 666正在连接新设备：" << addr;
 }
 /*
 void BmsController::connectBlue(const QString addr)
@@ -508,6 +508,21 @@ void BmsController::viewMessage(const int type)
             //电池健康、电量
             v["startAddr"] = 0x0000;
             v["regCount"] = 1;
+        }
+        else if(type == 10001)//新版数据
+        {
+            v["startAddr"] = 0x0000;
+            v["regCount"] = 0x3f;
+        }
+        else if(type == 10002)//新版数据
+        {
+            v["startAddr"] = 0x200;
+            v["regCount"] = 0x56;
+        }
+        else if(type == 10003)//新版数据
+        {
+            v["startAddr"] = 0x400;
+            v["regCount"] = 0x3f;
         }
         else if(type == 1)
         {
@@ -822,6 +837,7 @@ void BmsController::addBlueToothDevicesToList(QBluetoothDeviceInfo Info)
 void BmsController::serviceDiscovered(const QBluetoothUuid &serviceUuid)
 {
     QLowEnergyService *service = mController->createServiceObject(serviceUuid);
+
     if (!service)
     {
         qDebug()<<"Cannot create service for uuid";
@@ -852,6 +868,7 @@ void BmsController::serviceScanDone()
 
     foreach(QLowEnergyService *it, serviceList)
     {
+        qDebug()<<"服务 UUID："<<it->serviceUuid();
         if(it->serviceUuid() == SERVICE_UUID)
         {
             currentService = it;
@@ -883,6 +900,7 @@ void BmsController::BleServiceCharacteristicWrite(const QLowEnergyCharacteristic
 void BmsController::BleServiceCharacteristicChanged(const QLowEnergyCharacteristic &c, const QByteArray &value)
 {
     QString valueStr = byteArrayToHexStr(value);
+    qDebug()<<"收到"<<valueStr;
     if(c.uuid() == NOTIFY_UUID)
     {
 

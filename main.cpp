@@ -5,6 +5,7 @@
 #include <QJniObject>
 #include <QJniEnvironment>
 #include <QtCore/qnativeinterface.h>
+#include "QZXing.h"
 using namespace QNativeInterface;
 static QString pickLangBySystem()
 {
@@ -100,6 +101,7 @@ int main(int argc, char *argv[])
         }
     });
 
+    // qmlRegisterType<QZXing>("QZXing", 3, 0, "QZXing");
    // CHMModule module;
     QLocale::setDefault(QLocale::system());
 

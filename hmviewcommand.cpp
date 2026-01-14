@@ -7,7 +7,7 @@
 #include <qrencode.h>
 #include <QUrl>
 #include <QScreen>
-
+#include "ZXing/src/ReadBarcode.h"
 CHMViewCommand::CHMViewCommand(QObject *parent, const QString &name)
     : CHMCommand(parent)
 
@@ -18,9 +18,9 @@ CHMViewCommand::CHMViewCommand(QObject *parent, const QString &name)
     this->selfView.setName(selfName);
 
     QObject::connect(&this->selfView, SIGNAL(updateCommand(QVariantMap&, QVariant&)), selfObj, SLOT(test(QVariantMap&, QVariant&)));
-    // decoder.setSourceFilterType(QZXing::SourceFilter_ImageNormal);
-    // decoder.setTryHarderBehaviour(QZXing::TryHarderBehaviour_ThoroughScanning |
-    //                               QZXing::TryHarderBehaviour_Rotate);
+    decoder.setSourceFilterType(QZXing::SourceFilter_ImageNormal);
+    decoder.setTryHarderBehaviour(QZXing::TryHarderBehaviour_ThoroughScanning |
+                                  QZXing::TryHarderBehaviour_Rotate);
 }
 
 CHMViewCommand::~CHMViewCommand()
@@ -85,6 +85,10 @@ void CHMViewCommand::initCommands()
     selfCommands["close.app"] = &CHMViewCommand::onCloseApp;
     selfCommands["get.timerData"] = &CHMViewCommand::onTimerData;
     selfCommands["init.ble"] = &CHMViewCommand::onInitBle;
+    selfCommands["read.table1"] = &CHMViewCommand::onReadTable1;
+    selfCommands["read.table2"] = &CHMViewCommand::onReadTable2;
+    selfCommands["read.table3"] = &CHMViewCommand::onReadTable3;
+    selfCommands["scan.codeble"] = &CHMViewCommand::onScanCodeBle;
 }
 
 bool CHMViewCommand::isCommand(const QString &command)
@@ -191,6 +195,22 @@ bool CHMViewCommand::onSendToBlue(const QVariantMap &op)
     return true;
 }
 
+QImage enhanceForQR(const QImage &src)
+{
+    QImage gray = src.convertToFormat(QImage::Format_Grayscale8);
+
+    // 简单对比度拉伸
+    for (int y = 0; y < gray.height(); ++y)
+    {
+        uchar *line = gray.scanLine(y);
+        for (int x = 0; x < gray.width(); ++x)
+        {
+            uchar v = line[x];
+            line[x] = (v > 128) ? 255 : 0;   // 简单二值化
+        }
+    }
+    return gray;
+}
 
 bool CHMViewCommand::onSendCodeData(const QVariantMap &op)
 {
@@ -204,20 +224,55 @@ bool CHMViewCommand::onSendCodeData(const QVariantMap &op)
         return true;
     }
 
-    QImage image = imageVar.value<QImage>();
+    QImage image = enhanceForQR(imageVar.value<QImage>());
+
     if (image.isNull())
     {
         qDebug() << "图像为空";
         return true;
     }
 
-    QZXing decoder;
-    decoder.setDecoder(QZXing::DecoderFormat_QR_CODE);
+    // 转为灰度图像
+    QImage gray = image.convertToFormat(QImage::Format_Grayscale8);
 
-    decoder.setSourceFilterType(QZXing::SourceFilter_ImageNormal);
-    decoder.setTryHarderBehaviour(QZXing::TryHarderBehaviour_ThoroughScanning |
-                                  QZXing::TryHarderBehaviour_Rotate);
-    QString info = decoder.decodeImage(image);
+    // 创建 ZXing 的图像视图
+    ZXing::ImageView zxingImage(
+        static_cast<const uint8_t*>(gray.constBits()),
+        gray.width(),
+        gray.height(),
+        ZXing::ImageFormat::Lum,
+        gray.bytesPerLine()
+    );
+
+    // 设置识别参数
+    ZXing::ReaderOptions options;
+    options.setFormats(ZXing::BarcodeFormat::Any);
+    options.setTryHarder(true);
+
+    // 解码二维码（支持多码）
+    auto results = ZXing::ReadBarcodes(zxingImage, options);
+    QString info = "";
+    // 输出结果
+    for (const auto& result : results)
+    {
+        if (result.isValid())
+        {
+            qDebug() << "格式:" << QString::fromStdString(ZXing::ToString(result.format()));
+            qDebug() << "内容:" << QString::fromStdString(result.text());
+            info = QString::fromStdString(result.text());
+            if(info.contains("http"))
+            {
+                continue;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    // QString info = decoder.decodeImage(image);
+    // qDebug() << "QZXing扫码结果：" << info;
 #if defined(Q_OS_IOS)
     //iOS
     QStringList parts = info.split('|');
@@ -259,6 +314,13 @@ bool CHMViewCommand::onSendCodeData(const QVariantMap &op)
     }
     else
     {
+        // if(info.contains("http"))
+        // {
+        //     return true;
+        // }
+        scanName = info;
+        emit selfObj->selfViewCommand->selfView.context("HMStmView")->codeImageReady("connecting", 1);
+        return true;
         if(type == 1)
         {
             // emit parseCodeSlot(image);
@@ -338,5 +400,63 @@ bool CHMViewCommand::onTimerData(const QVariantMap &op)
 bool CHMViewCommand::onInitBle(const QVariantMap &op)
 {
     emit initBleSignal();
+    return true;
+}
+
+bool CHMViewCommand::onReadTable1(const QVariantMap &op)
+{
+    emit sendBlueSlot(10001);
+    return true;
+}
+
+bool CHMViewCommand::onReadTable2(const QVariantMap &op)
+{
+    emit sendBlueSlot(10002);
+    return true;
+}
+
+bool CHMViewCommand::onReadTable3(const QVariantMap &op)
+{
+    emit sendBlueSlot(10003);
+    return true;
+}
+bool CHMViewCommand::onScanCodeBle(const QVariantMap &op)
+{
+    // emit parseCodeSlot(image);
+    QString cleaned = scanName.trimmed();
+
+    // 定义 MAC 地址正则表达式（兼容大小写和不同分隔符）
+    QRegularExpression regex(
+        "^"                          // 字符串开始
+        "([0-9A-Fa-f]{2}"           // 第一个十六进制字节
+        "([:-])){5}"                // 分隔符重复5次（冒号或短横线）
+        "[0-9A-Fa-f]{2}"            // 最后一个字节
+        "$"                         // 字符串结束
+    );
+    regex.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
+
+    // 执行正则匹配
+    QRegularExpressionMatch match = regex.match(cleaned);
+
+    // 验证结果有效性
+    bool res = match.hasMatch() &&
+               cleaned.size() == 17 &&  // 标准长度校验（6字节×2 + 5分隔符）
+               !cleaned.contains("  ");  // 排除连续分隔符的情况
+    if(res)
+    {
+        if(selfObj->selfBmsCommand->scanBlueList.contains(cleaned))
+        {
+            emit selfObj->selfViewCommand->selfView.context("HMStmView")->codeImageReady("gogogo", 1);
+            selfObj->selfBmsCommand->isScanConn = true;
+            emit connectBlueSlot(cleaned);
+        }
+        else
+        {
+            if(!selfObj->selfBmsCommand->isSearching)
+            {
+                emit startBle();
+            }
+        }
+    }
     return true;
 }

@@ -191,4 +191,25 @@ QtObject
         var data = {}
         putOp("init.ble", data)
     }
+    function firstData(type)
+    {
+        var data = {}
+        if(type === 1)
+        {
+            putOp("read.table1", data)
+        }
+        else if(type === 2)
+        {
+            putOp("read.table2", data)
+        }
+        else if(type === 3)
+        {
+            putOp("read.table3", data)
+        }
+    }
+    function scanBleDevices()
+    {
+        var data = {}
+        putOp("scan.codeble", data)
+    }
 }
